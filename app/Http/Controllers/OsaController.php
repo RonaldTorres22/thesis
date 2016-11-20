@@ -10,8 +10,7 @@ use Session;
 use App\User;
 use Auth;
 
-
-class AdminEventController extends Controller
+class OsaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,8 +34,8 @@ class AdminEventController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "OSA" || Auth::User()->Department == "CSDO"){
-           return view('admin/eventslist', $data);
+        if(Auth::User()->Department == "OSA"){
+           return view('osa/eventlist', $data);
         }
         else
         {
@@ -51,9 +50,8 @@ class AdminEventController extends Controller
         
 
         $event = Event::findOrFail($id);
-         $event->start_time = $event->start_time;
-        $event->status         = "approved";
-      
+        $event->start_time = $event->start_time;
+        $event->status2         = "approved";
         $event->save();
         
         $request->session()->flash('success', 'The event was successfully approved!');
@@ -107,7 +105,7 @@ class AdminEventController extends Controller
             'duration'      => $this->format_interval($difference)
         ];
         
-        return view('admin/view', $data);
+        return view('osa/view', $data);
 
     }
 

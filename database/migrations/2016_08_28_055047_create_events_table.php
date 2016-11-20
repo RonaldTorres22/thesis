@@ -17,11 +17,18 @@ class CreateEventsTable extends Migration
         $table->integer('user_id')->unsigned();
         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         $table->string('type_activity');
-        $table->string('name', 15);
         $table->string('title', 100);
+        $table->string('name');
         $table->string('participants');
         $table->string('venue')->nullable();
+        $table->integer('visitors')->nullable();
+        $table->integer('vehicles')->nullable();
+        $table->integer('no_uniforms')->nullable();
         $table->string('activity');
+        $table->string('date');
+        $table->timestamp('approvedate');
+        $table->string('status')->default('pending');
+        $table->string('status2')->default('pending');
         $table->timestamp('start_time');
         $table->timestamp('end_time')->nullable();
    

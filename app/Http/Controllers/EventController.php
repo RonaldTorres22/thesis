@@ -9,6 +9,7 @@ use Session;
 use App\User;
 use Auth;
 use DateTime;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -26,8 +27,9 @@ class EventController extends Controller
 
     public function index()
     {
+       
+        $user = Auth::user()->events()->paginate(10);
 
-        $user = Auth::user()->events;
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -37,7 +39,26 @@ class EventController extends Controller
         ];
         
         return view('event/list', $data);
+     
     }
+
+    public function pending()
+    {
+
+        $user = Auth::user()->events()->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        
+        return view('event/pendinglist', $data);
+     
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -65,30 +86,37 @@ class EventController extends Controller
 
         $this->validate($request, [
         'type_activity' => 'required',
-        'name' => 'required',
         'title' => 'required',
         'participants' => 'required',
         'activity' => 'required',
         'time'    => 'required'
         ]);
 
-
+        $current = Carbon::now();
         $time = explode(" - ", $request->input('time'));
-        
+        $activity = implode(",\n", $request->get('activity'));
+
         $event                  = new Event;
         $event->type_activity   = $request->input('type_activity');
         $event->user_id         = Auth::user()->id;
-        $event->name            = $request->input('name');
+        $event->name            = Auth::user()->name;
         $event->title           = $request->input('title');
         $event->participants    = $request->input('participants');
         $event->venue           = $request->input('venue');
-        $event->activity          = $request->input('activity');
+        $event->visitors        = $request->input('visitors');
+        $event->vehicles        = $request->input('vehicles');
+        $event->no_uniforms     = $request->input('no_uniforms');
+        $event->activity        = $activity;
+        $event->approvedate     = $this->change_date_format($time[0]);
+        // $event->date            = $current->setTimezone('Asia/Singapore')->toDateString();
+        $event->date            = $this->date($time[0]);
         $event->start_time      = $this->change_date_format($time[0]);
         $event->end_time        = $this->change_date_format($time[1]);
         $event->save();
         
         $request->session()->flash('success', 'The event was successfully saved!');
         return redirect('events/create');
+
     }
 
     /**
@@ -143,7 +171,6 @@ class EventController extends Controller
     {
             $this->validate($request, [
         'type_activity' => 'required',
-        'name' => 'required',
         'title' => 'required',
         'participants' => 'required',
         'activity' => 'required',
@@ -151,14 +178,19 @@ class EventController extends Controller
     ]);
         
         $time = explode(" - ", $request->input('time'));
-        
+        $activity = implode(", ", $request->get('activity'));
+
         $event                  = Event::findOrFail($id);
         $event->type_activity   = $request->input('type_activity');
-        $event->name            = $request->input('name');
         $event->title           = $request->input('title');
         $event->participants    = $request->input('participants');
         $event->venue           = $request->input('venue');
-        $event->activity          = $request->input('activity');
+        $event->visitors        = $request->input('visitors');
+        $event->vehicles        = $request->input('vehicles');
+        $event->no_uniforms     = $request->input('no_uniforms');
+        $event->activity        = $activity;
+        $event->approvedate     = $this->change_date_format($time[0]);
+        $event->date            = $this->date($time[0]);
         $event->start_time      = $this->change_date_format($time[0]);
         $event->end_time        = $this->change_date_format($time[1]);
         $event->save();
@@ -172,12 +204,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $event = Event::find($id);
         $event->delete();
-        
-        return redirect('events');
+
+         $request->session()->flash('success', 'The event was successfully Deleted!');
+         return back();
     }
     
     public function change_date_format($date)
@@ -186,6 +219,13 @@ class EventController extends Controller
         return $time->format('Y-m-d H:i:s');
     }
     
+     public function date($date)
+    {
+        $time = DateTime::createFromFormat('d/m/Y H:i:s', $date);
+        return $time->format('Y-m-d');
+    }
+
+
     public function change_date_format_fullcalendar($date)
     {
         $time = DateTime::createFromFormat('Y-m-d H:i:s', $date);

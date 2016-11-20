@@ -21,6 +21,11 @@ class Event extends Model
         'activity'
   ];
 
+  public function user()
+  {
+    return $this->belongsTo('App\User');
+  }
+
     // protected $table = "events";
 
     // public function organization(){

@@ -39,21 +39,27 @@
 					</p>
 				@endif
 			</div>
-			<div class="form-group @if($errors->has('name')) has-error has-feedback @endif">
-				<label for="name">Your Name</label>
-				<input type="text" class="form-control" name="name" placeholder="E.g. Pisyek" value="{{ old('name') }}">
-				@if ($errors->has('name'))
-					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
-					{{ $errors->first('name') }}
-					</p>
-				@endif
-			</div>
+
 			<div class="form-group @if($errors->has('title')) has-error has-feedback @endif">
 				<label for="title">Title</label>
-				<input type="text" class="form-control" name="title" placeholder="E.g. Meeting with CEO Kicap Tawar Hebey" value="{{ old('title') }}">
+				<input type="text" class="form-control" name="title" placeholder="E.g. Meeting with the president" value="{{ old('title') }}">
 				@if ($errors->has('title'))
 					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
 					{{ $errors->first('title') }}
+					</p>
+				@endif
+			</div>
+			<div class="form-group @if($errors->has('time')) has-error @endif">
+				<label for="time">Time</label>
+				<div class="input-group">
+					<input type="text" class="form-control" name="time" placeholder="Select your time" value="">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+				</div>
+				@if ($errors->has('time'))
+					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
+					{{ $errors->first('time') }}
 					</p>
 				@endif
 			</div>
@@ -88,37 +94,43 @@
 			</select>
 			</div>
 
-			<div class="form-group form-group @if($errors->has('activity')) has-error has-feedback @endif">
+
+			<div class="form-group form-group">
 				<label for="name">Activity</label>
-				<select name="activity" class="form-control">
-					<option value="" selected disabled>Select Activity</option>
-					<option value="Film Showin/Stage play">Film Showin/Stage play</option>
-					<option value="Activities/Events Program">Activities/Events Program</option>
-					<option value="IHM GYM usage">IHM GYM usage</option>
-					<option value="Involving sales of products and services">Involving sales of products and services</option>
-				</select>
-				@if ($errors->has('activity'))
-					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
-					{{ $errors->first('activity') }}
-					</p>
-				@endif
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="activity[]" value="Film Showin/Stage play">Film Showing/Stage Play</label>
+				<label class="checkbox"><input type="checkbox" name="activity[]" value="Activities/Events Program">Activities/Event Program</label>
+				<label class="checkbox"><input type="checkbox"  name="activity[]" value="IHM GYM usage">IHM GYM usage</label>
+				<label class="checkbox"><input type="checkbox"   name="activity[]" value="Involving sales of products and services">Involving sales of products and services</label>
+				</div>
+			</div>
+				<hr>
+			<div class="form-group form-group">
+
+   				<div style="padding-left:20px;">                 
+   				  <label class="checkbox"><input type="checkbox" ID="chkbxMGift">Request for permission from student conduct office</label>
+   				</div>
+
+				<div id="shcompany" style="display:none; padding-left:40px;">    
+				    <div class="info">               
+				        <label class="checkbox"><input type="checkbox" ID="visitor">Request for visitors</label>
+				        <input type="number" placeholder="Enter No. of Visitor(s)" id="visitorinput" min="1" name="visitors" class="form-control" style="display:none;">
+				    </div>
+				    <div class="info">  
+				   		<label class="checkbox"><input type="checkbox" ID="vehicle">Request for Temporary Vehicle pass</label>
+				   		<input type="number" placeholder="Enter No. of vehicle(s)" id="vehicleinput" min="1" name="vehicles" class="form-control" style="display:none;">    
+				    </div>
+				    <div class="info">  
+				   		<label class="checkbox"><input type="checkbox" ID="uniform">Request for Permission Not to Wear Uniform</label>
+				   		<input type="number" placeholder="Enter No. of student(s)" id="uniforminput" min="1" name="no_uniforms" class="form-control" style="display:none;">    
+				    </div>
+				</div> 				
+
 			</div>
 
-			<div class="form-group @if($errors->has('time')) has-error @endif">
-				<label for="time">Time</label>
-				<div class="input-group">
-					<input type="text" class="form-control" name="time" placeholder="Select your time" value="">
-					<span class="input-group-addon">
-						<span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-				</div>
-				@if ($errors->has('time'))
-					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
-					{{ $errors->first('time') }}
-					</p>
-				@endif
-			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+
+
+			<button type="submit" class="btn btn-primary" style="margin-bottom:40px;">Submit</button>
 		</form>		
 	</div>
 </div>
@@ -154,5 +166,41 @@ $('#dbType').on('change',function(){
     $("#otherType").hide('fast')
     }
 });
+
+    $(document).ready(function () {
+     $('#chkbxMGift').click(function () {
+         var $this = $(this);
+         if ($this.is(':checked')) {
+             $('#shcompany').show('fast');
+         } else {
+             $('#shcompany').hide('fast');
+         }
+     });
+
+     $('#visitor').click(function () {
+         var $this = $(this);
+         if ($this.is(':checked')) {
+             $('#visitorinput').show('fast');
+         } else {
+             $('#visitorinput').hide('fast');
+         }
+     });
+     $('#vehicle').click(function () {
+         var $this = $(this);
+         if ($this.is(':checked')) {
+             $('#vehicleinput').show('fast');
+         } else {
+             $('#vehicleinput').hide('fast');
+         }
+     });  
+     $('#uniform').click(function () {
+         var $this = $(this);
+         if ($this.is(':checked')) {
+             $('#uniforminput').show('fast');
+         } else {
+             $('#uniforminput').hide('fast');
+         }
+     });       
+ });
 </script>
 @endsection

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Booking System</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -51,9 +51,7 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
+
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -62,19 +60,62 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>                    
                     @else
 
-                        @if(Auth::user()->Department == "Admin")
-                         <li><a href="{{ url('ViewEvents') }}">View Events</a></li>
+
+                    @if(Auth::user()->Department == "DEAN")
+                         <li><a href="{{ url('/home') }}">Home</a></li>
+                         <li><a href="{{ url('admin') }}">View Events</a></li>
+
                          <li><a href="{{ url('/organization') }}">Register Organization</a></li>
                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
-                        @else
+
+                     @elseif(Auth::user()->Department == "OSA")
+                      <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li><a href="{{ url('OSA') }}">View Events</a></li>
+                         <li><a href="{{ url('/organization') }}">Register Organization</a></li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+
+                    @elseif(Auth::user()->Department == "CSDO")
+
+                            <li><a href="{{ url('/CSDO') }}">Home</a></li>
+                             <li><a href="{{ url('admin') }}">View Events</a></li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello,
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @else
+
                          {{-- <li><a href="{{ url('/event') }}">Create Event</a></li> --}}
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            My events<span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('events') }}"><i class="fa fa-btn fa-check"></i>Approved Events</a></li>
+
+                                <li><a href="{{ url('pending') }}"><i class="fa fa-spinner fa-spin"> </i>   &#160;Pending Events</a></li>
+                            </ul>
+                        </li>
+
                          <li><a href="{{ url('events/create') }}">Add new event</a></li>
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -84,7 +125,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
-                        </li>
+                            </li>
+
                         @endif
                     @endif
                 </ul>

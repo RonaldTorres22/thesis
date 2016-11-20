@@ -7,7 +7,7 @@
 
             <a href="{{ route('organization.create') }}" class="btn btn-primary">Add Organization</a><br>
 
-          <table class="table table-striped table-bordered table-hover">
+        
 
       <br>
 
@@ -16,9 +16,10 @@
       @endif
 
 
-
+  <table  class="table table-striped">
       <thead>
-          <tr class="bg-info">
+          <tr>
+               <th>#</th>
                <th>Organization Name</th>
                <th>Department</th>
                <th>Created At</th>
@@ -27,13 +28,15 @@
       </thead>
 
       <tbody>
-
+        <?php $i = 1;?>
        @foreach ($Users as $user)
 
-        @if($user->Department == "Admin")
+        @if($user->Department == "DEAN" || $user->Department == "CSDO" || $user->Department == "OSA" || $user->Department == "EMAN" )
 
         @else
+        
                <tr>
+                  <th scope="row">{{$i++}}</th>
                    <td>{{ $user->name }}</td>
                    <td>{{ $user->Department }}</td>
                    <td>{{ date('M j, Y', strtotime($user->created_at))}}</td>
@@ -43,7 +46,7 @@
 
                  <li> 
                   {!! Form::open(['route' => ['organization.destroy', $user->id], 'method' => 'DELETE']) !!}
-                  {!! Form::submit('Delete',['class' => 'btn btn-danger btn-md']) !!}
+                  {!! Form::submit('Delete',['class' => 'btn btn-danger btn-xs']) !!}
                   {!! Form::close() !!}
                   </li>
                   </ul>

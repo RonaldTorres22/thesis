@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
+
+
 <div class="row">
-	<div clss="col-lg-12">
+	<div class="col-lg-12">
 		<ol class="breadcrumb">
 			<li class="active">Callendar of Events</li>
 		</ol>
@@ -16,6 +20,8 @@
 	</div>
 </div>
 </div>
+
+
 @endsection
 
 @section('js')

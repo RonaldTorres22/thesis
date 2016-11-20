@@ -18,9 +18,12 @@
 Route::get('/', function () {
     $data = [
         'page_title' => 'Home',
+
     ];
     return view('event/index', $data);
 });
+
+   
 
     // Authentication Routes...
     Route::get('login', 'Auth\AuthController@showLoginForm');
@@ -39,13 +42,26 @@ Route::get('/', function () {
 
     Route::resource('/organization', 'UserController');
 
+   Route::get('/CSDO', 'CsdoController@index');
     Route::get('/home', 'HomeController@index');
-  
-    Route::resource('/ViewEvents', 'AdminEventController');
+    
+    Route::resource('/admin', 'AdminEventController');
+    Route::get('admin/{id}', 'AdminEventController@show');
+
+    Route::resource('/OSA', 'OsaController');
+    Route::get('OSA/{id}', 'OsaController@show');
+
+    Route::post('approve/{id}','AdminEventController@approveEvent');
+    Route::post('approveOSA/{id}','OsaController@approveEvent');
 
     Route::resource('events', 'EventController');
+    Route::get('pending','EventController@pending');
 
-Route::get('/api', function () {
+
+  
+
+
+    Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->get();
     foreach($events as $event)
     {
@@ -53,6 +69,6 @@ Route::get('/api', function () {
         $event->url = url('events/' . $event->id);
     }
     return $events;
-});
+    });
 
 
