@@ -26,6 +26,11 @@ class Event extends Model
     return $this->belongsTo('App\User');
   }
 
+  public function todolist()
+  {
+        return $this->hasMany('\App\Todolist', 'event_id');
+  }
+
     // protected $table = "events";
 
     // public function organization(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Todolist;
 use App\Event;
 use Session;
 use App\User;
@@ -37,9 +38,10 @@ class EventController extends Controller
             
           
         ];
+
         
         return view('event/list', $data);
-     
+
     }
 
     public function pending()
@@ -119,6 +121,61 @@ class EventController extends Controller
 
     }
 
+    public function Addtodo(Request $request, $id)
+    {
+
+
+        //         $user = User::find($id);
+        // $this->validate($request, ['profile_name' => 'required|max:255']);
+        // $user->name = $request->profile_name;
+        // $user->update();
+
+
+
+        $event_id = Event::find($id)->id;
+        $todo = Event::find($id);
+        $this->validate($request, ['to_do' => 'required|max:255']);
+        $todo = new Todolist;
+        $todo->event_id = $event_id;
+        $todo->to_do   = $request->input('to_do');
+        $todo->save();
+
+          $response = array(
+            'status' => 'success',
+            'msg' => 'zzzz.',
+        );
+        return \Response::json($response);
+
+        // return response()->json(['to_do' => $todo->to_do], 200);
+
+
+
+        // return back();
+    }
+
+
+
+    public function deletetodo(Request $request, $id)
+    {
+        $todo = Todolist::find($id);
+        //           $response = array(
+        //     'status' => 'success',
+        //     'msg' => 'zzzz.',
+        // );
+        // return \Response::json($response);
+        // return back();
+        
+      if ( $request->ajax() ) {
+        $todo->delete( $request->all() );
+
+        return response(['msg' => 'Product deleted', 'status' => 'success']);
+    }
+    return response(['msg' => 'Failed deleting the product', 'status' => 'failed']);
+
+    }
+
+
+
     /**
      * Display the specified resource.
      *
@@ -128,16 +185,19 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
+        $todo = Event::find($id)->todolist;
         $first_date = new DateTime($event->start_time);
         $second_date = new DateTime($event->end_time);
         $difference = $first_date->diff($second_date);
         $data = [
             'page_title'    => $event->title,
             'event'         => $event,
+            'todos'         => $todo,
             'duration'      => $this->format_interval($difference)
         ];
-        
+
         return view('event/view', $data);
+
     }
 
     /**
@@ -147,8 +207,10 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
+
         $event = Event::findOrFail($id);
+
         $event->start_time =  $this->change_date_format_fullcalendar($event->start_time);
         $event->end_time =  $this->change_date_format_fullcalendar($event->end_time);
         

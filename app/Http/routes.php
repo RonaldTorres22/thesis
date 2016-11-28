@@ -25,6 +25,7 @@ Route::get('/', function () {
 
    
 
+
     // Authentication Routes...
     Route::get('login', 'Auth\AuthController@showLoginForm');
     Route::post('login', 'Auth\AuthController@login');
@@ -56,6 +57,14 @@ Route::get('/', function () {
 
     Route::resource('events', 'EventController');
     Route::get('pending','EventController@pending');
+
+   
+
+    Route::post('addtodo/{id}', ['uses' => 'EventController@Addtodo', 'as' => 'add.todo']);
+
+    Route::post('updatephone/{id}', ['uses' => 'CompanyController@updatePhone', 'as' => 'update.phone']);
+
+    Route::get('deletetodo/{id}', ['uses' => 'EventController@deletetodo', 'as' => 'delete.todo']);
 
 
   
