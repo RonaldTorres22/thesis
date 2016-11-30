@@ -56,7 +56,7 @@ Route::get('/', function () {
     Route::post('approveOSA/{id}','OsaController@approveEvent');
 
     Route::resource('events', 'EventController');
-    Route::get('pending','EventController@pending');
+    Route::get('pending',['uses'=>'EventController@pending', 'as' => 'pending.events']);
 
    
 
@@ -66,8 +66,6 @@ Route::get('/', function () {
 
     Route::get('deletetodo/{id}', ['uses' => 'EventController@deletetodo', 'as' => 'delete.todo']);
 
-
-  
 
 
     Route::get('/api', function () {

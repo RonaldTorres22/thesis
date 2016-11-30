@@ -117,7 +117,7 @@ class EventController extends Controller
         $event->save();
         
         $request->session()->flash('success', 'The event was successfully saved!');
-        return redirect('events/create');
+        return redirect()->route('pending.events');
 
     }
 
@@ -136,15 +136,16 @@ class EventController extends Controller
         $todo = Event::find($id);
         $this->validate($request, ['to_do' => 'required|max:255']);
         $todo = new Todolist;
+    
         $todo->event_id = $event_id;
         $todo->to_do   = $request->input('to_do');
         $todo->save();
-
+               $todoid = $todo->id; 
           $response = array(
             'status' => 'success',
             'msg' => 'zzzz.',
         );
-        return \Response::json($response);
+        return response($todoid);
 
         // return response()->json(['to_do' => $todo->to_do], 200);
 
@@ -162,17 +163,12 @@ class EventController extends Controller
         //     'status' => 'success',
         //     'msg' => 'zzzz.',
         // );
-        // return \Response::json($response);
+        // 
         // return back();
         
-      if ( $request->ajax() ) {
-        $todo->delete( $request->all() );
+        $todo->delete();
 
-        return response(['msg' => 'Product deleted', 'status' => 'success']);
-    }
-    return response(['msg' => 'Failed deleting the product', 'status' => 'failed']);
-
-    }
+     }
 
 
 
@@ -197,6 +193,7 @@ class EventController extends Controller
         ];
 
         return view('event/view', $data);
+
 
     }
 
@@ -269,10 +266,13 @@ class EventController extends Controller
     public function destroy(Request $request, $id)
     {
         $event = Event::find($id);
-        $event->delete();
+        // $event_id = $eventtodo->event_id;
+        // $event_id = Todolist::find($event_id);
+        $event->delete();       
 
          $request->session()->flash('success', 'The event was successfully Deleted!');
-         return back();
+
+          return redirect()->route('pending.events');
     }
     
     public function change_date_format($date)

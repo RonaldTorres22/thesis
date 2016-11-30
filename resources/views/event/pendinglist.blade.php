@@ -40,7 +40,7 @@
 					@if($event->status=="pending")	
 						<a class="btn btn-primary btn-xs" href="{{ url('events/' . $event->id . '/edit')}}">
 							<span class="glyphicon glyphicon-edit"></span> Edit</a> 
-						<form action="{{ url('events/' . $event->id) }}" style="display:inline" method="POST">
+						<form action="{{ route('events.destroy', $event->id) }}" style="display:inline" method="POST">
 							<input type="hidden" name="_method" value="DELETE" />
 							{{ csrf_field() }}
 							<button class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-trash"></span> Delete</button>

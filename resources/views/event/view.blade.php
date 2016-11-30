@@ -90,6 +90,7 @@
 		<div class="col-lg-6">
 			@if(Auth::user()->id == $event->user_id)
 			<p><b>To do lists:</b></p>
+		
 			@foreach($todos as $todo)
 			<div class=" row" >
 				<div class="col-lg-10" >
@@ -100,7 +101,7 @@
 					
 				</div>
 				<div class="col-lg-2" id="appendbutton" >
-					<form action="{{ url('deletetodo/' . $todo->id) }}" id="formdelete" style="display:inline;" method="DELETE">
+					<form id="formdelete" style="display:inline;" method="DELETE">
 						<input type="hidden" name="_method" value="DELETE" />
 						{{ csrf_field() }}
 						<button type="submit" class="del" id="deltodo" data-id="{{$todo->id}}"><i  class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
@@ -110,17 +111,18 @@
 			</div>
 			
 			@endforeach
-{{-- 			<div class="row">
+			
+			<div class="row">
 				<div class="col-lg-10">
-				<p class="append"> </p>
+				<p id="jstodo"> </p>
 				</div>
-				<div class="col-lg-2" id="appendbutton">
+				<div class="col-lg-2" id="jsdel">
 				
 				</div>
-			</div> --}}
+			</div>
+
 			<form  id="todoInput" style="padding-top:10px;">
 				<div class="form-group  @if($errors->has('to_do')) has-error has-feedback @endif">
-					
 					{{ csrf_field() }}
 					<div class="input-group">
 						<input type="text" name ="to_do" class="form-control" id="inputTodo">
@@ -136,6 +138,7 @@
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{{ asset('/js/jquery.min.js') }}"></script>
 <script type="text/javascript">
 var token = '{{ Session::token() }}'
 var urlSaveTodo = "{{ route('add.todo',$event->id) }}";
@@ -158,49 +161,45 @@ var dataId = $(this).attr('data-id');
 test = $(".ron").attr("id");
 
 
-
+	
 $.ajax({
 		data: {to_do:name,_token:token},
 		url: urlSaveTodo,
 		type: 'POST'
 			})
-.done(function(){
-	test++;
-	$('.append').append('<p><p>' + name + '</p></p>').show('fast');
-	$('#appendbutton').append('<form action="'+urlDelTodo+'/'+test+'" id="formdelete" style="display:inline;" method="DELETE">'+ csrf +'<button type="submit" class="del" id="deltodo" style="margin-bottom:4px;" data-id ="'+test+'"><i  class="fa fa-trash fa-lg" aria-hidden="true"></i></button><br></form');
+.done(function(output){
+	$('#jstodo').append('<p id=p_del'+ output +'>'+ name + '</p>');
+	$('#jsdel').append('<form id="formdelete" style="display:inline;" method="DELETE">'+ '<input type="hidden" name="_method" value="DELETE">'+ csrf +'<button type="submit" class="del" id="deltodo" style="margin-bottom:4px; margin-right:20px;" data-id="'+output+'"><i  class="fa fa-trash fa-lg" aria-hidden="true"></i></button></form>');
 	$("#todoInput")[0].reset();
-	test++;
+	
 
 });
 
 });
 
 
-$('.del').on('click', function (e){
-	var del = $('#formdelete').serialize();
-	var dataId = $(this).attr('data-id')
+$('body').on('click', '.del', function (e){
+	e.preventDefault();
+		var del = $('#formdelete').serialize();
+	var dataId = $(this).attr('data-id');
 	$(this).remove();
 	$("p#" + dataId).remove();
-	e.preventDefault();
-;
-// $.ajax({
-	// 	type: "POST",
-	// 	url : urlSaveTodo,
-	// 	data: {to_do:name}
-// })
+	$("#p_del" + dataId).remove();
+
+
+	
 $.ajax({
-		data: dataId,
-		url:  '{{ url('/deletetodo') }}' + '/' + dataId,
+		data: {to_do:name,_token:token},
+		url: urlDelTodo + "/" + dataId,
 		type: 'GET'
 			})
+	.done(function(output){
+		
+		
 
-.done(function(){
-	
+	});
+
 });
-
-		});
-
-
 
 });
 </script>
