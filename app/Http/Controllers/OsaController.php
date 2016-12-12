@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DateTime;
 use App\Http\Requests;
 use App\Event;
+use App\Message;
 use Session;
 use App\User;
 use Auth;
@@ -26,7 +27,7 @@ class OsaController extends Controller
 
     public function index()
     {
-        $user =  Event::orderBy('start_time')->get();
+        $user =  Event::where('status', '=' ,'dean')->get();
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -43,6 +44,26 @@ class OsaController extends Controller
         }
 
     }
+    public function approvelist()
+    
+    {
+        $user =  Event::where('status', '=' ,'approved')->get();
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        if(Auth::User()->Department == "OSA"){
+           return view('osa/approvedlist', $data);
+        }
+        else
+        {
+            echo "you dont have permission to access this site";
+        }
+
+    }
 
         public function approveEvent(Request $request, $id)
     {
@@ -51,16 +72,35 @@ class OsaController extends Controller
 
         $event = Event::findOrFail($id);
         $event->start_time = $event->start_time;
-        $event->status2         = "approved";
+        $event->status         = "approved";
+        $event->notif2          = 2; 
         $event->save();
         
         $request->session()->flash('success', 'The event was successfully approved!');
         
         return back();
 
-        
+    }
 
- 
+    public function disapproveEvent(Request $request, $id)
+    { 
+
+        $event_id = Event::find($id)->id;
+        $message = Event::find($id);
+        $message = new Message;
+        $message->event_id = $event_id;
+        $message->disapprove_by = Auth::user()->Department;
+        $message->message   = $request->input('message');
+       
+        $event = Event::findOrFail($id);      
+        $event->start_time = $event->start_time;
+        $event->status         = "Disapproved";
+        $event->notif          = 5;      
+        $event->save();
+        $message->save();
+        $request->session()->flash('success', 'The event was successfully disapproved!');
+        
+        return back();
 
     }
 

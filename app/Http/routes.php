@@ -23,8 +23,23 @@ Route::get('/', function () {
     return view('event/index', $data);
 });
 
-   
+   Route::get('/notification', [
+    'uses' => 'NotificationController@getNotification',
+    'as' => 'notifdean'
+]);
 
+   Route::get('/notificationOsa', [
+    'uses' => 'NotificationController@getNotificationosa',
+    'as' => 'notifosa'
+]);
+   Route::get('/notificationUser', [
+    'uses' => 'NotificationController@getNotificationuser',
+    'as' => 'notifuser'
+]);
+   Route::get('/notificationVpaa', [
+    'uses' => 'NotificationController@getNotificationvpaa',
+    'as' => 'notifuser'
+]);
 
     // Authentication Routes...
     Route::get('login', 'Auth\AuthController@showLoginForm');
@@ -43,37 +58,57 @@ Route::get('/', function () {
 
     Route::resource('/organization', 'UserController');
 
-   Route::get('/CSDO', 'CsdoController@index');
+     Route::get('/CSDO', 'CsdoController@index');
     Route::get('/home', 'HomeController@index');
     
     Route::resource('/admin', 'AdminEventController');
+    Route::get('pendinglist', 'AdminEventController@pendinglist');
     Route::get('admin/{id}', 'AdminEventController@show');
 
     Route::resource('/OSA', 'OsaController');
     Route::get('OSA/{id}', 'OsaController@show');
+    Route::get('approvelist', 'OsaController@approvelist');
+
 
     Route::post('approve/{id}','AdminEventController@approveEvent');
     Route::post('approveOSA/{id}','OsaController@approveEvent');
+    Route::post('disapprove/{id}','AdminEventController@disapproveEvent');
+    Route::post('disapproveOsa/{id}','OsaController@disapproveEvent');
+
 
     Route::resource('events', 'EventController');
     Route::get('pending',['uses'=>'EventController@pending', 'as' => 'pending.events']);
+    Route::get('disapproved','EventController@disapproved');
 
    
 
     Route::post('addtodo/{id}', ['uses' => 'EventController@Addtodo', 'as' => 'add.todo']);
-
-    Route::post('updatephone/{id}', ['uses' => 'CompanyController@updatePhone', 'as' => 'update.phone']);
-
     Route::get('deletetodo/{id}', ['uses' => 'EventController@deletetodo', 'as' => 'delete.todo']);
 
+    Route::post('sendletter/{id}', ['uses' => 'EventController@sendletter', 'as' => 'send.letter']);
+    Route::resource('vpaa','VpaaController');
+    Route::get('approvedletters','VpaaController@approvedlist');
+    Route::get('disapprovedletters','VpaaController@disapprovedlist');
+    Route::post('approveletter/{id}','VpaaController@approveletter');
+    Route::post('disapproveletter/{id}','VpaaController@disapproveletter');
 
+    //Account Settings
+     Route::get('settings/{id}','UserController@settings');
+     Route::post('changepassword/{id}', ['uses' => 'UserController@changepassword','as' => 'change.password']);
+
+    //Change avatar
+
+     Route::post('updateavatar', 'UserController@update_avatar');
+     Route::post('deleteavatar', 'UserController@delete_avatar');
 
     Route::get('/api', function () {
-    $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->get();
+    $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();
     foreach($events as $event)
     {
+       
         $event->title = $event->title . ' - ' .$event->name;
         $event->url = url('events/' . $event->id);
+       
     }
     return $events;
     });

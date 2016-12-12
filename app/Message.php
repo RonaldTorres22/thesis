@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Todolist extends Model
+class Message extends Model
 {
-	    protected $fillable=
+       protected $fillable=
     [
-        'to_do',
+        'message',
      
   ];
 
-  public function user()
+    public function eventmessage()
   {
     return $this->belongsTo('App\Event');
   }

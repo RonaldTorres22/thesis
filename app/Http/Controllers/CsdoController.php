@@ -31,7 +31,7 @@ class CsdoController extends Controller
          $current = Carbon::now();
 
           $time = $current->setTimezone('Asia/Singapore')->toDateString();
-        $event = Event::Where('date', '=', $time)->Where('status', '=', 'approved')->Where('status2', '=', 'approved')->get();
+        $event = Event::Where('date', '=', $time)->Where('status', '=', 'approved')->get();
 
         $approve = Event::Where('status', '=', 'approved')->Where('date', '!=', $time)->Where('date', '>', $time)->get();
         $past = Event::Where('status', '=', 'approved')->Where('date','!=', $time)->Where('date','<',$time)->get();

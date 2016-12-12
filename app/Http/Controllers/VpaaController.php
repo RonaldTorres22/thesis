@@ -4,31 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DateTime;
-use App\Http\Requests;
 use App\Event;
-use App\Message;
 use Session;
 use App\User;
 use Auth;
+use App\Letter;
+use App\Http\Requests;
 
-
-class AdminEventController extends Controller
+class VpaaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-
-        $this->middleware('auth');
-    }   
-
     public function index()
     {
-        $user =  Event::where('status','=','approved')->get();
+        $user =  Letter::Where('status','=','pending')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -36,19 +28,18 @@ class AdminEventController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
-           return view('admin/eventslist', $data);
+        if(Auth::User()->Department == "VPAA"){
+           return view('vpaa/letters', $data);
         }
         else
         {
             return view('error404');
         }
-
     }
 
-    public function pendinglist()
+    public function approvedlist()
     {
-        $user =  Event::where('status','=','pending')->get();
+        $user =  Letter::Where('status','=','approved')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -56,51 +47,32 @@ class AdminEventController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
-           return view('admin/pendinglist', $data);
+        if(Auth::User()->Department == "VPAA"){
+           return view('vpaa/approvelist', $data);
         }
         else
         {
-           return view('error404');
+            return view('error404');
         }
-
     }
 
-    public function approveEvent(Request $request, $id)
-    { 
-
-        $event = Event::findOrFail($id);
-         $event->start_time = $event->start_time;
-        $event->status         = "dean";
-        $event->notif          = 2;      
-        $event->save();
-        
-        $request->session()->flash('success', 'The event was successfully approved!');
-        
-        return back();
-
-    }
-
-    public function disapproveEvent(Request $request, $id)
-    { 
-
-        $event_id = Event::find($id)->id;
-        $message = Event::find($id);
-        $message = new Message;
-        $message->event_id = $event_id;
-        $message->disapprove_by = Auth::user()->Department;
-        $message->message   = $request->input('message');
-       
-        $event = Event::findOrFail($id);      
-        $event->start_time = $event->start_time;
-        $event->status         = "Disapproved";
-        $event->notif          = 5;      
-        $event->save();
-        $message->save();
-        $request->session()->flash('success', 'The event was successfully disapproved!');
-        
-        return back();
-
+    public function disapprovedlist()
+    {
+        $user =  Letter::Where('status','=','disapproved')->paginate(10);
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        if(Auth::User()->Department == "VPAA"){
+           return view('vpaa/disapprovelist', $data);
+        }
+        else
+        {
+            return view('error404');
+        }
     }
 
     /**
@@ -110,7 +82,7 @@ class AdminEventController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -121,9 +93,7 @@ class AdminEventController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
+        //
     }
 
     /**
@@ -135,16 +105,18 @@ class AdminEventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
+        $letter = Event::find($id)->letter;
         $first_date = new DateTime($event->start_time);
         $second_date = new DateTime($event->end_time);
         $difference = $first_date->diff($second_date);
         $data = [
             'page_title'    => $event->title,
             'event'         => $event,
+            'letter'        => $letter,
             'duration'      => $this->format_interval($difference)
         ];
-         if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
-        return view('admin/view', $data);
+         if(Auth::User()->Department == "VPAA"){
+        return view('vpaa/view', $data);
         }
         else
         {
@@ -152,6 +124,31 @@ class AdminEventController extends Controller
         }
     }
 
+    public function approveletter(Request $request, $id)
+    {
+        $letter = Letter::findOrFail($id);
+        $letter->status         = "approved";
+        // $letter->notif          = 2;      
+        $letter->save();
+        
+        $request->session()->flash('success', 'The letter was successfully approved!');
+        
+        return back();
+
+    }
+
+    public function disapproveletter(Request $request, $id)
+    {
+        $letter = Letter::findOrFail($id);
+        $letter->status         = "disapproved";
+        // $letter->notif          = 2;      
+        $letter->save();
+        
+        $request->session()->flash('success', 'The letter was successfully disapproved!');
+        
+        return back();
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -183,12 +180,8 @@ class AdminEventController extends Controller
      */
     public function destroy($id)
     {
-        $event = Event::find($id);
-        $event->delete();
-        
-        return redirect('events');
+        //
     }
-    
     public function change_date_format($date)
     {
         $time = DateTime::createFromFormat('d/m/Y H:i:s', $date);
@@ -213,6 +206,4 @@ class AdminEventController extends Controller
         
         return $result;
     }
-
-
 }

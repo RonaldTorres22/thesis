@@ -28,7 +28,17 @@ class Event extends Model
 
   public function todolist()
   {
-        return $this->hasMany('\App\Todolist', 'event_id');
+    return $this->hasMany('\App\Todolist', 'event_id');
+  }
+
+ public function letter()
+  {
+   return $this->hasOne('App\Letter', 'event_id');
+  }
+
+  public function message()
+  {
+   return $this->hasOne('App\Message', 'event_id');
   }
 
     // protected $table = "events";

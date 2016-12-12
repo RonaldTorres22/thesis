@@ -22,14 +22,13 @@
 	border-radius: 25px;
 	padding: 4px;
 	background-color: red;
-}		
+}	
 </style>
-<div class="container">
 
+<div class="container">
 <div class="row" style="margin-top:80px; margin-right:10px; margin-left:10px;">
 @include('message')
 </div>
-
 
             <div class="page-title">
               <div class="title_left">
@@ -38,7 +37,7 @@
 	
       
               <div class="title_right">
-                <div class="col-xs-12 form-group pull-right top_search">
+               <div class="col-xs-12 form-group pull-right top_search">
          @if($event->status == "dean")
 		<h5 style="float:right; margin-right:30px;">Status: <b id="approve">Approved by Dean</b></h5>
 		@endif
@@ -56,12 +55,40 @@
               </div>
             </div>
 
+<div class="row">
+	<div class="col-lg-12">
+		<div class="alert alert-success alert-dismissible" role="alert">
+			<h4><span class="fa fa-envelope-open"></span> Letter:</h4>
+			<p>{{$letter->letter}}</p>
+			<p></p><br>
+		@if($letter->status == 'pending')
+		<div class="row">
+		<div class="col-lg-1">
+			<form action="{{url('approveletter/'. $letter->id)}}" method="POST" >
+			{{ csrf_field() }} 
+			<button type="submit" class="btn btn-default">Approve</button>
+			</form>
+		</div>
+		<div class="col-lg-1">
+			<form action="{{url('disapproveletter/'.$letter->id)}}" method="POST">
+			{{ csrf_field() }} 
+			<button class="btn btn-danger">Disapprove</button>
+			</form>
+		</div>
+		</div>
+		@elseif($letter->status == 'approved')
+		<h4 style="color:green;"><span class="glyphicon glyphicon-ok-circle" ></span> Approved!</h4>
+		@elseif($letter->status == 'disapproved')
+		<h4 style="color:red;"><span class="glyphicon glyphicon-remove-circle"></span> Disapproved!</h4>		
+		@endif
+		</div>
+	</div>
+</div>
 
 <div class="row">
 
 </div>
 <hr>
-
 <div class="row">
 	<div class="col-lg-6">
 		<p><b>Type of Activity</b><br>
@@ -111,43 +138,9 @@
 
 
 		<br>
-		@if(Auth::user()->Department == "OSA")
-		<div class="row">
-			@if($event->status== "dean")
-		<div class="col-lg-2" style="margin-right:20px;">
-			<form action="{{ url('approveOSA/'. $event->id) }}" style="display:inline;" method="POST">
-			<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Approve</button>
-			{{ csrf_field() }} 
-			</form>
-		</div>
-		<div class="col-lg-2">	
-			<button class="btn btn-danger" data-toggle="modal" data-target="#disapprove"><span class="glyphicon glyphicon-remove"></span> Disapprove</button>
-		</div>
-				@endif 
-		</div>
-		@endif
+
+
 		
-				<div id="disapprove" class="modal fade" role="dialog">
-  					<div class="modal-dialog">
-
-    				<!-- Modal content-->
-				   <div class="modal-content">
-				     <div class="modal-header">
-				       <button type="button" class="close" data-dismiss="modal">&times;</button>
-				       <h4 class="modal-title">Reason for disapproving the event</h4>
-				     </div>
-				     <div class="modal-body">
-				     <form action="{{ url('disapproveOsa/'. $event->id) }}" method="POST">
-				     {{ csrf_field() }} 
-				        <textarea class="form-control" rows="7" name="message" id="comment"></textarea><br>
-				       <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span>Disapprove</button>
-				     </form>
-				     </div>
-				   </div>
-
-  					</div>
-	  			 </div>
-
 	</div>
 </div>
 </div>
@@ -156,3 +149,6 @@
 @section('js')
 
 @endsection
+
+
+			

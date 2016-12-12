@@ -2,18 +2,19 @@
 
 @section('content')
 <div class="container">
-<div class="row">
-	<div clss="col-lg-12">
-		<ol class="breadcrumb">
-			<li>You are here: <a>List of events</a></li>
-
-		</ol>
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Pending Events</h3>
+		</div>
 	</div>
-</div>
+
+		<div class="clearfix"><br></div>
+	<br>	
 
 <div class="row">
 
 	<div class="col-lg-12">
+	<div class="x_panel">
 		@if($events->count() > 0)
 		<table class="table table-striped">
 
@@ -37,16 +38,13 @@
 					<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
 					<td>{{$event->name}}</td>
 					
-					@if($event->status == "approved" && $event->status2 == "pending")
-					<td style="color:green;">Approved by Deans </td>
+					@if($event->status == "dean")
+					<td style="color:green;">Approved by Dean </td>
 					@endif
-					@if($event->status2 == "approved" && $event->status == "pending")
-					<td style="color:green;" >Approved by OSA </td>
+					@if($event->status == 'approved')
+					<td style="color:green;" >Approved</td>
 					@endif
-					@if($event->status2 == 'approved' && $event->status == 'approved')
-					<td style="color:green;" >Approved by OSA and DEAN </td>
-					@endif
-					@if($event->status == "pending" && $event->status2 == "pending")
+					@if($event->status == "pending")
 					<td style="color:orange;"> Pending </td>
 					@endif
 
@@ -59,6 +57,7 @@
 		@else
 			<h2>No event yet!</h2>
 		@endif
+	</div>
 	</div>
 </div>
 </div>

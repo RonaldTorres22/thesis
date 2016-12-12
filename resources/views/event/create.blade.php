@@ -7,24 +7,21 @@
 		color:#a94442;
 	}
 </style>
-
 <div class="container">
-<div class="row">
-	<div clss="col-lg-12">
-		<ol class="breadcrumb">
-			<li>You are here: <a href="{{ url('/') }}">Home</a></li>
-			<li><a href="{{ url('/events') }}">My Events</a></li>
-			<li class="active">Add new event</li>
-		</ol>
+		<div class="page-title">
+		<div class="title_left">
+			<h3>Create Event</h3>
+		</div>
 	</div>
 </div>
-
+<div class="container">
 @include('message')
-
+		<div class="clearfix"><br></div>
+	
 <div class="row">
-	<div class="col-lg-6">
-		
-		<form action="{{ url('events') }}" method="POST">
+	<div class="col-lg-12">
+		<div class="x_panel">
+		<form action="{{ url('events') }}" method="POST"  style="width:50%;">
 			{{ csrf_field() }}
 			<div class="form-group  @if($errors->has('type_activity')) has-error has-feedback @endif">
 				<label for="name">Type of Activity</label>
@@ -131,7 +128,8 @@
 
 
 			<button type="submit" class="btn btn-primary" style="margin-bottom:40px;">Submit</button>
-		</form>		
+		</form>
+		</div>		
 	</div>
 </div>
 </div>

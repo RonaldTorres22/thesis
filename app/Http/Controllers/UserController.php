@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
+use App\Http\Requests\UpdateProfileRequest;
 use Session;
+use Auth;
 use Hash;
 
 class UserController extends Controller
@@ -15,11 +17,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
     public function index()
     {
         // $users = User::get();
 
-        $users = User::paginate(5);
+        $users = User::Where('Department','!=',"DEAN")->Where('Department','!=','CSDO')->Where('Department','!=','OSA')->Where('Department','!=','EMAN')->paginate(5);
 
         return view('organizations.index')->with('Users', $users);
     }
@@ -58,6 +66,73 @@ class UserController extends Controller
         Session::flash('success', ' organization successfully created!');
 
         return redirect()->route('organization.index');
+    }
+
+    public function settings($id)
+    {   
+        $user = User::findOrFail($id);
+        if(Auth::user()->id == $user->id)
+        {
+        return view('auth/settings')->with('user',$user);
+        }
+        else{
+        return back();
+        }
+       
+    }
+
+     public function changepassword(Request $request, $id)
+    {
+       
+            if (Hash::check($request->input('old_password'), Auth::user()->password))
+            {
+
+         $this->validate($request, [
+                    'password' => 'required|confirmed',
+            ]);
+
+            $user = User::findOrFail($id);
+            $input = $request->input();
+            //Change Password if password value is set
+            if ($input['password'] != "") {
+               //dd(bcrypt($input['password']));
+               $input['password'] = bcrypt($input['password']);
+            }
+
+
+            $user->fill($input)->save();
+
+            $request->session()->flash('success', 'The new password was successfully saved!');
+        return back();
+           
+            }
+
+            else{
+              $request->session()->flash('error', 'Current Password Incorrect');
+               return back();
+            }
+
+   }
+
+    public function update_avatar(UpdateProfileRequest $request){
+       $profile = Auth::user();
+             if( $request->hasFile('avatar'))
+               { 
+                   $request->file('avatar')->move(public_path('profpics'), $request->file('avatar')->getClientOriginalName());
+                   $profile->avatar = $request->file('avatar')->getClientOriginalName();
+                   $profile->save();
+                   $request->session()->flash('success', 'The new Image was successfully saved!');
+               }
+       return back();
+    }
+
+     public function delete_avatar(Request $request){
+       $profile = Auth::user();       
+       $profile->avatar =  'default.jpg';
+       $profile->save();
+       $request->session()->flash('success', 'The new Image was successfully removed!');
+       return back();
+               
     }
 
     /**

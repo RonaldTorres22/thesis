@@ -9,6 +9,7 @@ use App\Event;
 use Session;
 use App\User;
 use Auth;
+use App\Letter;
 use DateTime;
 use Carbon\Carbon;
 
@@ -29,7 +30,7 @@ class EventController extends Controller
     public function index()
     {
        
-        $user = Auth::user()->events()->paginate(10);
+        $user = Auth::user()->events()->where('status','=','approved')->orWhere('status' ,'=','dean')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -47,7 +48,7 @@ class EventController extends Controller
     public function pending()
     {
 
-        $user = Auth::user()->events()->paginate(10);
+        $user = Auth::user()->events()->where('status','=','pending')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -61,7 +62,22 @@ class EventController extends Controller
      
     }
 
+    public function disapproved()
+    {
 
+        $user = Auth::user()->events()->where('status','=','Disapproved')->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        
+        return view('event/disapprovedlist', $data);
+     
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -140,11 +156,8 @@ class EventController extends Controller
         $todo->event_id = $event_id;
         $todo->to_do   = $request->input('to_do');
         $todo->save();
-               $todoid = $todo->id; 
-          $response = array(
-            'status' => 'success',
-            'msg' => 'zzzz.',
-        );
+        $todoid = $todo->id; 
+
         return response($todoid);
 
         // return response()->json(['to_do' => $todo->to_do], 200);
@@ -171,6 +184,19 @@ class EventController extends Controller
      }
 
 
+    public function sendletter(Request $request, $id)
+    {
+        $event_id = Event::find($id)->id;
+        $letter = Event::find($id);
+        $letter = new Letter;
+        $letter->event_id = $event_id;
+        $letter->letter   = $request->input('letter');
+       
+         $letter->save();
+
+         $request->session()->flash('success', 'The letter was successfully sent!');
+        return back();
+    }
 
     /**
      * Display the specified resource.
@@ -182,6 +208,9 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $todo = Event::find($id)->todolist;
+        $message = Event::find($id)->message;
+        $letter = Event::find($id)->letter()->get();
+        $lettershow = Event::find($id)->letter;
         $first_date = new DateTime($event->start_time);
         $second_date = new DateTime($event->end_time);
         $difference = $first_date->diff($second_date);
@@ -189,6 +218,9 @@ class EventController extends Controller
             'page_title'    => $event->title,
             'event'         => $event,
             'todos'         => $todo,
+            'letter'        => $letter,
+            'Letter'        => $lettershow,
+            'message'       => $message,
             'duration'      => $this->format_interval($difference)
         ];
 

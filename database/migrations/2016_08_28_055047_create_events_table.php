@@ -27,8 +27,9 @@ class CreateEventsTable extends Migration
         $table->string('activity');
         $table->string('date');
         $table->timestamp('approvedate');
+        $table->integer('notif')->default(0);
+        $table->integer('notif2')->default(0);
         $table->string('status')->default('pending');
-        $table->string('status2')->default('pending');
         $table->timestamp('start_time');
         $table->timestamp('end_time')->nullable();
    

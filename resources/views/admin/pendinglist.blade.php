@@ -4,13 +4,13 @@
 <div class="container">
 	<div class="page-title">
 		<div class="title_left">
-			<h3>Approved Events</h3>
+			<h3>Pending Events</h3>
 		</div>
 	</div>
 		<div class="clearfix"><br></div>
 	<br>
-<div class="row">
 
+<div class="row">
 	<div class="col-lg-12">
 	<div class="x_panel">
 		@if($events->count() > 0)

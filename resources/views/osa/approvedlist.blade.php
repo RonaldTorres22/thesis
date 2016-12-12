@@ -7,8 +7,10 @@
 			<h3>Approved Events</h3>
 		</div>
 	</div>
+
 		<div class="clearfix"><br></div>
 	<br>
+
 <div class="row">
 
 	<div class="col-lg-12">
@@ -31,19 +33,13 @@
 			@foreach($events as $event)
 				<tr>
 					<th scope="row">{{ $i++ }}</th>
-					<td><a href="{{ route('admin.show',$event->id)}}">{{ $event->title }}</a></td>
+					<td><a href="{{ route('OSA.show',$event->id)}}">{{ $event->title }}</a></td>
 					<td>{{ date("g:ia\, jS M Y", strtotime($event->start_time)) }}</td>
 					<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
 					<td>{{$event->name}}</td>
 					
-					@if($event->status == "dean")
-					<td style="color:green;">Approved by Dean </td>
-					@endif
 					@if($event->status == 'approved')
 					<td style="color:green;" >Approved</td>
-					@endif
-					@if($event->status == "pending")
-					<td style="color:orange;"> Pending </td>
 					@endif
 					
 				</tr>

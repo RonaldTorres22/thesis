@@ -1,40 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-<div class="row">
-	<div clss="col-lg-12">
-		<ol class="breadcrumb">
-			<li>You are here: <a href="{{ url('/') }}">Home</a></li>
-			<li><a href="{{ url('/admin') }}">View Events</a></li>
-			<li class="active">{{ $event->title }}</li>
-		</ol>
+<style type="text/css">
+#pending{
+	color: white;
+	border: 2px solid orange;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: orange;
+}
+#approve{
+	color: white;
+	border: 2px solid green;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: green;
+}
+#disapproved{
+	color: white;
+	border: 2px solid red;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: red;
+}	
+</style>
 
-			@include('message')
-	</div>
+<div class="container">
+<div class="row" style="margin-top:80px; margin-right:10px; margin-left:10px;">
+@include('message')
 </div>
 
+            <div class="page-title">
+              <div class="title_left">
+                <h3>{{ $event->title }} <small>booked by {{ $event->name }}</small></h3>
+              </div>
+	
+      
+              <div class="title_right">
+               <div class="col-xs-12 form-group pull-right top_search">
+         @if($event->status == "dean")
+		<h5 style="float:right; margin-right:30px;">Status: <b id="approve">Approved by Dean</b></h5>
+		@endif
+		@if($event->status == 'approved')
+		<h5 style="float:right; margin-right:30px;">Status: <b id="approve">Approved</b></h5>
+		@endif
+		@if($event->status == "pending")
+		<h5 style="float:right; margin-right:30px;">Status: <b id="pending">Pending </b></h5>
+		@endif
+		@if($event->status == "Disapproved" )
+		<h5 style="float:right; margin-right:30px;">Status: <b id="disapproved">Disapproved</b></h5>
+		@endif
+
+                </div>
+              </div>
+            </div>
 
 
 <div class="row">
-	<div class="col-lg-8">
-		<h2>{{ $event->title }} <small>booked by {{ $event->name }}</small></h2>
-	</div>
-	<div class="col-lg-4">
-		@if($event->status == "approved" && $event->status2 == "pending")
-		<h5 style="margin-top:30px; float:right;">Status:<big style="color:green;"><b> Approved by Deans </b></big></h5>
-		@endif
-		@if($event->status2 == "approved" && $event->status == "pending")
-		<h5 style="margin-top:30px; float:right;">Status:<big style="color:green;"><b> Approved by OSA </b></big></h5>
-		@endif
-		@if($event->status2 == 'approved' && $event->status == 'approved')
-		<h5 style="margin-top:30px; float:right;">Status:<big style="color:green;"><b> Approved by OSA and DEAN </b></big></h5>
-		@endif
-		@if($event->status == "pending" && $event->status2 == "pending")
-		<h5 style="margin-top:30px; float:right;">Status:<big style="color:orange;"><b> Pending </b></big></h5>
-		@endif
-
-	</div>
 
 </div>
 <hr>
@@ -88,20 +110,46 @@
 
 		<br>
 		@if(Auth::user()->Department == "DEAN")
-		{{-- 	<form action="{{ url('events/' . $event->id) }}" style="display:inline;" method="POST">
-				<input type="hidden" name="_method" value="DELETE" />
-				{{ csrf_field() }} --}}
-			@if($event->status== "pending")
+		<div class="row">
+		@if($event->status== "pending")
+		<div class="col-lg-2" style="margin-right:20px;">
+			
 			<form action="{{ url('approve/'. $event->id) }}" style="display:inline;" method="POST">
 			<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Approve</button>
 			{{ csrf_field() }} 
 			</form>
-		{{-- 	</form> --}}
-			<a class="btn btn-danger" href="{{-- {{ url('events/' . $event->id . '/edit')}} --}}">
-				<span class="glyphicon glyphicon-remove"></span> Disapprove</a>
-				@endif 
+		</div>
+		<div class="col-lg-2">
+				{{-- 	</form> --}}
+
+			<button class="btn btn-danger" data-toggle="modal" data-target="#disapprove"><span class="glyphicon glyphicon-remove"></span> Disapprove</button>
+		</div>
+		@endif 
+		</div>
 		@endif
-		</p>
+
+		<div id="disapprove" class="modal fade" role="dialog">
+  			<div class="modal-dialog">
+
+    				<!-- Modal content-->
+				   <div class="modal-content">
+				     <div class="modal-header">
+				       <button type="button" class="close" data-dismiss="modal">&times;</button>
+				       <h4 class="modal-title">Reason for disapproving the event</h4>
+				     </div>
+				     <div class="modal-body">
+				     <form action="{{ url('disapprove/'. $event->id) }}" method="POST">
+				     {{ csrf_field() }} 
+				        <textarea class="form-control" rows="7" name="message" id="comment"></textarea><br>
+				       <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span>Disapprove</button>
+				     </form>
+				     </div>
+				   </div>
+
+  			</div>
+	   </div>
+
+
 		
 	</div>
 </div>
@@ -111,3 +159,6 @@
 @section('js')
 
 @endsection
+
+
+			
