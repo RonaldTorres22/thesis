@@ -57,8 +57,9 @@ Route::get('/', function () {
 
 
     Route::resource('/organization', 'UserController');
+    Route::resource('/accounts', 'SubAccountController');
 
-     Route::get('/CSDO', 'CsdoController@index');
+    Route::get('/CSDO', 'CsdoController@index');
     Route::get('/home', 'HomeController@index');
     
     Route::resource('/admin', 'AdminEventController');
@@ -100,6 +101,13 @@ Route::get('/', function () {
 
      Route::post('updateavatar', 'UserController@update_avatar');
      Route::post('deleteavatar', 'UserController@delete_avatar');
+
+    //get PDF
+     Route::get('/getPDF/{id}','PDFController@getPDF');
+
+     //Create Tasks
+     Route::resource('task','TaskController');
+     Route::post('task/{id}','TaskController@store');
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

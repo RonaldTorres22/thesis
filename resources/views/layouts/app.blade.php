@@ -151,6 +151,14 @@
                     </ul>
                   </li>
 
+                  @if(empty(Auth::user()->acc_id))
+                  <li><a><i class="fa fa-user-o"></i>Register Account<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('accounts') }}">Add Account</a></li>
+                    </ul>
+                  </li>
+                  @endif
+
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('events') }}">Approved Events</a></li>
@@ -159,6 +167,12 @@
                     </ul>
                   </li>
 
+                  <li><a><i class="fa fa-tasks"></i>Tasks<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="{{ url('task') }}">Create Tasks</a></li>
+             
+                    </ul>
+                  </li>
                    @endif
         
                 </ul>
@@ -269,6 +283,7 @@
                   @endforeach
                   @else
                   @foreach(Auth::user()->orgs() as $notifications)
+                    @if($notifications->status == "approved")
                     <li>
                       <a href="{{url('events/'.$notifications->id)}}">
                         <span style="color:blue; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
@@ -281,8 +296,22 @@
                         </span>
                       </a>
                     </li>
+                    @elseif($notifications->status == "Disapproved")
+                     <li>
+                      <a href="{{url('events/'.$notifications->id)}}">
+                       <span style="color:red; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
+                        <span>
+                          <span><b style="margin-left:10px;">{{$notifications->title}}</b></span></span>
+                          <span class="time"><span style= "color:red; font-size:17px;" class="glyphicon glyphicon-remove-circle"></span></span>
+                        </span>
+                        <span class="message">
+                         <p>the event has been Disapproved</p>
+                        </span>
+                      </a>
+                    </li>
+                    @endif
                   @endforeach
-                   @foreach(Auth::user()->disapproved() as $notifications)
+{{--                    @foreach(Auth::user()->disapproved() as $notifications)
                     <li>
                       <a href="{{url('events/'.$notifications->id)}}">
                        <span style="color:red; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
@@ -295,7 +324,7 @@
                         </span>
                       </a>
                     </li>
-                  @endforeach
+                  @endforeach --}}
                   @endif
                     <li>
                       <div class="text-center">

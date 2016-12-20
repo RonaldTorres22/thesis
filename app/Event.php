@@ -41,6 +41,11 @@ class Event extends Model
    return $this->hasOne('App\Message', 'event_id');
   }
 
+  public function task()
+  {
+   return $this->hasMany('App\Task', 'event_id');
+  }
+
     // protected $table = "events";
 
     // public function organization(){

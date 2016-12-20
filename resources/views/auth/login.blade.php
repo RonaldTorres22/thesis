@@ -13,6 +13,7 @@
     }
     p{
       font-family: 'Lato', sans-serif;
+      font-size: 11px;
     }
     .loginform{
     background-color: white;

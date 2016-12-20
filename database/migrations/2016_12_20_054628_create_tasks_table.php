@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLettersTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,12 @@ class CreateLettersTable extends Migration
      */
     public function up()
     {
-        Schema::create('letters', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('event_id')->unsigned();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->string('letter',1000);
-            $table->integer('notif')->default(0);
-            $table->string('status')->default('pending');
+            $table->string('to_who');
+            $table->string('task');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateLettersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('letters');
+        Schema::drop('tasks');
     }
 }

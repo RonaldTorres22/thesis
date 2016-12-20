@@ -42,8 +42,11 @@
                 @if($letter->count() == 1)
                 	@if($Letter->status == 'pending')
                 	   <b id="sent" style="margin-top:10px;">Message Sent..</b>
+
                 	@elseif($Letter->status == 'approved')
-                	<h4 style="color:green;"><span class="glyphicon glyphicon-ok-circle" ></span> Your request letter has been approved!</h4>
+                	<h4 style="color:green;"><span class="glyphicon glyphicon-ok-circle" ></span> Your request letter has been approved!</h4> 
+                	<a href="{{url('getPDF/'.$Letter->id)}}" class="btn btn-primary"><i class="fa fa-file-pdf-o" style="font-size:20px;" aria-hidden="true"></i> Download Letter</a>
+
                 	@elseif($Letter->status == 'disapproved')
                 	<h4 style="color:red;"><span class="glyphicon glyphicon-remove-circle" ></span> Your request letter has been disapproved!</h4>
                 	@else

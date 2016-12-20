@@ -31,6 +31,7 @@ class User extends Authenticatable
         return $this->hasMany('\App\Event', 'user_id');
     }
 
+
     public function dean()
     {  
         $notifications = Event::where('notif','=','0');
@@ -65,24 +66,24 @@ class User extends Authenticatable
     }
     public function orgs()
     {  
-        $orgs = Auth::user()->events()->where('status','=','approved')->orderBy('id','desc')->get();
+        $orgs = Auth::user()->events()->orderBy('approvedate','desc')->get();
                  
          return $orgs;
     }
     public function disapproved()
     {  
-        $orgs = Auth::user()->events()->where('status','=','Disapproved')->orderBy('id','desc')->get();
+        $orgs = Auth::user()->events()->where('status','=','Disapproved')->orderBy('approvedate','desc')->get();
                  
          return $orgs;
     }
     public function alleventdean()
     {  
-        $notifications = Event::where('status','=','pending')->orderBy('id','desc')->get();
+        $notifications = Event::where('status','=','pending')->orderBy('approvedate','desc')->get();
          return $notifications;
     }
     public function alleventosa()
     {  
-        $notifications = Event::where('status','=','dean')->orderBy('id','desc')->get();
+        $notifications = Event::where('status','=','dean')->orderBy('approvedate','desc')->get();
          return $notifications;
     }
     public function alleventvpaa()
