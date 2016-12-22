@@ -32,6 +32,28 @@ class TaskController extends Controller
         //
     }
 
+    public function movetask(Request $request, $id)
+    {
+
+        $event = Task::findOrFail($id);
+        $event->position         = 1;   
+        $event->save();
+
+        $todoid = $event->id; 
+
+
+        
+    }
+
+    public function donetask(Request $request, $id)
+    {
+        $event = Task::findOrFail($id);
+        $event->position         = 2;   
+        $event->save();
+
+        $todoid = $event->id; 
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -61,11 +83,15 @@ class TaskController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        $task = Event::find($id)->task()->orderBy('id','desc')->get();
+        $task = Event::find($id)->task()->orderBy('id','desc')->where('position','=',0)->get();
+        $ongoing = Event::find($id)->task()->orderBy('id','desc')->where('position','=',1)->get();
+        $done = Event::find($id)->task()->orderBy('id','desc')->where('position','=',2)->get();
         $data = [
             'page_title'    => $event->title,
             'event'         => $event,
-            'task'         => $task
+            'task'         => $task,
+            'ongoing'      =>$ongoing,
+            'done'         => $done
 
         ];
 
@@ -104,6 +130,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+             return back();
     }
 }

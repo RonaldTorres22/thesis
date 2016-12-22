@@ -108,6 +108,8 @@ Route::get('/', function () {
      //Create Tasks
      Route::resource('task','TaskController');
      Route::post('task/{id}','TaskController@store');
+     Route::get('movetask/{id}','TaskController@movetask');
+     Route::get('donetask/{id}','TaskController@donetask');
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

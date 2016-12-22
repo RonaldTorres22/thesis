@@ -180,6 +180,7 @@ class EventController extends Controller
         // return back();
         
         $todo->delete();
+   
 
      }
 

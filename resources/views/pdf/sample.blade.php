@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Letter for suspension of classes</title>
+	<title>{{$Letter->eventletter->title}}</title>
 </head>
 <body>
 <center>

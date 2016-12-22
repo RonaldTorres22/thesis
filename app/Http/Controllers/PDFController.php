@@ -14,6 +14,11 @@ class PDFController extends Controller
 
     	 $letter = Letter::find($id);
     	$pdf = PDF::loadView('pdf.sample',['Letter'=>$letter]);
-    	return $pdf->download('Letter.pdf');
+    	if($letter->status == "pending"){
+    		return back();
+    	}
+    	else{
+    	return $pdf->stream($letter->eventletter->title.'.pdf');
+   		 }
     }
 }

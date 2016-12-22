@@ -45,7 +45,7 @@
 
                 	@elseif($Letter->status == 'approved')
                 	<h4 style="color:green;"><span class="glyphicon glyphicon-ok-circle" ></span> Your request letter has been approved!</h4> 
-                	<a href="{{url('getPDF/'.$Letter->id)}}" class="btn btn-primary"><i class="fa fa-file-pdf-o" style="font-size:20px;" aria-hidden="true"></i> Download Letter</a>
+                	<a href="{{url('getPDF/'.$Letter->id)}}" class="btn btn-primary"><i class="fa fa-download" style="font-size:20px;" aria-hidden="true"></i> Download Letter (PDF)</a>
 
                 	@elseif($Letter->status == 'disapproved')
                 	<h4 style="color:red;"><span class="glyphicon glyphicon-remove-circle" ></span> Your request letter has been disapproved!</h4>
@@ -279,7 +279,7 @@ $.ajax({
 
 $('body').on('click', '.del', function (e){
 	e.preventDefault();
-		var del = $('#formdelete').serialize();
+	var del = $('#formdelete').serialize();
 	var dataId = $(this).attr('data-id');
 	$(this).remove();
 	$("p#" + dataId).remove();
