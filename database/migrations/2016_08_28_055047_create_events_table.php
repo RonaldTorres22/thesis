@@ -24,7 +24,9 @@ class CreateEventsTable extends Migration
         $table->integer('visitors')->nullable();
         $table->integer('vehicles')->nullable();
         $table->integer('no_uniforms')->nullable();
-        $table->string('activity');
+        $table->string('gym')->nullable();
+        $table->string('sales')->nullable();
+        $table->string('film')->nullable();
         $table->string('date');
         $table->timestamp('approvedate');
         $table->integer('notif')->default(0);

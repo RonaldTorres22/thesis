@@ -32,7 +32,7 @@
 
             <div class="page-title">
               <div class="title_left">
-                <h3>{{ $event->title }} <small>booked by {{ $event->name }}</small></h3>
+                <h3>{{ $event->title }} <small>booked by {{ $event->user->name }}</small></h3>
               </div>
 	
       
@@ -72,7 +72,15 @@
 		{{ $event->venue }}
 		</p>
 		<p><b>Activity</b> <br>
-		{{ $event->activity }}
+				@if(!empty($event->gym))
+				IHM GYM usage<br>
+				@endif
+				@if(!empty($event->sales))
+				Involving sales of products and services<br>
+				@endif
+				@if(!empty($event->film))
+				Film Showing/Stage Play
+				@endif
 		</p>
 		<p><b>Time:</b> <br>
 		{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}

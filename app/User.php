@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function orgNotif()
     {  
-        $user = Auth::user()->events()->where('notif', '=','3')->orWhere('notif','=','5');
+        $user = Auth::user()->events()->where('notif', '=','3');
 
                     
          return $user;

@@ -5,7 +5,8 @@
   </head>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
+     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <body>
     <style type="text/css">
     body{
@@ -20,7 +21,7 @@
     }
     .login-page {
     width: 360px;
-    padding: 8% 0 0;
+    padding: 5% 0 0;
     margin: auto;
     }
     .form {
@@ -31,7 +32,7 @@
     margin: 0 auto 100px;
     padding: 25px 45px 45px 45px;
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+     box-shadow: 10px 10px 10px #223447;
     }
     .form input {
     font-family: "Roboto", sans-serif;
@@ -62,15 +63,23 @@
     background: #43A047;
     }
     .user{
-    height: 100px;
+    height: 120px;
     margin-bottom: 20px;
     align-content: center;
     }
+    .hau{
+      text-align: center;
+      font-family: 'Monda', sans-serif;
+      color: white;
+
+    }
     </style>
+
     <div class="login-page animated fadeInDown">
+     <h3 class="hau"><i class="fa fa-calendar" aria-hidden="true"></i> HAU | EVENT ORGANIZER</h3>
       <div class="form">
         <form class="login-form" role="form" method="POST" action="{{ url('/login') }}">
-          <img src="{{ asset('images/user.png') }}" class="user">
+          <img src="{{ asset('images/holyangel.jpg') }}" class="user">
           {{ csrf_field() }}
 
           <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

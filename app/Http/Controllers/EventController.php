@@ -30,7 +30,8 @@ class EventController extends Controller
     public function index()
     {
        
-        $user = Auth::user()->events()->where('status','=','approved')->orWhere('status' ,'=','dean')->paginate(10);
+        $auth = Auth::user()->name;
+        $user = Event::orderBy('approvedate','desc')->where('name','=',$auth)->where('status','=','approved')->orWhere('status' ,'=','dean')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -40,15 +41,22 @@ class EventController extends Controller
           
         ];
 
-        
+        if(empty(Auth::user()->acc_id))
+        {
         return view('event/list', $data);
+        }
+        else
+        {
+        return view('error404');  
+        }
 
     }
 
     public function pending()
     {
 
-        $user = Auth::user()->events()->where('status','=','pending')->paginate(10);
+        $auth = Auth::user()->name;
+        $user = Event::orderBy('id','desc')->where('name','=',$auth)->where('status','=','pending')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -57,15 +65,23 @@ class EventController extends Controller
             
           
         ];
-        
+
+        if(empty(Auth::user()->acc_id))
+        {
         return view('event/pendinglist', $data);
+        }
+        else
+        {
+        return view('error404');  
+        }
+
      
     }
 
     public function disapproved()
     {
-
-        $user = Auth::user()->events()->where('status','=','Disapproved')->paginate(10);
+        $auth = Auth::user()->name;
+        $user = Event::orderBy('approvedate','desc')->where('name','=',$auth)->where('status','=','Disapproved')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -74,8 +90,15 @@ class EventController extends Controller
             
           
         ];
-        
+
+         if(empty(Auth::user()->acc_id))
+        {
         return view('event/disapprovedlist', $data);
+                }
+        else
+        {
+        return view('error404');  
+        }
      
     }
     /**
@@ -89,8 +112,14 @@ class EventController extends Controller
         $data = [
             'page_title' => 'Add new event',
         ];
-        
+        if(empty(Auth::user()->acc_id))
+        {
         return view('event/create', $data);
+         }
+        else
+        {
+        return view('error404');  
+        }
     }
 
     /**
@@ -106,13 +135,12 @@ class EventController extends Controller
         'type_activity' => 'required',
         'title' => 'required',
         'participants' => 'required',
-        'activity' => 'required',
         'time'    => 'required'
         ]);
 
         $current = Carbon::now();
         $time = explode(" - ", $request->input('time'));
-        $activity = implode(",\n", $request->get('activity'));
+    
 
         $event                  = new Event;
         $event->type_activity   = $request->input('type_activity');
@@ -124,7 +152,9 @@ class EventController extends Controller
         $event->visitors        = $request->input('visitors');
         $event->vehicles        = $request->input('vehicles');
         $event->no_uniforms     = $request->input('no_uniforms');
-        $event->activity        = $activity;
+        $event->gym             = $request->get('gym');
+        $event->sales           = $request->get('sales');
+        $event->film            = $request->get('film');
         $event->approvedate     = $this->change_date_format($time[0]);
         // $event->date            = $current->setTimezone('Asia/Singapore')->toDateString();
         $event->date            = $this->date($time[0]);
@@ -265,12 +295,11 @@ class EventController extends Controller
         'type_activity' => 'required',
         'title' => 'required',
         'participants' => 'required',
-        'activity' => 'required',
         'time'  => 'required'  
     ]);
         
         $time = explode(" - ", $request->input('time'));
-        $activity = implode(", ", $request->get('activity'));
+  
 
         $event                  = Event::findOrFail($id);
         $event->type_activity   = $request->input('type_activity');
@@ -280,14 +309,25 @@ class EventController extends Controller
         $event->visitors        = $request->input('visitors');
         $event->vehicles        = $request->input('vehicles');
         $event->no_uniforms     = $request->input('no_uniforms');
-        $event->activity        = $activity;
+        $event->gym             = $request->get('gym');
+        $event->sales           = $request->get('sales');
+        $event->film            = $request->get('film');
         $event->approvedate     = $this->change_date_format($time[0]);
         $event->date            = $this->date($time[0]);
         $event->start_time      = $this->change_date_format($time[0]);
         $event->end_time        = $this->change_date_format($time[1]);
         $event->save();
         
-        return redirect('events');
+        if(empty(Auth::user()->acc_id))
+        {      
+        $request->session()->flash('success', 'The event was successfully updated!');
+        return redirect()->route('pending.events');
+        }
+        else
+        {
+        $request->session()->flash('success', 'The event was successfully updated!');
+        return redirect()->route('subacc.pending');   
+        }
     }
 
     /**
@@ -302,10 +342,14 @@ class EventController extends Controller
         // $event_id = $eventtodo->event_id;
         // $event_id = Todolist::find($event_id);
         $event->delete();       
-
-         $request->session()->flash('success', 'The event was successfully Deleted!');
-
-          return redirect()->route('pending.events');
+        $request->session()->flash('success', 'The event was successfully Deleted!');
+        if(empty(Auth::user()->acc_id))
+        {
+         return redirect()->route('pending.events');
+        }
+        else{
+            return redirect()->route('subacc.pending');
+        }
     }
     
     public function change_date_format($date)

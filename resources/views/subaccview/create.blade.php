@@ -21,7 +21,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="x_panel">
-		<form action="{{ url('events') }}" method="POST"  style="width:50%;">
+		<form action="{{ route('subacc.create') }}" method="POST"  style="width:50%;">
 			{{ csrf_field() }}
 			<div class="form-group  @if($errors->has('type_activity')) has-error has-feedback @endif">
 				<label for="name">Type of Activity</label>

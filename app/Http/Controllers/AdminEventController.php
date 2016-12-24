@@ -94,7 +94,7 @@ class AdminEventController extends Controller
         $event = Event::findOrFail($id);      
         $event->start_time = $event->start_time;
         $event->status         = "Disapproved";
-        $event->notif          = 5;      
+        $event->notif          = 3;      
         $event->save();
         $message->save();
         $request->session()->flash('success', 'The event was successfully disapproved!');

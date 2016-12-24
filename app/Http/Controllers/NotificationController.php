@@ -26,7 +26,7 @@ class NotificationController extends Controller
 
     public function getNotificationuser(){
     	 $event = Auth::user()->events()->where("notif",3)->update(array('notif' => 4));
-         $event = Auth::user()->events()->where("notif",5)->update(array('notif' => 6));
+         // $event = Auth::user()->events()->where("notif",5)->update(array('notif' => 6));
 		return response('sdfsdf');
     }
 

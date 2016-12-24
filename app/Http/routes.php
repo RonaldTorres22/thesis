@@ -57,7 +57,7 @@ Route::get('/', function () {
 
 
     Route::resource('/organization', 'UserController');
-    Route::resource('/accounts', 'SubAccountController');
+
 
     Route::get('/CSDO', 'CsdoController@index');
     Route::get('/home', 'HomeController@index');
@@ -110,6 +110,17 @@ Route::get('/', function () {
      Route::post('task/{id}','TaskController@store');
      Route::get('movetask/{id}','TaskController@movetask');
      Route::get('donetask/{id}','TaskController@donetask');
+     Route::get('backlog/{id}','TaskController@backlog');
+
+     //Subaccount routes
+     Route::resource('/accounts', 'SubAccountController');
+     Route::get('tasks', 'TaskController@subaccindex');
+     Route::post('eventcreate', ['uses' => 'SubAccountController@createevent','as' => 'subacc.create']);
+     Route::get('CreateEvent','SubAccountController@create');
+     Route::get('approveevents','SubAccountController@approve');
+     Route::get('pendingevents',['uses' => 'SubAccountController@pending','as' => 'subacc.pending']);
+     Route::get('disapprovedevents','SubAccountController@disapproved');
+     Route::get('event/{id}/edit',['uses' => 'SubAccountController@editevent','as' => 'subbacc.edit']);
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

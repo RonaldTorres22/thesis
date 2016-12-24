@@ -36,7 +36,7 @@
 </div>
             <div class="page-title">
               <div class="title_left">
-                <h3>{{ $event->title }} <small>booked by {{ $event->name }}</small></h3>
+                <h3>{{ $event->title }} <small>booked by {{ $event->user->name }}</small></h3>
                 @if($event->status == 'approved')
                 @if(Auth::user()->id == $event->user_id)
                 @if($letter->count() == 1)
@@ -103,7 +103,7 @@
             </div>
 
 <div class="row">
-@if(Auth::user()->id == $event->user_id)
+@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
 @if($event->status == "deanDisapproved" || $event->status == "Disapproved")
 <div class="row">
 	<div class="col-lg-12">
@@ -132,7 +132,15 @@
 				{{ $event->venue }}
 			</p>
 			<p><b>Activity</b> <br>
-				{{ $event->activity }}
+				@if(!empty($event->gym))
+				IHM GYM usage<br>
+				@endif
+				@if(!empty($event->sales))
+				Involving sales of products and services<br>
+				@endif
+				@if(!empty($event->film))
+				Film Showing/Stage Play
+				@endif
 			</p>
 			<p><b>Time:</b> <br>
 				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
@@ -163,7 +171,7 @@
 			
 			@endif
 			<br>
-			@if(Auth::user()->id == $event->user_id)
+			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
 			<div class="row">
 			@if($event->status == 'pending')
 			<div class="col-lg-2" style="margin-right:20px;">
@@ -184,7 +192,7 @@
 			
 		</div>
 		<div class="col-lg-6">
-			@if(Auth::user()->id == $event->user_id)
+			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
 			@if($event->status == "deanDisapproved" || $event->status == "Disapproved")
 			@else
 			<p><b>To do lists:</b></p>

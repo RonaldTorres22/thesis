@@ -15,6 +15,7 @@ class CreateOrganizationsTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('Department')->after('name');
             $table->string('acc_id')->after('Department')->nullable();
+            $table->string('role')->after('acc_id')->nullable();
       
         });
     }

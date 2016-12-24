@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         // $users = User::get();
 
-        $users = User::Where('Department','!=',"DEAN")->Where('Department','!=','CSDO')->Where('Department','!=','OSA')->Where('Department','!=','EMAN')->paginate(5);
+        $users = User::Where('role','!=',"admin")->paginate(5);
 
         return view('organizations.index')->with('Users', $users);
     }
@@ -59,9 +59,13 @@ class UserController extends Controller
         'password_confirmation' => 'required|min:6'
         ]);
 
-        $request->merge(['password' => Hash::make($request->password)]);
-        
-        $user = User::create($request->all());
+        $user                  = new User;
+        $user->name            = $request->input('name');
+        $user->Department      = $request->input('department');
+        $user->email           = $request->input('email');
+        $user->role            = 'user';
+        $user->password        = Hash::make($request->password); 
+        $user->save(); 
 
         Session::flash('success', ' organization successfully created!');
 

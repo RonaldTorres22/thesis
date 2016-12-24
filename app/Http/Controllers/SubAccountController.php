@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Todolist;
+use App\Letter;
+use App\Event;
 use App\Subaccount;
 use Session;
 use Auth;
 use Hash;
+use DateTime;
 use App\Http\Requests;
+use Carbon\Carbon;
 
 class SubAccountController extends Controller
 {
@@ -31,6 +36,76 @@ class SubAccountController extends Controller
       }
     }
 
+    public function approve()
+    {
+        $auth = Auth::user()->acc_id;
+        $user = Event::where('name','=',$auth)->where('status','=','approved')->orWhere('status' ,'=','dean')->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+
+        if(!empty(Auth::user()->acc_id))
+        {
+        return view('subaccview/list', $data);
+          }
+        else
+        {
+        return view('error404');  
+        }
+
+    }
+
+    public function pending()
+    {
+        $auth = Auth::user()->acc_id;
+        $user = Event::where('name','=',$auth)->where('status','=','pending')->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        
+        if(!empty(Auth::user()->acc_id))
+        {
+        return view('subaccview/pendinglist', $data);
+        }
+        else
+        {
+        return view('error404');  
+        }
+     
+    }
+
+    public function disapproved()
+    {
+        $auth = Auth::user()->acc_id;
+        $user = Event::where('name','=',$auth)->where('status','=','Disapproved')->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        if(!empty(Auth::user()->acc_id))
+        {  
+        return view('subaccview/disapprovedlist', $data);
+         }
+        else
+        {
+        return view('error404');  
+        }
+     
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +113,7 @@ class SubAccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('subaccview/create');
     }
 
     /**
@@ -56,7 +131,6 @@ class SubAccountController extends Controller
         'password_confirmation' => 'required|min:6'
         ]);
 
-
         $Subaccount                  = new User;
         $Subaccount->name            = Auth::user()->name.'_'.$request->input('name');
         $Subaccount->Department      = Auth::user()->Department;
@@ -69,6 +143,43 @@ class SubAccountController extends Controller
         return redirect()->route('accounts.index');
     }
 
+    public function createevent(Request $request)
+    {
+        $this->validate($request, [
+        'type_activity' => 'required',
+        'title' => 'required',
+        'participants' => 'required',
+        'time'    => 'required'
+        ]);
+
+        $current = Carbon::now();
+        $time = explode(" - ", $request->input('time'));
+
+        $event                  = new Event;
+        $event->type_activity   = $request->input('type_activity');
+        $event->user_id         = Auth::user()->id;
+        $event->name            = Auth::user()->acc_id;
+        $event->title           = $request->input('title');
+        $event->participants    = $request->input('participants');
+        $event->venue           = $request->input('venue');
+        $event->visitors        = $request->input('visitors');
+        $event->vehicles        = $request->input('vehicles');
+        $event->no_uniforms     = $request->input('no_uniforms');
+        $event->gym             = $request->get('gym');
+        $event->sales           = $request->get('sales');
+        $event->film            = $request->get('film');
+        $event->approvedate     = $this->change_date_format($time[0]);
+        // $event->date            = $current->setTimezone('Asia/Singapore')->toDateString();
+        $event->date            = $this->date($time[0]);
+        $event->start_time      = $this->change_date_format($time[0]);
+        $event->end_time        = $this->change_date_format($time[1]);
+        $event->save();
+        
+        $request->session()->flash('success', 'The event was successfully saved!');
+
+       return redirect()->route('subacc.pending');
+
+    }
     /**
      * Display the specified resource.
      *
@@ -88,7 +199,23 @@ class SubAccountController extends Controller
      */
     public function edit($id)
     {
-        //
+      
+    }
+
+    public function editevent($id){
+
+
+        $event = Event::findOrFail($id);
+
+        $event->start_time =  $this->change_date_format_fullcalendar($event->start_time);
+        $event->end_time =  $this->change_date_format_fullcalendar($event->end_time);
+        
+        $data = [
+            'page_title'    => 'Edit '.$event->title,
+            'event'         => $event,
+        ];
+        
+        return view('subaccview/edit', $data);
     }
 
     /**
@@ -103,6 +230,7 @@ class SubAccountController extends Controller
         //
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -115,5 +243,37 @@ class SubAccountController extends Controller
         $user->delete();
         Session::flash('success','The Account was successfully deleted.');
         return redirect()->route('accounts.index');
+    }
+
+    public function change_date_format($date)
+    {
+        $time = DateTime::createFromFormat('d/m/Y H:i:s', $date);
+        return $time->format('Y-m-d H:i:s');
+    }
+    
+     public function date($date)
+    {
+        $time = DateTime::createFromFormat('d/m/Y H:i:s', $date);
+        return $time->format('Y-m-d');
+    }
+
+
+    public function change_date_format_fullcalendar($date)
+    {
+        $time = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+        return $time->format('d/m/Y H:i:s');
+    }
+    
+    public function format_interval(\DateInterval $interval)
+    {
+        $result = "";
+        if ($interval->y) { $result .= $interval->format("%y year(s) "); }
+        if ($interval->m) { $result .= $interval->format("%m month(s) "); }
+        if ($interval->d) { $result .= $interval->format("%d day(s) "); }
+        if ($interval->h) { $result .= $interval->format("%h hour(s) "); }
+        if ($interval->i) { $result .= $interval->format("%i minute(s) "); }
+        if ($interval->s) { $result .= $interval->format("%s second(s) "); }
+        
+        return $result;
     }
 }

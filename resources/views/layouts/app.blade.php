@@ -17,9 +17,8 @@
    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-     <link href="{{ asset('vendor/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
-   <link href="'../vendor/nnprogress.css'" rel="stylesheet">
+
     <!-- Custom Theme Style -->
   <link href="{{ asset('vendor/custom.min.css') }}" rel="stylesheet">
 
@@ -66,7 +65,7 @@
                 <h3 style="margin-top:80px;">General</h3>
                 <ul class="nav side-menu">
 
-                    @if(Auth::user()->Department == "DEAN")
+                    @if(Auth::user()->Department == "ADMIN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
@@ -83,6 +82,20 @@
                   <li><a><i class="fa fa-edit"></i> Organization <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/organization') }}">Register Organization</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "DEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('pendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('admin') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -139,6 +152,33 @@
                     </ul>
                   </li>
 
+                   @elseif(!empty(Auth::user()->acc_id))
+
+                     <li>
+                     <center><a href="{{ url('CreateEvent') }}" class="btn btn-primary btn-block"> Create Event</a></center>
+                     </li>
+
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('approveevents') }}">Approved Events</a></li>
+                      <li><a href="{{ url('pendingevents') }}">Pending Events</a></li>
+                      <li><a href="{{ url('disapprovedevents') }}">Disapproved Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-tasks"></i>Tasks<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="{{ url('tasks') }}">Create Tasks</a></li>
+             
+                    </ul>
+                  </li>
+
                     @else
 
                      <li>
@@ -151,13 +191,12 @@
                     </ul>
                   </li>
 
-                  @if(empty(Auth::user()->acc_id))
                   <li><a><i class="fa fa-user-o"></i>Register Account<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('accounts') }}">Add Account</a></li>
                     </ul>
                   </li>
-                  @endif
+           
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

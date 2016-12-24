@@ -40,7 +40,7 @@ class OsaController extends Controller
         }
         else
         {
-            echo "you dont have permission to access this site";
+            return view('error404');
         }
 
     }
@@ -60,7 +60,7 @@ class OsaController extends Controller
         }
         else
         {
-            echo "you dont have permission to access this site";
+          return view('error404');
         }
 
     }
@@ -95,7 +95,7 @@ class OsaController extends Controller
         $event = Event::findOrFail($id);      
         $event->start_time = $event->start_time;
         $event->status         = "Disapproved";
-        $event->notif          = 5;      
+        $event->notif          = 3;      
         $event->save();
         $message->save();
         $request->session()->flash('success', 'The event was successfully disapproved!');

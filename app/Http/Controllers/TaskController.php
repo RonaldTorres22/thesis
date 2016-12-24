@@ -18,8 +18,29 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->events()->paginate(10);
+        $auth = Auth::user()->name;
+        $user = Event::where('name','=',$auth)->orderBy('approvedate','desc')->paginate(10);
+
+        if(empty(Auth::user()->acc_id))
+        {
         return view('tasks/list')->with('task', $user);
+        }
+        else{
+        return view('error404');
+        }
+    }
+
+    public function subaccindex()
+    {
+        $auth = Auth::user()->acc_id;
+        $user = Event::where('name','=',$auth)->orderBy('approvedate','desc')->paginate(10);
+        if(!empty(Auth::user()->acc_id))
+        {
+        return view('tasks/list')->with('task', $user);
+        }
+        else{
+        return view('error404');
+        }
     }
 
     /**
@@ -54,6 +75,16 @@ class TaskController extends Controller
         $todoid = $event->id; 
 
     }
+
+    public function backlog(Request $request, $id)
+    {
+        $event = Task::findOrFail($id);
+        $event->position         = 0;   
+        $event->save();
+
+        $todoid = $event->id; 
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -83,9 +114,9 @@ class TaskController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        $task = Event::find($id)->task()->orderBy('id','desc')->where('position','=',0)->get();
-        $ongoing = Event::find($id)->task()->orderBy('id','desc')->where('position','=',1)->get();
-        $done = Event::find($id)->task()->orderBy('id','desc')->where('position','=',2)->get();
+        $task = Event::find($id)->task()->orderBy('updated_at','desc')->where('position','=',0)->get();
+        $ongoing = Event::find($id)->task()->orderBy('updated_at','desc')->where('position','=',1)->get();
+        $done = Event::find($id)->task()->orderBy('updated_at','desc')->where('position','=',2)->get();
         $data = [
             'page_title'    => $event->title,
             'event'         => $event,
@@ -95,7 +126,16 @@ class TaskController extends Controller
 
         ];
 
+        if(Auth::user()->name == $event->name || Auth::user()->acc_id == $event->name)
+        {
         return view('tasks/index', $data);
+        }
+        else
+        {
+        return view('error404');
+        }
+
+
 
     }
 

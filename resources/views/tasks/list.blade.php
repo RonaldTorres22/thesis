@@ -34,7 +34,7 @@
 					{{-- 	{{ $events->links() }} --}}
 				</div>
 				@else
-				<h2>No Letter yet!</h2>
+				<h2>No Event yet!</h2>
 				@endif
 			</div>
 		</div>

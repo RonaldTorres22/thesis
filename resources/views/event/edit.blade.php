@@ -2,15 +2,13 @@
 
 @section('content')
 <div class="container">
-<div class="row">
-	<div clss="col-lg-12">
-		<ol class="breadcrumb">
-			<li>You are here: <a href="{{ url('/') }}">Home</a></li>
-			<li><a href="{{ url('/events') }}">Events</a></li>
-			<li class="active">Edit - {{ $event->title }}</li>
-		</ol>
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Edit Event</h3>
+		</div>
 	</div>
-</div>
+	<div class="clearfix"><br><hr></div>
+	
 
 @if($event->status == "pending")	
 <div class="row">
@@ -94,15 +92,11 @@
 			<div class="form-group" >
 			<div style="padding-left:20px;">
 				<label for="name">Activity</label>
-				<label class="checkbox"><input type="checkbox" name="activity[]" value="Film Showin/Stage play">Film Showing/Stage Play</label>
-				<label class="checkbox"><input type="checkbox" name="activity[]" value="Activities/Events Program">Activities/Event Program</label>
-				<label class="checkbox"><input type="checkbox"  name="activity[]" value="IHM GYM usage">IHM GYM usage</label>
-				<label class="checkbox"><input type="checkbox"   name="activity[]" value="Involving sales of products and services">Involving sales of products and services</label>
-				@if ($errors->has('activity'))
-					<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> 
-					{{ $errors->first('activity') }}
-					</p>
-				@endif
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="film" value="checked">Film Showing/Stage Play</label>
+				<label class="checkbox"><input type="checkbox"  name="gym" value="checked">IHM GYM usage</label>
+				<label class="checkbox"><input type="checkbox"   name="sales" value="checked">Involving sales of products and services</label>
+				</div>
 			</div>
 			</div>
 
