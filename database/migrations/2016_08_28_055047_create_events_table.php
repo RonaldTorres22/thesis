@@ -21,9 +21,9 @@ class CreateEventsTable extends Migration
         $table->string('name');
         $table->string('participants');
         $table->string('venue')->nullable();
-        $table->integer('visitors')->nullable();
-        $table->integer('vehicles')->nullable();
-        $table->integer('no_uniforms')->nullable();
+        $table->string('visitors')->nullable();
+        $table->string('vehicles')->nullable();
+        $table->string('no_uniforms')->nullable();
         $table->string('gym')->nullable();
         $table->string('sales')->nullable();
         $table->string('film')->nullable();

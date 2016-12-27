@@ -37,19 +37,22 @@
 					<td>{{$event->name}}</td>
 					
 					@if($event->status == "dean")
-					<td style="color:green;">Approved by Dean </td>
+					<td><p style="color:white;  background-color:#1fd145; padding:1px; border-radius:20px; text-align:center;" >Approved by Dean</p></td>
 					@endif
 					@if($event->status == 'approved')
-					<td style="color:green;" >Approved</td>
+					<td><p style="color:white;  background-color:#1fd145; padding:1px; border-radius:20px; text-align:center;" >Approved</p></td>
 					@endif
 					@if($event->status == "pending")
-					<td style="color:orange;"> Pending </td>
+					<td><p style="color:white; background-color:orange; padding:1px; border-radius:20px; text-align:center; "> Pending </p></td>
 					@endif
-					
+					@if($event->status == "Disapproved")
+					<td><p style="color:white; background-color:#d82f43; padding:1px; border-radius:20px; text-align:center;"> Disapproved </p></td>
+					@endif	
 				</tr>
 			@endforeach
 			</tbody>
 		</table>
+			{{ $events->links() }}
 		@else
 			<h2>No event yet!</h2>
 		@endif

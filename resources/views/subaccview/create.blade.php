@@ -110,15 +110,24 @@
 				<div id="shcompany" style="display:none; padding-left:40px;">    
 				    <div class="info">               
 				        <label class="checkbox"><input type="checkbox" ID="visitor">Request for visitors</label>
-				        <input type="number" placeholder="Enter No. of Visitor(s)" id="visitorinput" min="1" name="visitors" class="form-control" style="display:none;">
+				        <div id="visit" style="display:none;">
+				        <input type="text" style="margin-bottom:20px;" placeholder="Enter vistor name" id="visitorinput"  name="visitors[]" class="form-control">
+				       	</div>
+				       	  <button  style="display:none;" class="add_field_button">Add More Fields</button>
 				    </div>
 				    <div class="info">  
 				   		<label class="checkbox"><input type="checkbox" ID="vehicle">Request for Temporary Vehicle pass</label>
-				   		<input type="number" placeholder="Enter No. of vehicle(s)" id="vehicleinput" min="1" name="vehicles" class="form-control" style="display:none;">    
+				   		<div id="plate" style="display:none;">
+				   		<input type="text" style="margin-bottom:20px;" placeholder="Enter Plate Number" id="vehicleinput" name="vehicles[]" class="form-control">    
+				   		</div>
+				   		 <button  style="display:none;" class="add_field_button2">Add More Fields</button>
 				    </div>
 				    <div class="info">  
 				   		<label class="checkbox"><input type="checkbox" ID="uniform">Request for Permission Not to Wear Uniform</label>
-				   		<input type="number" placeholder="Enter No. of student(s)" id="uniforminput" min="1" name="no_uniforms" class="form-control" style="display:none;">    
+				   		<div id="uniformm" style="display:none;">
+				   		<input type="text"  style="margin-bottom:20px;" placeholder="Enter Student's name" id="uniforminput" name="no_uniforms[]" class="form-control">   
+				   		</div> 
+				   		 <button  style="display:none;" class="add_field_button3">Add More Fields</button>
 				    </div>
 				</div> 				
 
@@ -174,30 +183,87 @@ $('#dbType').on('change',function(){
          }
      });
 
-     $('#visitor').click(function () {
-         var $this = $(this);
-         if ($this.is(':checked')) {
-             $('#visitorinput').show('fast');
-         } else {
-             $('#visitorinput').hide('fast');
-         }
-     });
-     $('#vehicle').click(function () {
-         var $this = $(this);
-         if ($this.is(':checked')) {
-             $('#vehicleinput').show('fast');
-         } else {
-             $('#vehicleinput').hide('fast');
-         }
-     });  
-     $('#uniform').click(function () {
-         var $this = $(this);
-         if ($this.is(':checked')) {
-             $('#uniforminput').show('fast');
-         } else {
-             $('#uniforminput').hide('fast');
-         }
-     });       
+
+	$('#visitor').change(function() {
+
+    $('#visit').toggle();
+    $('.add_field_button').toggle();
+
+	});
+
+	$('#vehicle').change(function() {
+
+    $('#plate').toggle();
+    $('.add_field_button2').toggle();
+
+	});
+
+
+	$('#uniform').change(function() {
+
+    $('#uniformm').toggle();
+    $('.add_field_button3').toggle();
+
+	});
+
+     var max_fields     = 10; //maximum input boxes allowed
+    var wrapper         = $("#visit"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="visitors[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+
+
+     var max_fields     = 10; //maximum input boxes allowed
+    var wrapperv         = $("#plate"); //Fields wrapper
+    var add_buttonv     = $(".add_field_button2"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_buttonv).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapperv).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="vehicles[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapperv).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+
+
+
+    var max_fields     = 10; //maximum input boxes allowed
+    var wrapperu         = $("#uniformm"); //Fields wrapper
+    var add_buttonu     = $(".add_field_button3"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_buttonu).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapperu).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="no_uniforms[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapperu).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+
+
+
  });
+
+
 </script>
 @endsection

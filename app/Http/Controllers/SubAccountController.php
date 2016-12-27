@@ -39,7 +39,7 @@ class SubAccountController extends Controller
     public function approve()
     {
         $auth = Auth::user()->acc_id;
-        $user = Event::where('name','=',$auth)->where('status','=','approved')->orWhere('status' ,'=','dean')->paginate(10);
+        $user = Event::orderBy('approvedate', 'desc')->where('name','=',$auth)->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -63,7 +63,7 @@ class SubAccountController extends Controller
     public function pending()
     {
         $auth = Auth::user()->acc_id;
-        $user = Event::where('name','=',$auth)->where('status','=','pending')->paginate(10);
+        $user = Event::orderBy('id', 'desc')->where('name','=',$auth)->where('status','=','pending')->paginate(10);
 
         $data = [
             'page_title' => 'Events',
@@ -154,6 +154,10 @@ class SubAccountController extends Controller
 
         $current = Carbon::now();
         $time = explode(" - ", $request->input('time'));
+        $visit = implode(",", $request->input('visitors'));
+        $car = implode(",", $request->input('vehicles'));
+        $uni = implode(",", $request->input('no_uniforms'));
+    
 
         $event                  = new Event;
         $event->type_activity   = $request->input('type_activity');
@@ -162,9 +166,9 @@ class SubAccountController extends Controller
         $event->title           = $request->input('title');
         $event->participants    = $request->input('participants');
         $event->venue           = $request->input('venue');
-        $event->visitors        = $request->input('visitors');
-        $event->vehicles        = $request->input('vehicles');
-        $event->no_uniforms     = $request->input('no_uniforms');
+        $event->visitors        = $visit;
+        $event->vehicles        = $car;
+        $event->no_uniforms     = $uni;
         $event->gym             = $request->get('gym');
         $event->sales           = $request->get('sales');
         $event->film            = $request->get('film');

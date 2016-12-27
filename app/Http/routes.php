@@ -68,7 +68,7 @@ Route::get('/', function () {
 
     Route::resource('/OSA', 'OsaController');
     Route::get('OSA/{id}', 'OsaController@show');
-    Route::get('approvelist', 'OsaController@approvelist');
+    Route::get('eventslist', 'OsaController@allevent');
 
 
     Route::post('approve/{id}','AdminEventController@approveEvent');
@@ -121,6 +121,12 @@ Route::get('/', function () {
      Route::get('pendingevents',['uses' => 'SubAccountController@pending','as' => 'subacc.pending']);
      Route::get('disapprovedevents','SubAccountController@disapproved');
      Route::get('event/{id}/edit',['uses' => 'SubAccountController@editevent','as' => 'subbacc.edit']);
+
+     //Activities admin routes
+    Route::get('issi','ActivityController@issi');
+    Route::get('mrcc','ActivityController@mrcc');
+    Route::get('gym','ActivityController@gym');
+    Route::get('sco','ActivityController@sco');
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

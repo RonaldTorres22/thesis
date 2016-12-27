@@ -90,30 +90,6 @@
 		{{ $duration }}
 		</p>
 
-		@if($event->visitors == 0)
-		
-		@else
-		<p><b>No. of visitors:</b> <br>
-		{{ $event->visitors }}
-		</p>
-		
-		@endif
-
-		@if($event->vehicles == 0)
-		@else
-		<p><b>No. of vehicles:</b> <br>
-		{{ $event->vehicles }}
-		</p>
-		
-		@endif
-
-		@if($event->no_uniforms == 0)
-		@else
-		<p><b>Permission not to wear uniform (No. of Students)</b> <br>
-		{{ $event->no_uniforms }}
-		</p>	
-		
-		@endif
 
 
 		<br>

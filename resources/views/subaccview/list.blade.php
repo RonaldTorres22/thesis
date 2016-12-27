@@ -26,30 +26,25 @@
 						<?php $i = 1;?>
 						@foreach($events as $event)
 						<tr>
+
+						@if($event->status == "approved")
 							<th scope="row">{{ $i++ }}</th>
 							<td><a href="{{ url('events/' . $event->id) }}">{{ $event->title }}</a></td>
 							<td>{{ date("g:ia\, jS M Y", strtotime($event->start_time)) }}</td>
 							<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
-							
-							{{-- 					@if($event->status=="pending")
-							<a class="btn btn-primary btn-xs" href="{{ url('events/' . $event->id . '/edit') }}">
-								<span class="glyphicon glyphicon-edit"></span> Edit</a>
-								<form action="{{ route('events.destroy') }}" style="display:inline" method="POST">
-									<input type="hidden" name="_method" value="DELETE" />
-									{{ csrf_field() }}
-									<button class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-								</form>
-								@else
-								<h5 style="color:green;"><b>APPROVED</b></h5>
-								@endif --}}
-								@if($event->status == "dean")
-								<td style="color:green;">Approved by Dean </td>
-								@endif
-								@if($event->status == "approved")
-								<td style="color:green;" >Approved </td>
-								@endif
-								
-							</tr>
+
+							<td><p style="color:white;  background-color:#1fd145; padding:1px; border-radius:20px; text-align:	center;" >Approved</p></td>
+
+						@elseif($event->status == "dean")
+							<th scope="row">{{ $i++ }}</th>
+							<td><a href="{{ url('events/' . $event->id) }}">{{ $event->title }}</a></td>
+							<td>{{ date("g:ia\, jS M Y", strtotime($event->start_time)) }}</td>
+							<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
+
+						    <td><p style="color:white;  background-color:#1fd145; padding:1px; border-radius:20px; text-align:	center;" >Approved by dean</p></td>
+						@endif
+
+						</tr>
 							@endforeach
 						</tbody>
 					</table>

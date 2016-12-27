@@ -38,7 +38,7 @@
               <div class="title_left">
                 <h3>{{ $event->title }} <small>booked by {{ $event->user->name }}</small></h3>
                 @if($event->status == 'approved')
-                @if(Auth::user()->id == $event->user_id)
+                @if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
                 @if($letter->count() == 1)
                 	@if($Letter->status == 'pending')
                 	   <b id="sent" style="margin-top:10px;">Message Sent..</b>
@@ -148,28 +148,42 @@
 			<p><b>Duration:</b> <br>
 				{{ $duration }}
 			</p>
-			@if($event->visitors == 0)
-			
-			@else
-			<p><b>No. of visitors:</b> <br>
+
+			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name || Auth::user()->Department == "SCO")
+
+			@if(!empty($event->visitors))
+			<p><b>Visitors list:</b> <br>
 				{{ $event->visitors }}
 			</p>
-			
-			@endif
-			@if($event->vehicles == 0)
 			@else
-			<p><b>No. of vehicles:</b> <br>
+			<p><b>Visitors list:</b> <br>
+				NONE
+			</p>
+			@endif
+
+			@if(!empty($event->vehicles))
+			<p><b>Plate Number list:</b> <br>
 				{{ $event->vehicles }}
 			</p>
-			
-			@endif
-			@if($event->no_uniforms == 0)
 			@else
-			<p><b>Permission not to wear uniform (No. of Students)</b> <br>
+			<p><b>Plate Number list::</b> <br>
+				NONE
+			</p>
+			@endif
+
+
+			@if(!empty($event->no_uniforms))
+			<p><b>No Uniform list</b> <br>
 				{{ $event->no_uniforms }}
 			</p>
-			
+			@else
+			<p><b>No Uniform list</b> <br>
+				NONE
+			</p>
 			@endif
+
+			@endif
+
 			<br>
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
 			<div class="row">

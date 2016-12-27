@@ -9,7 +9,7 @@
 </center>
 <br>
 <br>
-<h1>{{$Letter->eventletter->user->name}}</h1>
+<h1>{{$Letter->eventletter->name}}</h1>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$Letter->letter}}</p>
 

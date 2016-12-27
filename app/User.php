@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
     public function alleventdean()
     {  
-        $notifications = Event::where('status','=','pending')->orderBy('approvedate','desc')->get();
+        $notifications = Event::where('status','=','pending')->orderBy('id','desc')->get();
          return $notifications;
     }
     public function alleventosa()

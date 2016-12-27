@@ -27,7 +27,7 @@ class OsaController extends Controller
 
     public function index()
     {
-        $user =  Event::where('status', '=' ,'dean')->get();
+        $user =  Event::where('status', '=' ,'dean')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -44,10 +44,10 @@ class OsaController extends Controller
         }
 
     }
-    public function approvelist()
+    public function allevent()
     
     {
-        $user =  Event::where('status', '=' ,'approved')->get();
+        $user =  Event::orderBy('approvedate','desc')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),

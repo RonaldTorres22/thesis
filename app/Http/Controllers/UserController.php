@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         // $users = User::get();
 
-        $users = User::Where('role','!=',"admin")->paginate(5);
+        $users = User::Where('role','!=',"admin")->orderBy('created_at','desc')->paginate(5);
 
         return view('organizations.index')->with('Users', $users);
     }
@@ -53,7 +53,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        'name' => 'required',
+        'name' => 'required|unique:users',
         'email' => 'required|email',
         'password' => 'min:6|required|confirmed',
         'password_confirmation' => 'required|min:6'

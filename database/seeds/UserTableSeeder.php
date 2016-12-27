@@ -97,6 +97,14 @@ class UserTableSeeder extends Seeder
         ));
 
         $user = DB::table('users')->insert(array(
+            'name' => 'Student Conduct Officer',
+            'Department'=>'SCO',
+            'role' => 'admin',
+            'email' => 'sco@admin.com',
+            'password' => Hash::make('sco123'),
+        ));
+
+        $user = DB::table('users')->insert(array(
             'name' => 'codegeeks',
             'Department'=>'CICT',
             'role' => 'user',

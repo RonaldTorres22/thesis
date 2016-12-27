@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>HAU | Event Organizer</title>
-
+    <link rel="shortcut icon" href="{{{ asset('holyangel.ico') }}}">
     <!-- Bootstrap -->
    <link href="../vendor/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -74,7 +74,6 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('pendinglist') }}">Pending Events</a></li>
                       <li><a href="{{ url('admin') }}">View Events</a></li>
                     </ul>
                   </li>
@@ -110,7 +109,7 @@
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('OSA') }}">Pending Events</a></li>
-                      <li><a href="{{ url('approvelist') }}">Approved Events</a></li>
+                      <li><a href="{{ url('eventslist') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -140,7 +139,6 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
-                      <li><a href="{{ url('/CSDO') }}">Events</a></li>
                     </ul>
                   </li>
 
@@ -149,6 +147,62 @@
                       <li><a href="{{ url('vpaa') }}">Pending Letters</a></li>
                       <li><a href="{{ url('approvedletters') }}">Approved Letters</a></li>
                       <li><a href="{{ url('disapprovedletters') }}">Disapproved Letters</a></li>
+                    </ul>
+                  </li>
+
+                    @elseif(Auth::user()->Department == "ISSI")
+
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/issi') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                    @elseif(Auth::user()->Department == "HS.MAPEH" || Auth::user()->Department == "PE.COORDINATOR" || Auth::user()->Department == "US.COORDINATOR")
+
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/gym') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                    @elseif(Auth::user()->Department == "MRCC")
+
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/mrcc') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                    @elseif(Auth::user()->Department == "SCO")
+
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/sco') }}">View Events</a></li>
                     </ul>
                   </li>
 

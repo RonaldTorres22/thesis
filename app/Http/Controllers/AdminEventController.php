@@ -28,7 +28,7 @@ class AdminEventController extends Controller
 
     public function index()
     {
-        $user =  Event::where('status','=','approved')->get();
+        $user =  Event::orderBy('approvedate','desc')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -48,7 +48,7 @@ class AdminEventController extends Controller
 
     public function pendinglist()
     {
-        $user =  Event::where('status','=','pending')->get();
+        $user =  Event::where('status','=','pending')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),

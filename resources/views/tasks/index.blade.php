@@ -71,7 +71,7 @@ hr{
 
 <div class="col-md-6">
  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Task</button>
-
+<h4><b>DRAG AND DROP</b></h4>
 </div>
 
 <div class="col-md-6">

@@ -45,15 +45,14 @@
 					<td style="color:green;" >Approved</td>
 					@endif
 					@if($event->status == "pending")
-					<td style="color:orange;"> Pending </td>
+					<td><p style="color:white; background-color:orange; padding:1px; border-radius:20px; text-align:center;">Pending</p></td>
 					@endif
-
-
 					
 				</tr>
 			@endforeach
 			</tbody>
 		</table>
+			{{ $events->links() }}
 		@else
 			<h2>No event yet!</h2>
 		@endif

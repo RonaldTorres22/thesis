@@ -4,13 +4,14 @@
     <title>HAU | Event Organizer</title>
   </head>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}">
+   <link rel="shortcut icon" href="{{{ asset('holyangel.ico') }}}">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Monda" rel="stylesheet">
-     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <body>
     <style type="text/css">
     body{
-    background-color: #2A3F54;
+    background-color: #e0d9d7;
     }
     p{
       font-family: 'Lato', sans-serif;
@@ -32,7 +33,7 @@
     margin: 0 auto 100px;
     padding: 25px 45px 45px 45px;
     text-align: center;
-     box-shadow: 10px 10px 10px #223447;
+     box-shadow: 10px 10px 10px #c6c0be;
     }
     .form input {
     font-family: "Roboto", sans-serif;
@@ -69,14 +70,17 @@
     }
     .hau{
       text-align: center;
-      font-family: 'Monda', sans-serif;
-      color: white;
+      font-family: 'PT Serif', serif;
+      color: #682612;
 
+    }
+    .haucolor{
+      color: #ba9739
     }
     </style>
 
     <div class="login-page animated fadeInDown">
-     <h3 class="hau"><i class="fa fa-calendar" aria-hidden="true"></i> HAU | EVENT ORGANIZER</h3>
+     <h2 class="hau"><b><b class="haucolor"> HAU</b> | EVENT ORGANIZER</b></h2>
       <div class="form">
         <form class="login-form" role="form" method="POST" action="{{ url('/login') }}">
           <img src="{{ asset('images/holyangel.jpg') }}" class="user">
