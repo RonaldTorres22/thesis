@@ -49,6 +49,10 @@ Route::get('/', function () {
     'as' => 'notiftaskmain'
 ]);
 
+   Route::get('/notificationPm', [
+    'uses' => 'NotificationController@getNotificationPM',
+    'as' => 'notiftaskmain'
+]);
 
     // Authentication Routes...
     Route::get('login', 'Auth\AuthController@showLoginForm');
@@ -142,6 +146,12 @@ Route::get('/', function () {
     Route::get('logistics/{id}','LogisticsController@create');
     Route::post('logistic/{id}','LogisticsController@store');
     Route::get('viewlogistics/{id}','LogisticsController@viewlogistic');
+
+    //Personal Messages
+    Route::resource('PersonalMessage','PersonalmessageController');
+    Route::get('PersonalMessage/{id}','PersonalmessageController@view');
+    Route::get('inbox/{id}','PersonalmessageController@inboxview');
+    Route::get('inbox','PersonalmessageController@inbox');
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

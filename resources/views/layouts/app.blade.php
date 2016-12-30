@@ -78,6 +78,13 @@
                     </ul>
                   </li>
 
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
                   <li><a><i class="fa fa-edit"></i> Organization <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/organization') }}">Register Organization</a></li>
@@ -88,6 +95,13 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
@@ -113,6 +127,13 @@
                     </ul>
                   </li>
 
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
                   <li><a><i class="fa fa-edit"></i> Organization <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/organization') }}">Register Organization</a></li>
@@ -125,6 +146,13 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
                       <li><a href="{{ url('/CSDO') }}">Events Wall</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
@@ -142,6 +170,13 @@
                     </ul>
                   </li>
 
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
                   <li><a><i class="fa fa-envelope"></i> Letters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('vpaa') }}">Pending Letters</a></li>
@@ -149,6 +184,8 @@
                       <li><a href="{{ url('disapprovedletters') }}">Disapproved Letters</a></li>
                     </ul>
                   </li>
+
+
 
                     @elseif(Auth::user()->Department == "ISSI")
 
@@ -161,6 +198,13 @@
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/issi') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
@@ -178,11 +222,25 @@
                     </ul>
                   </li>
 
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
                     @elseif(Auth::user()->Department == "MRCC")
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
@@ -197,6 +255,13 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
@@ -251,7 +316,13 @@
                     </ul>
                   </li>
            
-
+                  <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+           
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('events') }}">Approved Events</a></li>
@@ -484,7 +555,41 @@
                   </ul>
                 </li>
     @endif
-{{-- task --}}      
+{{-- task --}} 
+
+{{-- privatemessage --}}
+    @if(empty(Auth::user()->acc_id))
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" id="btn-notificationpm" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green" id="notification-countpm">{{Auth::user()->pmnotif()->count()}}</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                  @foreach(Auth::user()->allpm() as $notifications)
+                    <li>
+                      <a href="{{url('inbox',$notifications->id)}}">
+                      <span style="font-size:20px;" class="glyphicon glyphicon-envelope"></span>
+                        <span>
+                          <span> You've recieved a message!</span>
+                        </span>
+                        <span class="message">
+                        <p style="margin-top:5px;">From: <b style="font-size:12px;">{{$notifications->sender}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+    @endif
+{{-- privatemessage     --}} 
               </ul>
             </nav>
           </div>
@@ -530,6 +635,31 @@
        <script src="{{ asset('vendor-js/nprogress.js') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('vendor-js/custom.min.js') }}"></script>
+
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationPm/')}}";
+        var notificationcount = $("#notification-countpm");
+        var btnnotifictaion = $("#btn-notificationpm");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
 
     @if(Auth::user()->Department == "DEAN")
         <script>

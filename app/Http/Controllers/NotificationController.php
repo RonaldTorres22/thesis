@@ -10,6 +10,7 @@ use App\User;
 use App\Letter;
 use Auth;
 use App\Task;
+use App\Personalmessage;
 
 class NotificationController extends Controller
 {
@@ -47,4 +48,11 @@ class NotificationController extends Controller
      $event = Task::where('organization','=',$user)->where("notif",2)->update(array('notif' =>3 ));
         return response('sdfsdf');
     }   
+
+    public function getNotificationPM(){
+    $user = Auth::user()->name;
+     $event = Personalmessage::where('send_to','=',$user)->where("notif",0)->update(array('notif' =>1 ));
+        return response('sdfsdf');
+    } 
+  
 }

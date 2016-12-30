@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Letter;
 use App\User;
 use App\Task;
+use App\Personalmessage;
 class User extends Authenticatable
 {
     /**
@@ -76,6 +77,15 @@ class User extends Authenticatable
          return $task;
     }
 
+    public function pmnotif()
+    {  
+        $user = Auth::user()->name;
+        $pm = Personalmessage::where('send_to','=',$user)->where('notif', '=','0');
+
+                    
+         return $pm;
+    }
+
     public function tasknotifmain()
     {  
         $user = Auth::user()->name;
@@ -130,5 +140,14 @@ class User extends Authenticatable
         $notifications = Task::where('organization','=',$user)->where('position','=', '2')->orderBy('updated_at','desc')->get();
          return $notifications;
     }
+
+    //pm
+     public function allpm()
+    {   
+        $user = Auth::user()->name;
+        $notifications = Personalmessage::where('send_to','=',$user)->orderBy('id','desc')->get();
+         return $notifications;
+    }
+   
 
 }
