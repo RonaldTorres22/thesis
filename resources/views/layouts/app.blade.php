@@ -228,7 +228,7 @@
 
                   <li><a><i class="fa fa-tasks"></i>Tasks<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                    <li><a href="{{ url('tasks') }}">Create Tasks</a></li>
+                    <li><a href="{{ url('tasks') }}">View Tasks</a></li>
              
                     </ul>
                   </li>
@@ -333,7 +333,7 @@
                         <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
                         <span>  
                           <span>{{$notifications->name}}</span>
-                          <span class="time"><span style="color:blue; font-size:17px;" class="glyphicon glyphicon-calendar"></span></span>
+                          <span class="time"><i class="fa fa-calendar-plus-o" style="font-size:20px;" aria-hidden="true"></i></span>
                         </span>
                         <span class="message">
                          <p>New Event Has been Created!</p>
@@ -379,7 +379,7 @@
                     @if($notifications->status == "approved")
                     <li>
                       <a href="{{url('events/'.$notifications->id)}}">
-                        <span style="color:blue; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
+                       <i class="fa fa-calendar-check-o" style="font-size:20px;" aria-hidden="true"></i>
                         <span>
                           <span><b style="margin-left:10px;">{{$notifications->title}}</b></span>
                           <span class="time"><span  style="color:green; font-size:17px;" class="glyphicon glyphicon-ok-circle"></span></span>
@@ -392,10 +392,10 @@
                     @elseif($notifications->status == "Disapproved")
                      <li>
                       <a href="{{url('events/'.$notifications->id)}}">
-                       <span style="color:red; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
+                        <i class="fa fa-calendar-times-o" style="font-size:20px;" aria-hidden="true"></i>
                         <span>
                           <span><b style="margin-left:10px;">{{$notifications->title}}</b></span></span>
-                          <span class="time"><span style= "color:red; font-size:17px;" class="glyphicon glyphicon-remove-circle"></span></span>
+                          <span class="time"><span style= "color:#d82f43; font-size:17px;" class="glyphicon glyphicon-remove-circle"></span></span>
                         </span>
                         <span class="message">
                          <p>the event has been Disapproved</p>
@@ -429,7 +429,62 @@
                     </li>
                   </ul>
                 </li>
-           
+ {{-- task --}} 
+    @if(!empty(Auth::user()->acc_id) || Auth::user()->role == 'user')
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" id="btn-notificationtask" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-tasks"></i>
+                       @if(!empty(Auth::user()->acc_id))
+                    <span class="badge bg-green" id="notification-counttask">{{Auth::user()->tasknotif()->count()}}</span>
+                      @else
+                     <span class="badge bg-green" id="notification-counttask">{{Auth::user()->tasknotifmain()->count()}}</span>
+                      @endif
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                   @if(!empty(Auth::user()->acc_id))
+                  @foreach(Auth::user()->alltask() as $notifications)
+                    <li>
+                      <a href="{{url('task/'.$notifications->eventtask->id)}}">
+                      <span style="font-size:20px;" class="glyphicon glyphicon-list-alt"></span>
+                        <span>
+                          <span>New Task has been assigned to you</span>
+                        </span>
+                        <span class="message">
+                        <p style="margin-top:5px;">Event Name:<b style="font-size:12px;"> {{$notifications->eventtask->title}}</b></p>
+                 {{--      <p>Event Name: <b>{{$notifications->title}}</b></p> --}}
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @else
+                  @foreach(Auth::user()->alltaskmain() as $notifications)
+                    <li>
+                      <a href="{{url('task/'.$notifications->eventtask->id)}}">
+                      <span style="font-size:20px;" class="glyphicon glyphicon-list-alt"></span>
+                        <span>
+                          <span>Task has been moved to done</span>
+                        </span>
+                        <span class="message">
+                        <p style="margin-top:5px;">Account Name: <b style="font-size:12px;"> {{$notifications->to_who}}</b></p>
+                 {{--      <p>Event Name: <b>{{$notifications->title}}</b></p> --}}
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @endif
+
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+    @endif
+{{-- task --}}      
               </ul>
             </nav>
           </div>
@@ -482,6 +537,61 @@
         var urlDelTodo = "{{url('notification/')}}";
         var notificationcount = $("#notification-count");
         var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+    @if(!empty(Auth::user()->acc_id))
+      <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationTask/')}}";
+        var notificationcount = $("#notification-counttask");
+        var btnnotifictaion = $("#btn-notificationtask");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+
+    @if(Auth::user()->role == 'user'))
+      <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationTaskMain/')}}";
+        var notificationcount = $("#notification-counttask");
+        var btnnotifictaion = $("#btn-notificationtask");
         btnnotifictaion.click(function(e){
         e.preventDefault();
         

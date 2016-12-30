@@ -27,7 +27,14 @@
 	border: 2px solid green;
 	padding: 4px;
 	background-color: green;
-}		
+}
+.well{
+	padding: 5px;
+	margin-left: 10px;
+	padding-left: 20px;
+	padding-top: 10px;
+	background-color: white;
+}	
 </style>
 <div class="container">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}">
@@ -57,7 +64,8 @@
   				@endif
                  @endif
                 @endif
- 
+ 		
+
               </div>
 
               <div id="myModal" class="modal fade" role="dialog">
@@ -122,68 +130,78 @@
 	
 	<div class="row">
 		<div class="col-lg-6">
-			<p><b>Type of Activity</b><br>
-				{{ $event->type_activity }}
-			</p>
-			<p><b>Number of Participants</b> <br>
-				{{ $event->participants }}
-			</p>
-			<p><b>Venue</b><br>
-				{{ $event->venue }}
-			</p>
-			<p><b>Activity</b> <br>
+	 @if($logistic->count() == 1)
+		<a href="{{url('viewlogistics',$event->id)}}" style="margin-left:10px; margin-bottom:25px;" class="btn btn-default">View Event Equipments</a>
+	 @else
+	<a href="{{url('logistics',$event->id)}}" style="margin-left:10px; margin-bottom:25px;" class="btn btn-default">Request Logistics</a>
+	@endif
+		<div class="well">
+			<p>Type of Activity: <b>{{ $event->type_activity }}</b></p>
+		</div>
+		<div class="well">
+			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
+		</div>
+		<div class="well">
+			<p>Venue: <b>{{ $event->venue }}</b></p>
+		</div>
+		<div class="well">
+			<p>Activity:<b>
 				@if(!empty($event->gym))
-				IHM GYM usage<br>
+				IHM GYM usage,
 				@endif
 				@if(!empty($event->sales))
-				Involving sales of products and services<br>
+				Involving sales of products and services,
 				@endif
 				@if(!empty($event->film))
-				Film Showing/Stage Play
+				Film Showing/Stage Play,
 				@endif
+				</b>
 			</p>
-			<p><b>Time:</b> <br>
+		</div>
+		<div class="well">
+			<p>Time:<b> 
 				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
-			</p>
-			<p><b>Duration:</b> <br>
-				{{ $duration }}
-			</p>
+			</b></p>
+		</div>
+		<div class="well">
+			<p>Duration: <b> {{ $duration }}</b></p>
+		</div>
 
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name || Auth::user()->Department == "SCO")
-
+		<div class="well">
 			@if(!empty($event->visitors))
-			<p><b>Visitors list:</b> <br>
-				{{ $event->visitors }}
+			<p>Visitors list:<br>
+			<b>	{{ $event->visitors }}</b>
 			</p>
 			@else
-			<p><b>Visitors list:</b> <br>
-				NONE
+			<p>Visitors list: <br>
+				<b>NONE</b>
 			</p>
 			@endif
 
 			@if(!empty($event->vehicles))
-			<p><b>Plate Number list:</b> <br>
-				{{ $event->vehicles }}
+			<p>Plate Number list: <br>
+			<b>	{{ $event->vehicles }}</b>
 			</p>
 			@else
-			<p><b>Plate Number list::</b> <br>
-				NONE
+			<p>Plate Number list:: <br>
+				<b>NONE</b>
 			</p>
 			@endif
 
 
 			@if(!empty($event->no_uniforms))
-			<p><b>No Uniform list</b> <br>
-				{{ $event->no_uniforms }}
+			<p>No Uniform list <br>
+			<b>	{{ $event->no_uniforms }}</b>
 			</p>
 			@else
-			<p><b>No Uniform list</b> <br>
-				NONE
+			<p>No Uniform list <br>
+				<b>NONE</b>
 			</p>
 			@endif
 
 			@endif
-
+		</div>
 			<br>
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
 			<div class="row">

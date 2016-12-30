@@ -24,7 +24,11 @@
 						<tr>
 							<th scope="row">{{ $i++ }}</th>
 							<th>{{$tasks->title}}</th>
+							@if(empty(Auth::user()->acc_id))
 							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success">Create Tasks</a></th>
+							@else
+							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success">View Tasks</a></th>
+							@endif
 						</tr>
 						@endforeach
 					</tbody>

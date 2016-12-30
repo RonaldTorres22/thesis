@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Logistic extends Model
 {
     
-
-   public function eventtask()
+   public function eventlogistic()
   {
     return $this->belongsTo('App\Event','event_id','id');
   }
-
 }

@@ -244,6 +244,7 @@ class EventController extends Controller
         $todo = Event::find($id)->todolist;
         $message = Event::find($id)->message;
         $letter = Event::find($id)->letter()->get();
+        $logistic = Event::find($id)->logistic()->get();
         $lettershow = Event::find($id)->letter;
         $first_date = new DateTime($event->start_time);
         $second_date = new DateTime($event->end_time);
@@ -255,6 +256,7 @@ class EventController extends Controller
             'letter'        => $letter,
             'Letter'        => $lettershow,
             'message'       => $message,
+            'logistic'      => $logistic,
             'duration'      => $this->format_interval($difference)
         ];
 

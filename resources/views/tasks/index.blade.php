@@ -70,7 +70,9 @@ hr{
 <div class="row">
 
 <div class="col-md-6">
+@if(empty(Auth::user()->acc_id))
  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Task</button>
+ @endif
 <h4><b>DRAG AND DROP</b></h4>
 </div>
 
@@ -101,7 +103,12 @@ hr{
             <div class="form-group row">
                 <label for="password" class="col-xs-2 col-form-label" style="margin-top:10px; padding-left:50px;">To:</label>
                 <div class="col-xs-8">
-                    <input class="form-control" required type="text" required name="to_who">
+                      <select class="form-control" id="sel1" name="to_who">
+                      <option disabled selected hidden>Assign task to</option>
+                      @foreach($user as $users)
+                      <option value="{{$users->name}}">{{$users->name}}</option>
+                      @endforeach
+                      </select>
                   </div>
               </div>
               <div class="form-group row">

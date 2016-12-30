@@ -113,21 +113,21 @@
 				        <div id="visit" style="display:none;">
 				        <input type="text" style="margin-bottom:20px;" placeholder="Enter vistor name" id="visitorinput"  name="visitors[]" class="form-control">
 				       	</div>
-				       	  <button  style="display:none;" class="add_field_button">Add More Fields</button>
+				       	  <button  style="display:none;"  class="add_field_button btn btn-primary btn-sm">Add More Fields</button>
 				    </div>
 				    <div class="info">  
 				   		<label class="checkbox"><input type="checkbox" ID="vehicle">Request for Temporary Vehicle pass</label>
 				   		<div id="plate" style="display:none;">
 				   		<input type="text" style="margin-bottom:20px;" placeholder="Enter Plate Number" id="vehicleinput" name="vehicles[]" class="form-control">    
 				   		</div>
-				   		 <button  style="display:none;" class="add_field_button2">Add More Fields</button>
+				   		 <button  style="display:none;" class="add_field_button2 btn btn-primary btn-sm">Add More Fields</button>
 				    </div>
 				    <div class="info">  
 				   		<label class="checkbox"><input type="checkbox" ID="uniform">Request for Permission Not to Wear Uniform</label>
 				   		<div id="uniformm" style="display:none;">
 				   		<input type="text"  style="margin-bottom:20px;" placeholder="Enter Student's name" id="uniforminput" name="no_uniforms[]" class="form-control">   
 				   		</div> 
-				   		 <button  style="display:none;" class="add_field_button3">Add More Fields</button>
+				   		 <button  style="display:none;" class="add_field_button3 btn btn-primary btn-sm">Add More Fields</button>
 				    </div>
 				</div> 				
 
@@ -215,7 +215,7 @@ $('#dbType').on('change',function(){
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="visitors[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapper).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" required name="visitors[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     });
     
@@ -233,7 +233,7 @@ $('#dbType').on('change',function(){
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapperv).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="vehicles[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapperv).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" required name="vehicles[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     });
     
@@ -252,7 +252,7 @@ $('#dbType').on('change',function(){
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapperu).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" name="no_uniforms[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+            $(wrapperu).append('<div style="margin-top:10px;"><input placeholder="Enter visitor Name" class="form-control" type="text" required name="no_uniforms[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
         }
     });
     

@@ -9,6 +9,7 @@ use App\Event;
 use App\Task;
 use Auth;
 use Session;
+use App\User;
 class TaskController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class TaskController extends Controller
     public function index()
     {
         $auth = Auth::user()->name;
-        $user = Event::where('name','=',$auth)->orderBy('approvedate','desc')->paginate(10);
+        $user = Event::where('name','=',$auth)->orderBy('id','desc')->paginate(10);
 
         if(empty(Auth::user()->acc_id))
         {
@@ -33,7 +34,7 @@ class TaskController extends Controller
     public function subaccindex()
     {
         $auth = Auth::user()->acc_id;
-        $user = Event::where('name','=',$auth)->orderBy('approvedate','desc')->paginate(10);
+        $user = Event::where('name','=',$auth)->orderBy('id','desc')->paginate(10);
         if(!empty(Auth::user()->acc_id))
         {
         return view('tasks/list')->with('task', $user);
@@ -58,6 +59,7 @@ class TaskController extends Controller
 
         $event = Task::findOrFail($id);
         $event->position         = 1;   
+        $event->notif            = 1;
         $event->save();
 
         $todoid = $event->id; 
@@ -69,7 +71,8 @@ class TaskController extends Controller
     public function donetask(Request $request, $id)
     {
         $event = Task::findOrFail($id);
-        $event->position         = 2;   
+        $event->position         = 2;
+        $event->notif            = 2;   
         $event->save();
 
         $todoid = $event->id; 
@@ -79,7 +82,8 @@ class TaskController extends Controller
     public function backlog(Request $request, $id)
     {
         $event = Task::findOrFail($id);
-        $event->position         = 0;   
+        $event->position         = 0;
+        $event->notif            =0;   
         $event->save();
 
         $todoid = $event->id; 
@@ -100,6 +104,7 @@ class TaskController extends Controller
         $task->event_id = $event_id;
         $task->to_who   = $request->input('to_who');
         $task->task   = $request->input('task');
+        $task->organization = Auth::user()->name;
         $task->save();
 
         return back();
@@ -113,6 +118,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
+        $users = User::where('acc_id', '=', Auth::user()->name)->get();
         $event = Event::findOrFail($id);
         $task = Event::find($id)->task()->orderBy('updated_at','desc')->where('position','=',0)->get();
         $ongoing = Event::find($id)->task()->orderBy('updated_at','desc')->where('position','=',1)->get();
@@ -122,7 +128,8 @@ class TaskController extends Controller
             'event'         => $event,
             'task'         => $task,
             'ongoing'      =>$ongoing,
-            'done'         => $done
+            'done'         => $done,
+            'user'         =>$users
 
         ];
 

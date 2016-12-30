@@ -22,9 +22,9 @@ class SubAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-     $users = User::where('acc_id', '=', Auth::user()->name)->get();
+    public function index(){
+    
+     $users = User::where('acc_id', '=', Auth::user()->name)->paginate(10);
 
       if(empty(Auth::user()->acc_id))
       {

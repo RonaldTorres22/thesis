@@ -40,6 +40,15 @@ Route::get('/', function () {
     'uses' => 'NotificationController@getNotificationvpaa',
     'as' => 'notifuser'
 ]);
+   Route::get('/notificationTask', [
+    'uses' => 'NotificationController@getNotificationtask',
+    'as' => 'notiftask'
+]);
+   Route::get('/notificationTaskMain', [
+    'uses' => 'NotificationController@getNotificationtaskmain',
+    'as' => 'notiftaskmain'
+]);
+
 
     // Authentication Routes...
     Route::get('login', 'Auth\AuthController@showLoginForm');
@@ -78,6 +87,7 @@ Route::get('/', function () {
 
 
     Route::resource('events', 'EventController');
+    Route::get('events/{id}',['uses'=>'EventController@view', 'as' => 'event.view']);
     Route::get('pending',['uses'=>'EventController@pending', 'as' => 'pending.events']);
     Route::get('disapproved','EventController@disapproved');
 
@@ -127,6 +137,11 @@ Route::get('/', function () {
     Route::get('mrcc','ActivityController@mrcc');
     Route::get('gym','ActivityController@gym');
     Route::get('sco','ActivityController@sco');
+
+    //Logistics
+    Route::get('logistics/{id}','LogisticsController@create');
+    Route::post('logistic/{id}','LogisticsController@store');
+    Route::get('viewlogistics/{id}','LogisticsController@viewlogistic');
 
     Route::get('/api', function () {
     $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();

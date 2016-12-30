@@ -9,6 +9,7 @@ use App\Event;
 use App\User;
 use App\Letter;
 use Auth;
+use App\Task;
 
 class NotificationController extends Controller
 {
@@ -34,5 +35,16 @@ class NotificationController extends Controller
      $event = Letter::where("notif",0)->update(array('notif' => 1));
         return response('sdfsdf');
     }
-     
+
+    public function getNotificationtask(){
+    $user = Auth::user()->name;
+     $event = Task::where('to_who','=',$user)->where("notif",0)->update(array('notif' => 1));
+        return response('sdfsdf');
+    }
+  
+    public function getNotificationtaskmain(){
+    $user = Auth::user()->name;
+     $event = Task::where('organization','=',$user)->where("notif",2)->update(array('notif' =>3 ));
+        return response('sdfsdf');
+    }   
 }

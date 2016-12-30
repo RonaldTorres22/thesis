@@ -74,8 +74,7 @@
       </div>
 
       <div class="x_panel">
-        
-        <br>
+          @if($Subacc->count() > 0)
         <table  class="table table-striped">
           <thead>
             <tr>
@@ -110,6 +109,12 @@
             @endforeach
           </tbody>
         </table>
+              <div>
+            {{ $Subacc->links() }}
+          </div>
+          @else
+          <h2>No Sub Account yet!</h2>
+          @endif
       </div>
     </div>
   </div>

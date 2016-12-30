@@ -40,6 +40,11 @@ class Event extends Model
    return $this->hasOne('App\Message', 'event_id');
   }
 
+  public function logistic()
+  {
+   return $this->hasOne('App\Logistic', 'event_id');
+  }
+
   public function task()
   {
    return $this->hasMany('App\Task', 'event_id');

@@ -22,7 +22,14 @@
 	border-radius: 25px;
 	padding: 4px;
 	background-color: red;
-}		
+}
+.well{
+	padding: 5px;
+	margin-left: 10px;
+	padding-left: 20px;
+	padding-top: 10px;
+	background-color: white;
+}			
 </style>
 <div class="container">
 
@@ -64,33 +71,37 @@
 
 <div class="row">
 	<div class="col-lg-6">
-		<p><b>Type of Activity</b><br>
-		{{ $event->type_activity }}
-		</p>
-		<p><b>Number of Participants</b> <br>
-		{{ $event->participants }}
-		</p>
-		<p><b>Venue</b><br>
-		{{ $event->venue }}
-		</p>
-		<p><b>Activity</b> <br>
+	<div class="well">
+			<p>Type of Activity: <b>{{ $event->type_activity }}</b></p>
+		</div>
+		<div class="well">
+			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
+		</div>
+		<div class="well">
+			<p>Venue: <b>{{ $event->venue }}</b></p>
+		</div>
+		<div class="well">
+			<p>Activity:<b>
 				@if(!empty($event->gym))
-				IHM GYM usage<br>
+				IHM GYM usage,
 				@endif
 				@if(!empty($event->sales))
-				Involving sales of products and services<br>
+				Involving sales of products and services,
 				@endif
 				@if(!empty($event->film))
-				Film Showing/Stage Play
+				Film Showing/Stage Play,
 				@endif
-		</p>
-		<p><b>Time:</b> <br>
-		{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
-		</p>
-
-		<p><b>Duration:</b> <br>
-		{{ $duration }}
-		</p>
+				</b>
+			</p>
+		</div>
+		<div class="well">
+			<p>Time:<b> 
+				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
+			</b></p>
+		</div>
+		<div class="well">
+			<p>Duration: <b> {{ $duration }}</b></p>
+		</div>
 
 		<br>
 		@if(Auth::user()->Department == "OSA")

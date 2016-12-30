@@ -17,8 +17,10 @@ class CreateTasksTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->integer('position')->default(0);
+            $table->integer('notif')->default(0);
+            $table->string('organization');
             $table->string('to_who');
-            $table->string('task');
+            $table->string('task',500);
             $table->timestamps();
         });
     }
