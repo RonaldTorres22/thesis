@@ -19,6 +19,12 @@ class LogisticsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
     public function index()
     {
         //
@@ -37,8 +43,20 @@ class LogisticsController extends Controller
             'event'         => $event
 
         ];
-
-        return view('logistics/create', $data);
+        if(Auth::user()->name == $event->name || Auth::user()->acc_id == $event->name)
+        {
+                    
+                if($event->type_activity == "Indoor")
+                {
+                return view('logistics/create', $data);
+                }
+                else{
+                    return view('error404');
+                }
+        }
+        else{
+            return view('error404');
+        }
     }
 
     /**
@@ -53,6 +71,7 @@ class LogisticsController extends Controller
         $logistic = Event::find($id);
         $logistic = new Logistic;
         $logistic->event_id             = $event_id;
+        $logistic->by                   = Auth::user()->name;
         $logistic->CollegeFlag          = $request->input('CollegeFlag');
         $logistic->Rostrum              = $request->input('Rostrum');
         $logistic->WoodenPanel          = $request->input('WoodenPanel');

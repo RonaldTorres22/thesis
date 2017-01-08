@@ -8,6 +8,7 @@ use App\Event;
 use App\Http\Requests;
 use Auth;
 use App\User;
+use App\Inbox;
 
 class PersonalmessageController extends Controller
 {
@@ -16,19 +17,26 @@ class PersonalmessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
     public function index()
     {
         $name = Auth::user()->name;
         $orgs = User::where('role','=','user')->where('name','!=',$name)->get();
         $admin = User::where('role','=','admin')->where('name','!=',$name)->get();
+        $subacc = User::where('acc_id','=',$name)->where('name','!=',$name)->get();
         $message = Personalmessage::where('sender','=',$name)->orderBy('id','desc')->paginate(10);
-        return view('messages/index')->with('orgs', $orgs)->with('message',$message)->with('admin',$admin);
+        return view('messages/index')->with('orgs', $orgs)->with('message',$message)->with('admin',$admin)->with('subacc', $subacc);
     }
 
     public function inbox()
     {
         $name = Auth::user()->name;
-        $message = Personalmessage::where('send_to','=',$name)->orderBy('id','desc')->paginate(10);
+        $message = Inbox::where('send_to','=',$name)->orderBy('id','desc')->paginate(10);
         return view('messages/inbox')->with('message',$message);
     }
 
@@ -54,8 +62,14 @@ class PersonalmessageController extends Controller
         $personalmessage->sender    = Auth::user()->name;
         $personalmessage->send_to   = $request->input('send_to');
         $personalmessage->message   = $request->input('message');
-       
+
+        $Inbox = new Inbox;
+        $Inbox->sender    = Auth::user()->name;
+        $Inbox->send_to   = $request->input('send_to');
+        $Inbox->message   = $request->input('message');
+
         $personalmessage->save();
+        $Inbox->save();
 
          $request->session()->flash('success', 'The message was successfully sent!');
         return back();
@@ -87,7 +101,7 @@ class PersonalmessageController extends Controller
 
     public function inboxview($id)
     {
-        $pm = Personalmessage::findOrFail($id);
+        $pm = Inbox::findOrFail($id);
 
         $data = [
             'pm'            => $pm
@@ -134,7 +148,32 @@ class PersonalmessageController extends Controller
     public function destroy(Request $request, $id)
     {
         $Personalmessage = Personalmessage::find($id);
+        $Personalmessage->delete();
+        $inbox = Inbox::find($id);
+        $inbox->delete();     
+        $request->session()->flash('success', 'The message was successfully Deleted!');
+        return back();
+    }
+
+    public function destroyInbox(Request $request, $id)
+    {
+        $Personalmessage = Inbox::find($id);
         $Personalmessage->delete();   
+        $request->session()->flash('success', 'The message was successfully Deleted!');
+        return back();
+    }
+
+    public function selectall(Request $request)
+    {
+        Personalmessage::destroy($request->message);
+        Inbox::destroy($request->message);
+        $request->session()->flash('success', 'The message was successfully Deleted!');
+        return back();
+    }
+
+    public function selectinbox(Request $request)
+    {
+        Inbox::destroy($request->message);
         $request->session()->flash('success', 'The message was successfully Deleted!');
         return back();
     }

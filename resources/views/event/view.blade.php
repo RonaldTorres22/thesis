@@ -34,6 +34,19 @@
 	padding-left: 20px;
 	padding-top: 10px;
 	background-color: white;
+}
+.link{
+	padding: 5px;
+	border: 1px solid #e3e4e5;
+	border-radius: 5px;
+	background-color: white
+}
+#canceled{
+	color: white;
+	border: 2px solid #1d6987;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: #1d6987;	
 }	
 </style>
 <div class="container">
@@ -43,28 +56,9 @@
 </div>
             <div class="page-title">
               <div class="title_left">
-                <h3>{{ $event->title }} <small>booked by {{ $event->user->name }}</small></h3>
-                @if($event->status == 'approved')
-                @if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
-                @if($letter->count() == 1)
-                	@if($Letter->status == 'pending')
-                	   <b id="sent" style="margin-top:10px;">Message Sent..</b>
+                <h3 style="margin-left:10px;">{{ $event->title }} <small>booked by {{ $event->user->name }}</small></h3>
 
-                	@elseif($Letter->status == 'approved')
-                	<h4 style="color:green;"><span class="glyphicon glyphicon-ok-circle" ></span> Your request letter has been approved!</h4> 
-                	<a href="{{url('getPDF/'.$Letter->id)}}" class="btn btn-primary"><i class="fa fa-download" style="font-size:20px;" aria-hidden="true"></i> Download Letter (PDF)</a>
 
-                	@elseif($Letter->status == 'disapproved')
-                	<h4 style="color:red;"><span class="glyphicon glyphicon-remove-circle" ></span> Your request letter has been disapproved!</h4>
-                	@else
-
-                	@endif
-                @else
-                 <a class="btn btn-primary" style="margin-top:10px;" data-toggle="modal" data-target="#myModal">Request Letter</a>
-  				@endif
-                 @endif
-                @endif
- 		
 
               </div>
 
@@ -103,9 +97,14 @@
 		@if($event->status == "pending")
 		<h5 style="float:right; margin-right:30px;">Status: <b id="pending">Pending</b></h5>
 		@endif
+		@if($event->status == "canceled")
+		<h5 style="float:right; margin-right:30px;">Status: <b id="canceled">Canceled</b></h5>
+		@endif
 		@if($event->status == "Disapproved" )
 		<h5 style="float:right; margin-right:30px;">Status: <b id="disapproved">Disapproved</b></h5>
 		@endif
+		<br>
+
                 </div>
               </div>
             </div>
@@ -126,18 +125,50 @@
 @endif
 @endif
 </div>
-<hr>
+
 	
 	<div class="row">
-		<div class="col-lg-6">
+	<div class="col-md-12">
+	@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
+	@if($event->type_activity == 'Indoor' && $event->status != 'Disapproved')	
 	 @if($logistic->count() == 1)
-		<a href="{{url('viewlogistics',$event->id)}}" style="margin-left:10px; margin-bottom:25px;" class="btn btn-default">View Event Equipments</a>
+		<a href="{{url('viewlogistics',$event->id)}}" style="margin-left:10px;" class="btn btn-primary">View Event Equipments</a>
 	 @else
-	<a href="{{url('logistics',$event->id)}}" style="margin-left:10px; margin-bottom:25px;" class="btn btn-default">Request Logistics</a>
+	<a href="{{url('logistics',$event->id)}}" style="margin-left:10px;" class="btn btn-primary">Request Logistics</a>
 	@endif
-		<div class="well">
-			<p>Type of Activity: <b>{{ $event->type_activity }}</b></p>
-		</div>
+	@endif
+
+                @if($event->status == 'approved')
+                @if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
+                @if($letter->count() == 1)
+                	@if($Letter->status == 'pending')
+                	   <a class="btn btn-success disabled">Letter Sent..</a>
+
+                	@elseif($Letter->status == 'approved')
+    
+                	<a href="{{url('getPDF/'.$Letter->id)}}" class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download Letter</a>
+
+                	@elseif($Letter->status == 'disapproved')
+                	<button class="btn btn-danger disabled "><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Disapproved Letter</button>
+                	@else
+
+                	@endif
+                @else
+                 <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Request Letter</a>
+  				@endif
+                 @endif
+                @endif
+
+     @if($event->registration == 'checked')
+	<a class="btn btn-primary" href="{{url('participants/'.$event->id)}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> List of Participants</a>
+	@endif
+	<hr>
+		@endif
+	</div>
+	<hr>
+	<div class="col-lg-6">
+		<p style="margin-left:10px;">Type of Activity: <b>{{ $event->type_activity }}</b></p>
+
 		<div class="well">
 			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
 		</div>
@@ -205,19 +236,22 @@
 			<br>
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
 			<div class="row">
-			@if($event->status == 'pending')
-			<div class="col-lg-2" style="margin-right:20px;">
-			<form action="{{ url('events/' . $event->id) }}" style="display:inline;" method="POST">
-				<input type="hidden" name="_method" value="DELETE" />
+
+			@if($event->status != 'canceled')
+			<div class="col-lg-2" style="margin-right:50px;">
+			<form action="{{url('cancelevent/'.$event->id)}}" style="display:inline;" method="POST">
 				{{ csrf_field() }}
-				<button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+				<button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-exclamation-sign"></span> Cancel Event</button>
 			</form>
 			</div>
+			@endif
+			@if($event->status == 'pending')
 			<div class="col-lg-2">	
-			<a class="btn btn-primary" href="{{ url('events/' . $event->id . '/edit')}}">
+			<a class="btn btn-primary" style="width:90px;" href="{{ url('events/' . $event->id . '/edit')}}">
 				<span class="glyphicon glyphicon-edit"></span> Edit</a>
 			</div>
 				@endif
+        
 			</div>
 				@endif
 
@@ -225,17 +259,22 @@
 		</div>
 		<div class="col-lg-6">
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
+
+			@if($event->registration == "checked")
+			<label>Online Registration Link: </label>
+			<a href="{{ route('EventRegistration.show',$event->id)}}" class="link">{{ route('EventRegistration.show',$event->id)}}</a>
+
+			<hr>
+			@endif
+
 			@if($event->status == "deanDisapproved" || $event->status == "Disapproved")
 			@else
 			<p><b>To do lists:</b></p>
 		
 			@foreach($todos as $todo)
 			<div class=" row" >
-				<div class="col-lg-10" >
-					
-					<p class ="ron append" id="{{$todo->id}}">{{$todo->to_do}}</p>
-				
-					
+				<div class="col-lg-10" >	
+					<p class ="ron append" id="{{$todo->id}}">{{$todo->to_do}}</p>			
 					
 				</div>
 				<div class="col-lg-2" id="appendbutton" >

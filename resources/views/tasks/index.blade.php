@@ -29,13 +29,13 @@ padding-bottom: 50px;
 
 }
 .ui-widget-header{
-  background-color: #36b5a8 !important;
+  background-color: #426caf !important;
   color: white;
 }
 .title{
   margin-top: 5px;
   float:right; margin-right:60px; font-size:1.5em;
- background-color: #36b5a8;
+ background-color: #426caf;
   text-align: center;
   border-radius: 25px;
   padding-right: 20px;
@@ -138,12 +138,18 @@ hr{
   @foreach($task as $tasks)
     <div class="portlet1 portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" id="move" data-id="{{$tasks->id}}" style="width:250px;">
         <div class="portlet-header ui-widget-header ui-corner-all">{{$tasks->to_who}}</div>
-        <div class="portlet-content">{{$tasks->task}}</div>
+        <div class="portlet-content"><p style="margin-bottom:10px;">{{$tasks->task}}</p>
+
+        <p style="margin-bottom:0px; font-size:11px;">Created at: <b>{{date('M j,Y h:ia',strtotime($tasks->created_at)) }}</b></p>
+        <p style="margin-bottom:0px; font-size:11px;">Updated at: <b>{{date('M j,Y h:ia',strtotime($tasks->updated_at)) }}</b></p>
+
+        </div>
+
         <hr>
            <form action="{{ route('task.destroy', $tasks->id) }}" method="POST">
                     <input type="hidden" name="_method" value="DELETE" />
                     {{ csrf_field() }}
-                    <button style="float:right;" class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                    <button style="float:right;" class="btn btn-danger btn-xs del{{$tasks->id}}" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
              </form>
     </div>
   @endforeach
@@ -160,12 +166,16 @@ hr{
   @foreach($ongoing as $tasks)
     <div class="portlet2 portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" data-id="{{$tasks->id}}" style="width:250px;">
         <div class="portlet-header ui-widget-header ui-corner-all">{{$tasks->to_who}}</div>
-        <div class="portlet-content">{{$tasks->task}}</div>
+        <div class="portlet-content"><p style="margin-bottom:10px;">{{$tasks->task}}</p>
+        <p style="margin-bottom:0px; font-size:11px;">Created at: <b>{{date('M j,Y h:ia',strtotime($tasks->created_at)) }}</b></p>
+        <p style="margin-bottom:0px; font-size:11px;">Updated at: <b>{{date('M j,Y h:ia',strtotime($tasks->updated_at)) }}</b></p>
+
+        </div>
                 <hr>
            <form action="{{ route('task.destroy', $tasks->id) }}" method="POST">
                     <input type="hidden" name="_method" value="DELETE" />
                     {{ csrf_field() }}
-                    <button style="float:right;" class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                    <button style="float:right;" class="btn btn-danger btn-xs del{{$tasks->id}}" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
              </form>
     </div>
   @endforeach
@@ -180,13 +190,15 @@ hr{
   @foreach($done as $tasks)
     <div class="portlet3 portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" data-id="{{$tasks->id}}" style="width:250px;">
         <div class="portlet-header ui-widget-header ui-corner-all">{{$tasks->to_who}}</div>
-        <div class="portlet-content">{{$tasks->task}}</div>
-    
-                    <hr>
+        <div class="portlet-content"><p style="margin-bottom:10px;">{{$tasks->task}}</p>
+         <p style="margin-bottom:0px; font-size:11px;">Created at: <b>{{date('M j,Y h:ia',strtotime($tasks->created_at)) }}</b></p>
+        <p style="margin-bottom:0px; font-size:11px;">Updated at: <b>{{date('M j,Y h:ia',strtotime($tasks->updated_at)) }}</b></p>
+        </div>
+                <hr>
            <form action="{{ route('task.destroy', $tasks->id) }}" method="POST">
                     <input type="hidden" name="_method" value="DELETE" />
                     {{ csrf_field() }}
-                    <button style="float:right;" class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                    <button style="float:right; display:none;" class="btn btn-danger btn-xs del{{$tasks->id}}" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
              </form>
       </div>
   @endforeach
@@ -254,6 +266,7 @@ hr{
      accept: ".portlet1,.portlet3,.portlet2",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
+       $( ".del"+Id ).show();
       var urlDelTodo = "{{url('movetask')}}";
         // POST to server using $.post or $.ajax
         $.ajax({
@@ -269,7 +282,7 @@ hr{
      accept: ".portlet3,.portlet2,.portlet1",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
- 
+       $( ".del"+Id ).show();
       var urlDelTodo = "{{url('backlog')}}";
         // POST to server using $.post or $.ajax
         $.ajax({
@@ -287,6 +300,7 @@ hr{
      accept: ".portlet2,.portlet1,.portlet3",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
+      $( ".del"+Id ).hide();
       var urlDelTodo = "{{url('donetask')}}";
       // alert(Id);
         // POST to server using $.post or $.ajax

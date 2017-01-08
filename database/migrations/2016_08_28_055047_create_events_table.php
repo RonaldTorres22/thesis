@@ -27,6 +27,7 @@ class CreateEventsTable extends Migration
         $table->string('gym')->nullable();
         $table->string('sales')->nullable();
         $table->string('film')->nullable();
+        $table->string('registration')->nullable();
         $table->string('date');
         $table->timestamp('approvedate');
         $table->integer('notif')->default(0);

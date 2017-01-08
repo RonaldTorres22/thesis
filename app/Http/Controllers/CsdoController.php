@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Event;
+use App\Logistic;
 use DateTime;
 use Carbon\Carbon;
 
@@ -41,6 +42,24 @@ class CsdoController extends Controller
         // $current->setTimezone('Asia/Singapore');
         
         return view('csdo/home')->with('time',$time)->with('event',$event)->with('approve', $approve)->with('past',$past);
+    }
+
+    public function logistics()
+    {
+
+        $user =  Event::Where('status','=','approved')->paginate(10);
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+                     
+        ];
+
+
+           return view('csdo/logistic', $data);
+
+
+
     }
 
         public function change_date_format($date)

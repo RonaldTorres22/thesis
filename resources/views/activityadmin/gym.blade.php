@@ -46,6 +46,9 @@
 					@endif
 					@if($event->status == "Disapproved")
 					<td><p style="color:white; background-color:#d82f43; padding:1px; border-radius:20px; text-align:center;"> Disapproved </p></td>
+					@endif
+					@if($event->status == "canceled")
+					<td><p style="color:white; background-color:#1d6987; padding:1px; border-radius:20px; text-align:center;"> Canceled </p></td>
 					@endif	
 				</tr>
 			@endforeach

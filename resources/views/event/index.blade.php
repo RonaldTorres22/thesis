@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
-			<li class="active">Callendar of Events</li>
+			<li class="active">Calendar of Events</li>
 		</ol>
 	</div>
 </div>

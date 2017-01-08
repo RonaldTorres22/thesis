@@ -25,8 +25,65 @@
 	h3{
 		margin-left: 35px;
 	}
+	.well{
+		padding: 10px;
+	}
 </style>
 
+@if(Auth::user()->Department == "CSDO")
+<div class="row">
+<div class="col-md-6">
+<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">View Event Details</button>
+</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{$logistic->eventlogistic->title}}</h4>
+      </div>
+      <div class="modal-body">
+
+      <div class="well">
+       <p>Number of Participants: <b>{{$logistic->eventlogistic->participants}}</b></p>
+      </div>
+
+      <div class="well">
+       <p>Venue: <b>{{$logistic->eventlogistic->venue}}</b></p>
+      </div>
+
+      <div class="well">
+       <p>Activity: <b>
+       			@if(!empty($logistic->eventlogistic->gym))
+				IHM GYM usage,
+				@endif
+				@if(!empty($logistic->eventlogistic->sales))
+				Involving sales of products and services,
+				@endif
+				@if(!empty($logistic->eventlogistic->film))
+				Film Showing/Stage Play,
+				@endif
+				</b>
+				</p>
+	</div>
+
+	<div class="well">
+		<p>Time: <b>{{ date("g:ia\, jS M Y", strtotime($logistic->eventlogistic->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($logistic->eventlogistic->end_time)) }}</b></p>
+	</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<hr>
+@endif
 
 <h3>Logistics</h3>
 <br>

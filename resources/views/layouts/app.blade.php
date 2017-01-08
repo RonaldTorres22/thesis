@@ -68,7 +68,7 @@
                     @if(Auth::user()->Department == "ADMIN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -94,7 +94,7 @@
                   @elseif(Auth::user()->Department == "DEAN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -116,7 +116,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -144,7 +144,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                       <li><a href="{{ url('/CSDO') }}">Events Wall</a></li>
                     </ul>
                   </li>
@@ -153,6 +153,12 @@
                     <ul class="nav child_menu">
                       <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
                       <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i>Logistics<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('RequestEquipments') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -166,7 +172,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -177,7 +183,7 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-envelope"></i> Letters <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-envelope"></i>Event Request Letters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('vpaa') }}">Pending Letters</a></li>
                       <li><a href="{{ url('approvedletters') }}">Approved Letters</a></li>
@@ -191,7 +197,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -212,7 +218,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -233,7 +239,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -254,7 +260,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -279,12 +285,20 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+                  
+                  <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
                     </ul>
                   </li>
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="{{ url('allevent') }}">All Events</a></li>
                       <li><a href="{{ url('approveevents') }}">Approved Events</a></li>
                       <li><a href="{{ url('pendingevents') }}">Pending Events</a></li>
                       <li><a href="{{ url('disapprovedevents') }}">Disapproved Events</a></li>
@@ -306,7 +320,7 @@
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('/') }}">Callendar of Events</a></li>
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
                     </ul>
                   </li>
 
@@ -325,6 +339,7 @@
            
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                     <li><a href="{{ url('allevents') }}">All Events</a></li>
                       <li><a href="{{ url('events') }}">Approved Events</a></li>
                       <li><a href="{{ url('pending') }}">Pending Events</a></li>
                       <li><a href="{{ url('disapproved') }}">Disapproved Events</a></li>
@@ -531,12 +546,12 @@
                   @foreach(Auth::user()->alltaskmain() as $notifications)
                     <li>
                       <a href="{{url('task/'.$notifications->eventtask->id)}}">
-                      <span style="font-size:20px;" class="glyphicon glyphicon-list-alt"></span>
+                      <i class="fa fa-check-square-o" style="font-size:20px; color:green;" aria-hidden="true"></i>
                         <span>
                           <span>Task has been moved to done</span>
                         </span>
                         <span class="message">
-                        <p style="margin-top:5px;">Account Name: <b style="font-size:12px;"> {{$notifications->to_who}}</b></p>
+                        <p style="margin-top:5px;">Name: <b style="font-size:12px;"> {{$notifications->to_who}}</b></p>
                  {{--      <p>Event Name: <b>{{$notifications->title}}</b></p> --}}
                         </span>
                       </a>
@@ -558,7 +573,7 @@
 {{-- task --}} 
 
 {{-- privatemessage --}}
-    @if(empty(Auth::user()->acc_id))
+{{--     @if(empty(Auth::user()->acc_id)) --}}
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" id="btn-notificationpm" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
@@ -588,7 +603,7 @@
                     </li>
                   </ul>
                 </li>
-    @endif
+{{--     @endif --}}
 {{-- privatemessage     --}} 
               </ul>
             </nav>

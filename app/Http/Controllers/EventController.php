@@ -27,6 +27,29 @@ class EventController extends Controller
         $this->middleware('auth');
     }   
 
+    public function allevent()
+    {
+        $auth = Auth::user()->name;
+        $user = Event::orderBy('approvedate', 'desc')->where('name','=',$auth)->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+
+        if(empty(Auth::user()->acc_id))
+        {
+        return view('event/allevent', $data);
+        }
+        else
+        {
+        return view('error404');  
+        }
+    }
+
     public function index()
     {
        
@@ -158,6 +181,7 @@ class EventController extends Controller
         $event->gym             = $request->get('gym');
         $event->sales           = $request->get('sales');
         $event->film            = $request->get('film');
+        $event->registration    = $request->get('registration');
         $event->approvedate     = $this->change_date_format($time[0]);
         // $event->date            = $current->setTimezone('Asia/Singapore')->toDateString();
         $event->date            = $this->date($time[0]);
@@ -320,6 +344,7 @@ class EventController extends Controller
         $event->gym             = $request->get('gym');
         $event->sales           = $request->get('sales');
         $event->film            = $request->get('film');
+        $event->registration    = $request->get('registration');
         $event->approvedate     = $this->change_date_format($time[0]);
         $event->date            = $this->date($time[0]);
         $event->start_time      = $this->change_date_format($time[0]);
@@ -344,6 +369,18 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     public function cancelevent(Request $request, $id)
+    {
+        $event = Event::findOrFail($id);
+        $event->start_time = $event->start_time;
+        $event->status         = "canceled";     
+        $event->save();
+        
+        $request->session()->flash('success', 'The event was successfully canceled!');
+        
+        return back();
+    }
+
     public function destroy(Request $request, $id)
     {
         $event = Event::find($id);

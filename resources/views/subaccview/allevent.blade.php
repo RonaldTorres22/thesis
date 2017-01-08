@@ -4,13 +4,16 @@
 <div class="container">
 	<div class="page-title">
 		<div class="title_left">
-			<h3>List of events that include sales</h3>
+			<h3>All Events</h3>
+			<br>
 		</div>
 	</div>
-		<div class="clearfix"><br></div>
+
+
 	<br>
 
 <div class="row">
+
 	<div class="col-lg-12">
 	<div class="x_panel">
 		@if($events->count() > 0)
@@ -22,7 +25,6 @@
 					<th>Event's Title</th>
 					<th>Start</th>
 					<th>End</th>
-					<th>Organizers</th>
 					<th>Status</th>
 				</tr>
 			</thead>
@@ -31,10 +33,11 @@
 			@foreach($events as $event)
 				<tr>
 					<th scope="row">{{ $i++ }}</th>
-					<td><a href="{{ url('events',$event->id)}}">{{ $event->title }}</a></td>
+					<td><a href="{{ url('events/'.$event->id)}}">{{ $event->title }}</a></td>
 					<td>{{ date("g:ia\, jS M Y", strtotime($event->start_time)) }}</td>
 					<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
-					<td>{{$event->name}}</td>
+
+					
 					@if($event->status == "dean")
 					<td><p style="color:white;  background-color:#1fd145; padding:1px; border-radius:20px; text-align:center;" >Approved by Dean</p></td>
 					@endif
@@ -50,11 +53,12 @@
 					@if($event->status == "canceled")
 					<td><p style="color:white; background-color:#1d6987; padding:1px; border-radius:20px; text-align:center;"> Canceled </p></td>
 					@endif	
+					
 				</tr>
 			@endforeach
 			</tbody>
 		</table>
-			{{ $events->links() }}
+				{{ $events->links() }}
 		@else
 			<h2>No event yet!</h2>
 		@endif

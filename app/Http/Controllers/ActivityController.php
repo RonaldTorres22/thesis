@@ -13,6 +13,12 @@ use Auth;
 
 class ActivityController extends Controller
 {
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
     public function ISSI(){
 
     	$user =  Event::where('sales','=','checked')->orderBy('approvedate','desc')->paginate(10);

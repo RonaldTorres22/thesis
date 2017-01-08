@@ -74,6 +74,7 @@ Route::get('/', function () {
 
     Route::get('/CSDO', 'CsdoController@index');
     Route::get('/home', 'HomeController@index');
+    Route::get('RequestEquipments', 'CsdoController@logistics');
     
     Route::resource('/admin', 'AdminEventController');
     Route::get('pendinglist', 'AdminEventController@pendinglist');
@@ -94,6 +95,8 @@ Route::get('/', function () {
     Route::get('events/{id}',['uses'=>'EventController@view', 'as' => 'event.view']);
     Route::get('pending',['uses'=>'EventController@pending', 'as' => 'pending.events']);
     Route::get('disapproved','EventController@disapproved');
+    Route::get('allevents','EventController@allevent');
+    Route::post('cancelevent/{id}','EventController@cancelevent');
 
    
 
@@ -126,6 +129,11 @@ Route::get('/', function () {
      Route::get('donetask/{id}','TaskController@donetask');
      Route::get('backlog/{id}','TaskController@backlog');
 
+     //Online Registration
+     Route::resource('EventRegistration','EventRegistrationController');
+     Route::post('Registration/{id}','EventRegistrationController@store');
+     Route::get('participants/{id}','PDFController@participants');
+
      //Subaccount routes
      Route::resource('/accounts', 'SubAccountController');
      Route::get('tasks', 'TaskController@subaccindex');
@@ -135,6 +143,7 @@ Route::get('/', function () {
      Route::get('pendingevents',['uses' => 'SubAccountController@pending','as' => 'subacc.pending']);
      Route::get('disapprovedevents','SubAccountController@disapproved');
      Route::get('event/{id}/edit',['uses' => 'SubAccountController@editevent','as' => 'subbacc.edit']);
+     Route::get('allevent','SubAccountController@allevent');
 
      //Activities admin routes
     Route::get('issi','ActivityController@issi');
@@ -152,9 +161,12 @@ Route::get('/', function () {
     Route::get('PersonalMessage/{id}','PersonalmessageController@view');
     Route::get('inbox/{id}','PersonalmessageController@inboxview');
     Route::get('inbox','PersonalmessageController@inbox');
+    Route::get('deleteinbox/{id}','PersonalmessageController@destroyInbox');
+    Route::delete('categories',['uses' => 'PersonalmessageController@selectall','as' => 'delete.all']);
+    Route::delete('deleteinbox',['uses' => 'PersonalmessageController@selectinbox','as' => 'delete.inbox']);
 
     Route::get('/api', function () {
-    $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->get();
+    $events = DB::table('events')->select('id', 'name', 'title', 'start_time as start', 'end_time as end')->Where('status','=','approved')->orWhere('status','=','pending')->orWhere('status','=','dean')->get();
     foreach($events as $event)
     {
        

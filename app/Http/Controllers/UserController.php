@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\PasswordRequest;
 use Session;
 use Auth;
 use Hash;
@@ -50,14 +51,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PasswordRequest $request)
     {
-        $this->validate($request, [
-        'name' => 'required|unique:users',
-        'email' => 'required|email',
-        'password' => 'min:6|required|confirmed',
-        'password_confirmation' => 'required|min:6'
-        ]);
 
         $user                  = new User;
         $user->name            = $request->input('name');

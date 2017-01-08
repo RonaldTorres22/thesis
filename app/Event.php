@@ -30,6 +30,11 @@ class Event extends Model
     return $this->hasMany('\App\Todolist', 'event_id');
   }
 
+  public function registration()
+  {
+    return $this->hasMany('\App\Participant', 'event_id');
+  }
+
  public function letter()
   {
    return $this->hasOne('App\Letter', 'event_id');

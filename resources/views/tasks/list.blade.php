@@ -1,11 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<div class="page-title">
-		<div class="title_left">
+
+<div class="row">
+<div class="col-md-12">
+    <nav class="breadcrumb" style="margin-bottom:0px;">
+  <a class="breadcrumb-item" href="{{url('/')}}">Home / </a>
+  <span class="breadcrumb-item active">Create task</span>
+</nav>	
+</div>
+</div>
+
 			<h3>Events List</h3>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="x_panel">
@@ -25,9 +31,9 @@
 							<th scope="row">{{ $i++ }}</th>
 							<th>{{$tasks->title}}</th>
 							@if(empty(Auth::user()->acc_id))
-							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success">Create Tasks</a></th>
+							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success btn-sm">Create Tasks</a></th>
 							@else
-							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success">View Tasks</a></th>
+							<th><a href="{{ route('task.show',$tasks->id)}}" class="btn btn-success btn-sm">View Tasks</a></th>
 							@endif
 						</tr>
 						@endforeach

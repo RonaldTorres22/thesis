@@ -58,7 +58,7 @@
 				@endif
 			</div>
 
-		<div class="form-group @if($errors->has('participants')) has-error has-feedback @endif">
+		<div  class="form-group @if($errors->has('participants')) has-error has-feedback @endif">
 			<label for="db">Number of Participants</label>
 			<select name="participants" id="dbType" class="form-control">
 			   <option  selected>{{$event->participants}}</option>
@@ -73,7 +73,9 @@
 					{{ $errors->first('participants') }}
 					</p>
 				@endif
-		</div>	
+		</div>
+
+		@if($event->type_activity == "Indoor")	
 
 			<div id="otherType"  class="form-group @if($errors->has('venue')) has-error has-feedback @endif">
 			<label for="venue">Facility/Venue</label>
@@ -88,6 +90,12 @@
 			   <option value="IHM GYM">IHM GYM</option>
 			</select>
 			</div>
+		@else
+			<div class="form-group">
+			<label for="venue">Facility/Venue</label>
+				<input type="text" class="form-control" required name="venue" value="{{$event->venue}}">
+			</div>		
+		@endif
 
 			<div class="form-group" >
 			<div style="padding-left:20px;">
@@ -101,7 +109,15 @@
 			</div>
 
 				<hr>
-	
+			<div class="form-group form-group">
+				<label for="name">Registration</label>
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="registration" value="checked">Online Pre-Registration</label>
+				</div>
+			</div>
+
+				<hr>
+
 			@if(empty($event->visitors) && empty($event->vehicles) && empty($event->no_uniforms))
    			<div class="form-group form-group">
    				<div style="padding-left:20px;">                 
@@ -141,7 +157,7 @@
 			<textarea rows="2" type="text" name="no_uniforms[]" class="form-control">{{$event->no_uniforms}}</textarea>
 			<br>
 			@endif
-
+			<br>
 			<button type="submit" class="btn btn-primary" style="margin-bottom:40px;">Submit</button>
 		</form>		
 	</div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PasswordRequest;
 use App\User;
 use App\Todolist;
 use App\Letter;
@@ -22,9 +23,39 @@ class SubAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
+    public function allevent(){
+
+        $auth = Auth::user()->acc_id;
+        $user = Event::orderBy('approvedate', 'desc')->where('name','=',$auth)->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+
+        if(!empty(Auth::user()->acc_id))
+        {
+        return view('subaccview/allevent', $data);
+          }
+        else
+        {
+        return view('error404');  
+        }
+
+    }
+
     public function index(){
     
-     $users = User::where('acc_id', '=', Auth::user()->name)->paginate(10);
+     $users = User::where('acc_id', '=', Auth::user()->name)->orderBy('id','desc')->paginate(10);
 
       if(empty(Auth::user()->acc_id))
       {
@@ -122,20 +153,14 @@ class SubAccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PasswordRequest $request)
     {
-        $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required',
-        'password' => 'min:6|required|confirmed',
-        'password_confirmation' => 'required|min:6'
-        ]);
 
         $Subaccount                  = new User;
         $Subaccount->name            = Auth::user()->name.'_'.$request->input('name');
         $Subaccount->Department      = Auth::user()->Department;
         $Subaccount->acc_id          = Auth::user()->name;
-        $Subaccount->email           = $request->input('email').'@'.Auth::user()->name.'.com';
+        $Subaccount->email           = $request->input('email');
         $Subaccount->password        = Hash::make($request->password); 
         $Subaccount->save(); 
         Session::flash('success', ' Account successfully created!');
@@ -172,6 +197,7 @@ class SubAccountController extends Controller
         $event->gym             = $request->get('gym');
         $event->sales           = $request->get('sales');
         $event->film            = $request->get('film');
+        $event->registration    = $request->get('registration');
         $event->approvedate     = $this->change_date_format($time[0]);
         // $event->date            = $current->setTimezone('Asia/Singapore')->toDateString();
         $event->date            = $this->date($time[0]);

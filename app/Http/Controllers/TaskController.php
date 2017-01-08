@@ -17,10 +17,16 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+
+        $this->middleware('auth');
+    }  
+    
     public function index()
     {
         $auth = Auth::user()->name;
-        $user = Event::where('name','=',$auth)->orderBy('id','desc')->paginate(10);
+        $user = Event::where('name','=',$auth)->where('status','!=','canceled')->where('status','!=' ,'Disapproved')->orderBy('id','desc')->paginate(10);
 
         if(empty(Auth::user()->acc_id))
         {
@@ -34,7 +40,7 @@ class TaskController extends Controller
     public function subaccindex()
     {
         $auth = Auth::user()->acc_id;
-        $user = Event::where('name','=',$auth)->orderBy('id','desc')->paginate(10);
+        $user = Event::where('name','=',$auth)->where('status','!=','canceled')->where('status','!=' ,'Disapproved')->orderBy('id','desc')->paginate(10);
         if(!empty(Auth::user()->acc_id))
         {
         return view('tasks/list')->with('task', $user);

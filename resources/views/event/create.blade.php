@@ -25,7 +25,7 @@
 			{{ csrf_field() }}
 			<div class="form-group  @if($errors->has('type_activity')) has-error has-feedback @endif">
 				<label for="name">Type of Activity</label>
-				<select name="type_activity" class="form-control">
+				<select name="type_activity" id="type" class="form-control">
 					<option value="" selected disabled>Select Type of Activity</option>
 					<option value="Indoor">Indoor</option>
 					<option value="Off-Campus">Off-Campus</option>
@@ -36,6 +36,19 @@
 					</p>
 				@endif
 			</div>
+
+			<div id="otherTypeVenue" style="display:none;" class="form-group">
+			<label for="venue">Facility/Venue</label>
+			<input name="venue" type="text" class="form-control hid">
+			</select>
+			</div>
+
+			<div id="inputpart" style="display:none;" class="form-group">
+			<label for="venue">Number of Participants</label>
+			<input name="participants" type="number" min='1' class="form-control hid">
+			</select>
+			</div>
+
 
 			<div class="form-group @if($errors->has('title')) has-error has-feedback @endif">
 				<label for="title">Title</label>
@@ -60,7 +73,7 @@
 					</p>
 				@endif
 			</div>
-		<div class="form-group @if($errors->has('participants')) has-error has-feedback @endif">
+		<div  id="parti" class="form-group @if($errors->has('participants')) has-error has-feedback @endif">
 			<label for="db">Choose Number of Participants</label>
 			<select name="participants" id="dbType" class="form-control">
 			   <option value="" selected disabled>Choose Number of Participants</option>
@@ -100,6 +113,14 @@
 				<label class="checkbox"><input type="checkbox"   name="sales" value="checked">Involving sales of products and services</label>
 				</div>
 			</div>
+			<hr>
+			<div class="form-group form-group">
+				<label for="name">Registration</label>
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="registration" value="checked">Online Pre-Registration</label>
+				</div>
+			</div>
+
 				<hr>
 			<div class="form-group form-group">
 
@@ -170,6 +191,25 @@ $('#dbType').on('change',function(){
    break;
     default:
     $("#otherType").hide('fast')
+    }
+});
+
+
+$('#type').on('change',function(){
+     var selection = $(this).val();
+    switch(selection){
+    case "Off-Campus":
+    $("#otherTypeVenue").show('fast')
+    $("#inputpart").show('fast')
+    $("#parti").hide('fast')
+     $("#otherType").hide('fast')
+   break;
+    default:
+    $("#otherTypeVenue").hide('fast')
+    $("#inputpart").hide('fast')
+    $("#parti").show('fast')
+    $('.hid').val('');
+
     }
 });
 

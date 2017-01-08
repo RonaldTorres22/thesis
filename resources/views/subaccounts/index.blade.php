@@ -15,6 +15,11 @@
       </div>
       @endif
 
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="{{url('/')}}">Home / </a>
+  <span class="breadcrumb-item active">Create Sub Account</span>
+</nav>
+
       <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Add Account</button>
 
       <div id="myModal" class="modal fade" role="dialog">
@@ -34,17 +39,15 @@
                     <input class="form-control" disabled type="text" required value="{{Auth::user()->name}}" name="name">
                   </div>
                   <div class="col-xs-6">
-                    <input class="form-control" type="text" required  placeholder="Ex.Ronald" name="name">
+                    <input class="form-control" type="text" required  placeholder="Enter your name" name="name">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label for="email" class="col-xs-3 col-form-label" style="margin-top:10px;">E-mail:</label>
-                  <div class="col-xs-5">
-                    <input class="form-control" placeholder="Ex.Ronald" required name="email">
+                  <div class="col-xs-9">
+                    <input class="form-control" type="email" placeholder="Enter your e-mail address" required name="email">
                   </div>
-                  <div class="col-xs-4">
-                    <input class="form-control"  disabled required value="@ {{Auth::user()->name}}.com" name="email">
-                  </div>
+
                 </div>
                 <div class="form-group row">
                   <label for="password" class="col-xs-3 col-form-label" style="margin-top:10px;">Password:</label>

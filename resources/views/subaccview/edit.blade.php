@@ -100,6 +100,14 @@
 			</div>
 			</div>
 
+			<hr>
+			
+			<div class="form-group form-group">
+				<label for="name">Registration</label>
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="registration" value="checked">Online Pre-Registration</label>
+				</div>
+			</div>
 				<hr>
 	
 			@if(empty($event->visitors) && empty($event->vehicles) && empty($event->no_uniforms))

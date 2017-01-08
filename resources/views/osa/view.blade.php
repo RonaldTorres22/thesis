@@ -29,7 +29,14 @@
 	padding-left: 20px;
 	padding-top: 10px;
 	background-color: white;
-}			
+}
+#canceled{
+	color: white;
+	border: 2px solid #1d6987;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: #1d6987;	
+}				
 </style>
 <div class="container">
 
@@ -55,6 +62,9 @@
 		@if($event->status == "pending")
 		<h5 style="float:right; margin-right:30px;">Status: <b id="pending">Pending </b></h5>
 		@endif
+		@if($event->status == "canceled")
+		<h5 style="float:right; margin-right:30px;">Status: <b id="canceled">Canceled</b></h5>
+		@endif
 		@if($event->status == "Disapproved" )
 		<h5 style="float:right; margin-right:30px;">Status: <b id="disapproved">Disapproved</b></h5>
 		@endif
@@ -71,9 +81,7 @@
 
 <div class="row">
 	<div class="col-lg-6">
-	<div class="well">
-			<p>Type of Activity: <b>{{ $event->type_activity }}</b></p>
-		</div>
+		<p style="margin-left:10px;">Type of Activity: <b>{{ $event->type_activity }}</b></p>
 		<div class="well">
 			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
 		</div>

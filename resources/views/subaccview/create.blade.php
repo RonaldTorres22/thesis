@@ -100,6 +100,15 @@
 				<label class="checkbox"><input type="checkbox"   name="sales" value="checked">Involving sales of products and services</label>
 				</div>
 			</div>
+			<hr>
+
+			<div class="form-group form-group">
+				<label for="name">Registration</label>
+				<div style="padding-left:20px;">
+				<label class="checkbox"><input type="checkbox" name="registration" value="checked">Online Pre-Registration</label>
+				</div>
+			</div>
+				
 				<hr>
 			<div class="form-group form-group">
 

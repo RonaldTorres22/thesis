@@ -1,13 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<div class="page-title">
-		<div class="title_left">
+
+<div class="row">
+<div class="col-md-12">
+    <nav class="breadcrumb" style="margin-bottom:0px;">
+  <a class="breadcrumb-item" href="{{url('/')}}">Home / </a>
+  <span class="breadcrumb-item active">Approved Events</span>
+</nav>	
+</div>
+</div>
+
 			<h3>Approved Events</h3>
-		</div>
-	</div>
-	<div class="clearfix"><br></div>
-	<br>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="x_panel">
