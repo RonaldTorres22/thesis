@@ -43,9 +43,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<input type="number" min="1" max="99" class="form-control log" name="CollegeFlag"><br>
+
 				</div>
 				<div class="col-md-6">
 					<label>College Flag/s</label>
+						<p>({{$cflag}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -56,6 +58,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Decorative Plants</label>
+					<p>({{$plants}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -66,6 +69,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Monoblock Chairs</label>
+					<p>({{$mchairs}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -76,6 +80,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Philippine Flag</label>
+					<p>({{$pflag}} left)</p>
 				</div>
 			</div>
 		</div>	
@@ -89,6 +94,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Platform</label>
+					<p>({{$platform }} left)</p>
 				</div>
 			</div>
 		</div>
@@ -99,6 +105,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Rostrum</label>
+					<p>({{$rost }} left)</p>
 				</div>
 			</div>
 		</div>
@@ -109,6 +116,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>School Flag/s</label>
+					<p>({{$sflag }} left)</p>
 				</div>
 			</div>
 		</div>
@@ -119,6 +127,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Standing Boards</label>
+					<p>({{$sbaords}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -133,6 +142,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>White Panel</label>
+					<p>({{$wpanel}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -143,6 +153,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Wooden Chairs</label>
+					<p>({{$wchairs}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -153,6 +164,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Wooden Panel</label>
+					<p>({{$wpannel}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -170,6 +182,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Sound System</label>
+					<p>({{$ssystem}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -180,6 +193,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Extension Cord</label>
+					<p>({{$excord}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -190,6 +204,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Microphone</label>
+					<p>({{$mic}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -200,6 +215,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Wireless Mic</label>
+					<p>({{$wimic}} left)</p>
 				</div>
 			</div>
 		</div>	
@@ -213,6 +229,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Mic Stand</label>
+					<p>({{$micstand}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -223,6 +240,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Projector</label>
+					<p>({{$projector}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -233,6 +251,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>Projector Screen</label>
+					<p>({{$screen}} left)</p>
 				</div>
 			</div>
 		</div>
@@ -243,6 +262,7 @@
 				</div>
 				<div class="col-md-6">
 					<label>DVD Player</label>
+					<p>({{$player}} left)</p>
 				</div>
 			</div>
 		</div>	

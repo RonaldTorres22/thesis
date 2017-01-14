@@ -68,7 +68,14 @@ class EventRegistrationController extends Controller
             'event'         => $event
 
         ];
+        if($event->status == "approved" || $event->status == "pending" || $event->status == "dean")
+        {
         return view('registeronline/register', $data);
+        }
+        else
+        {
+        return view('error404');
+        }
     }
 
     /**

@@ -29,9 +29,9 @@
                         @foreach($events as $event)
                         <tr>
                             <th scope="row">{{ $i++ }}</th>
-                            <th>{{$event->title}}</th>
-                            <th>{{$event->name}}</th>
-                            <td><a href="{{ url('viewlogistics/' . $event->id) }}" class="btn btn-default">View</a></td> 
+                            <th>{{$event->eventlogistic->title}}</th>
+                            <th>{{$event->eventlogistic->name}}</th>
+                            <td><a href="{{ url('viewlogistics/' . $event->eventlogistic->id) }}" class="btn btn-default">View</a></td> 
                             </tr>
                             @endforeach
                         </tbody>

@@ -94,7 +94,7 @@
                                 <input id="password" type="password" class="form-control" name="password" value="">
                                  @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('password') }} Password must contain at least one uppercase and numeric character</strong>
                                     </span>
                                 @endif
                             </div>

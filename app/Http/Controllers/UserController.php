@@ -87,7 +87,7 @@ class UserController extends Controller
             {
 
          $this->validate($request, [
-                    'password' => 'required|confirmed',
+                    'password' => 'required|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             ]);
 
             $user = User::findOrFail($id);

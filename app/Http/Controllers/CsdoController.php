@@ -47,7 +47,7 @@ class CsdoController extends Controller
     public function logistics()
     {
 
-        $user =  Event::Where('status','=','approved')->paginate(10);
+        $user =  Logistic::orderBy('id','desc')->paginate(10);
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),

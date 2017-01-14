@@ -155,6 +155,11 @@ Route::get('/', function () {
     Route::get('logistics/{id}','LogisticsController@create');
     Route::post('logistic/{id}','LogisticsController@store');
     Route::get('viewlogistics/{id}','LogisticsController@viewlogistic');
+    Route::post('approverequest/{id}','LogisticsController@approverequest');
+
+    //Equipments
+    Route::get('Equipments','LogisticsController@equipments');
+    Route::post('storeequipment',['uses' => 'LogisticsController@equipmentsstore','as' => 'save.equipment']);
 
     //Personal Messages
     Route::resource('PersonalMessage','PersonalmessageController');

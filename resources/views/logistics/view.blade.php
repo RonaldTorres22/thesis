@@ -28,26 +28,56 @@
 	.well{
 		padding: 10px;
 	}
+	#pending{
+	color: white;
+	border: 2px solid orange;
+	border-radius: 25px;
+	padding: 4px;
+	background-color: orange;
+}
+#approve{
+	color: white;
+	border: 2px solid green;
+	border-radius: 25px;
+	padding: 4px;
+	padding-right: 10px;
+	padding-left: 10px;
+	background-color: green;
+}
 </style>
 
 @if(Auth::user()->Department == "CSDO")
 <div class="row">
+<div class="col-md-12">
+		@include('message')
+</div>
+<div class="col-md-4">
+@if($logistic->status == "pending")
+<form action="{{url('approverequest/'.$logistic->id)}}" method="post">	
+{{ csrf_field() }}
+<button class="btn btn-success" type="submit">Approve Eqiupments</button>
+</form>
+@else
+
+@endif
+</div>
+<div class="col-md-8">
+		@if($logistic->status == "pending")
+<h5 style="float:right; margin-right:30px;">Status: <b id="pending">Pending</b></h5>
+		@else
+<h5 style="float:right; margin-right:30px;">Status: <b id="approve">Approved</b></h5>
+		@endif
+</div>
+
+<div class="col-md-12">
+	 <h3 >{{$logistic->eventlogistic->title}}</h3>
+	 <hr>
+</div>
+
+
 <div class="col-md-6">
-<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">View Event Details</button>
-</div>
-</div>
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{$logistic->eventlogistic->title}}</h4>
-      </div>
-      <div class="modal-body">
-
-      <div class="well">
+	      <div class="well">
        <p>Number of Participants: <b>{{$logistic->eventlogistic->participants}}</b></p>
       </div>
 
@@ -55,7 +85,11 @@
        <p>Venue: <b>{{$logistic->eventlogistic->venue}}</b></p>
       </div>
 
-      <div class="well">
+
+
+</div>
+<div class="col-md-6">
+	      <div class="well">
        <p>Activity: <b>
        			@if(!empty($logistic->eventlogistic->gym))
 				IHM GYM usage,
@@ -73,16 +107,22 @@
 	<div class="well">
 		<p>Time: <b>{{ date("g:ia\, jS M Y", strtotime($logistic->eventlogistic->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($logistic->eventlogistic->end_time)) }}</b></p>
 	</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
 </div>
+
+
+</div>
+
 <hr>
+@else
+<div class="row">
+<div class="col-md-12">
+		@if($logistic->status == "pending")
+<h5 style="float:right; margin-right:30px;">Status: <b id="pending">Pending</b></h5>
+		@else
+<h5 style="float:right; margin-right:30px;">Status: <b id="approve">Approved</b></h5>
+		@endif
+</div>
+</div>
 @endif
 
 <h3>Logistics</h3>

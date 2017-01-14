@@ -130,7 +130,7 @@
 	<div class="row">
 	<div class="col-md-12">
 	@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
-	@if($event->type_activity == 'Indoor' && $event->status != 'Disapproved')	
+	@if($event->type_activity == 'Indoor' && $event->status != 'Disapproved' && $event->status != "canceled")	
 	 @if($logistic->count() == 1)
 		<a href="{{url('viewlogistics',$event->id)}}" style="margin-left:10px;" class="btn btn-primary">View Event Equipments</a>
 	 @else
@@ -159,7 +159,7 @@
                  @endif
                 @endif
 
-     @if($event->registration == 'checked')
+     @if($event->registration == 'checked'  && $event->status != "Disapproved" && $event->status != "canceled")
 	<a class="btn btn-primary" href="{{url('participants/'.$event->id)}}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> List of Participants</a>
 	@endif
 	<hr>
@@ -260,14 +260,14 @@
 		<div class="col-lg-6">
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
 
-			@if($event->registration == "checked")
+			@if($event->registration == "checked" && $event->status != "Disapproved" && $event->status != "canceled")
 			<label>Online Registration Link: </label>
 			<a href="{{ route('EventRegistration.show',$event->id)}}" class="link">{{ route('EventRegistration.show',$event->id)}}</a>
 
 			<hr>
 			@endif
 
-			@if($event->status == "deanDisapproved" || $event->status == "Disapproved")
+			@if($event->status == "deanDisapproved" || $event->status == "Disapproved" || $event->status == "canceled")
 			@else
 			<p><b>To do lists:</b></p>
 		

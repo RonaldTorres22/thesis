@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogisticsTable extends Migration
+class CreateEquipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,8 @@ class CreateLogisticsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logistics', function (Blueprint $table) {
+        Schema::create('equips', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('event_id')->unsigned();
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-            $table->string('by');
-            $table->string('status')->default('pending');
-            $table->string('approvedate');
             $table->integer('CollegeFlag')->nullable();
             $table->integer('Rostrum')->nullable();
             $table->integer('WoodenPanel')->nullable();
@@ -39,7 +34,7 @@ class CreateLogisticsTable extends Migration
             $table->integer('WirelessMic')->nullable();
             $table->integer('MicStand')->nullable();  
             $table->integer('others')->nullable();    
-            $table->string('othersName')->nullable(); 
+            $table->string('othersName')->nullable();
             $table->timestamps();
         });
     }
@@ -51,6 +46,6 @@ class CreateLogisticsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('logistics');
+        Schema::drop('equips');
     }
 }

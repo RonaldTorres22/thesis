@@ -142,6 +142,10 @@
 
                     @elseif(Auth::user()->Department == "CSDO")
 
+                  <li>
+                     <center><a href="{{ url('events/create') }}" class="btn btn-primary btn-block"> Reserve Venue</a></center>
+                  </li>
+
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
@@ -156,7 +160,13 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-edit"></i>Logistics<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-suitcase"></i>Equipments<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('Equipments') }}">View Equipments</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-truck"></i>Logistics<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('RequestEquipments') }}">View Events</a></li>
                     </ul>

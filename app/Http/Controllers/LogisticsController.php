@@ -11,6 +11,7 @@ use App\Logistic;
 use Auth;
 use Session;
 use App\User;
+use App\Equip;
 
 class LogisticsController extends Controller
 {
@@ -38,9 +39,90 @@ class LogisticsController extends Controller
     public function create($id)
     {
         $event = Event::findOrFail($id);
+
+        $cflag = Equip::findOrFail(1)->CollegeFlag;
+        $Rostrum = Equip::findOrFail(1)->Rostrum;
+        $WoodenPanel = Equip::findOrFail(1)->WoodenPanel;
+        $DecorativePlants = Equip::findOrFail(1)->DecorativePlants;
+        $SchoolFlag = Equip::findOrFail(1)->SchoolFlag;
+        $MonoblockChairs = Equip::findOrFail(1)->MonoblockChairs;
+        $StandingBoards = Equip::findOrFail(1)->StandingBoards;
+        $PhilippineFlag = Equip::findOrFail(1)->PhilippineFlag;
+        $Platform = Equip::findOrFail(1)->Platform;
+        $WhitePanel = Equip::findOrFail(1)->WhitePanel;
+        $WoodenChairs = Equip::findOrFail(1)->WoodenChairs;
+        $SoundsSystem = Equip::findOrFail(1)->SoundsSystem;
+        $Projector = Equip::findOrFail(1)->Projector;
+        $ExtensionCord = Equip::findOrFail(1)->ExtensionCord;
+        $ProjectorScreen = Equip::findOrFail(1)->ProjectorScreen;
+        $Microphone = Equip::findOrFail(1)->Microphone;
+        $DvdPlayer = Equip::findOrFail(1)->DvdPlayer;
+        $WirelessMic = Equip::findOrFail(1)->WirelessMic;
+        $MicStand = Equip::findOrFail(1)->MicStand;
+
+        $sumflag = Logistic::where('approvedate','=', $event->date)->sum('CollegeFlag');
+        $sumrostrum = Logistic::where('approvedate','=', $event->date)->sum('Rostrum');
+        $sumwoodenpanel = Logistic::where('approvedate','=', $event->date)->sum('WoodenPanel');
+        $sumdecorativeplants = Logistic::where('approvedate','=', $event->date)->sum('DecorativePlants');
+        $sumschoolflag = Logistic::where('approvedate','=', $event->date)->sum('SchoolFlag');
+        $summonoblockchairs = Logistic::where('approvedate','=', $event->date)->sum('MonoblockChairs');
+        $sumstandingboards = Logistic::where('approvedate','=', $event->date)->sum('StandingBoards');
+        $sumphilippineflag = Logistic::where('approvedate','=', $event->date)->sum('PhilippineFlag');
+        $sumplatform = Logistic::where('approvedate','=', $event->date)->sum('Platform');
+        $sumwhitepanel = Logistic::where('approvedate','=', $event->date)->sum('WhitePanel');
+        $sumwoodenchairs = Logistic::where('approvedate','=', $event->date)->sum('WoodenChairs');
+        $sumsoundssystem = Logistic::where('approvedate','=', $event->date)->sum('SoundsSystem');
+        $sumprojector = Logistic::where('approvedate','=', $event->date)->sum('Projector');
+        $sumexcord= Logistic::where('approvedate','=', $event->date)->sum('ExtensionCord');
+        $sumprojscreen = Logistic::where('approvedate','=', $event->date)->sum('ProjectorScreen');
+        $summic= Logistic::where('approvedate','=', $event->date)->sum('Microphone');
+        $sumdvdplayer= Logistic::where('approvedate','=', $event->date)->sum('DvdPlayer');
+        $sumwiremic= Logistic::where('approvedate','=', $event->date)->sum('WirelessMic');
+        $summicstand = Logistic::where('approvedate','=', $event->date)->sum('MicStand');
+
+        $cflag = $cflag - $sumflag;
+        $rost = $Rostrum - $sumrostrum;
+        $woodpanel = $WoodenPanel - $sumwoodenpanel;
+        $decplants = $DecorativePlants - $sumdecorativeplants;
+        $sflag = $SchoolFlag - $sumschoolflag;
+        $monochairs = $MonoblockChairs - $summonoblockchairs;
+        $standboards = $StandingBoards - $sumstandingboards;
+        $pflag = $PhilippineFlag - $sumphilippineflag;
+        $platform = $Platform - $sumplatform;
+        $wpanel = $WhitePanel - $sumwhitepanel;
+        $wchairs = $WoodenChairs - $sumwoodenchairs;
+        $ssystem = $SoundsSystem - $sumsoundssystem;
+
+        $projector = $Projector - $sumprojector; 
+        $excords = $ExtensionCord - $sumexcord; 
+        $screen = $ProjectorScreen - $sumprojscreen;
+        $mic = $Microphone - $summic; 
+        $player = $DvdPlayer - $sumdvdplayer; 
+        $wimic = $WirelessMic - $sumwiremic;
+        $micstand = $MicStand - $summicstand;
+
         $data = [
             'page_title'    => $event->title,
-            'event'         => $event
+            'event'         => $event,
+            'cflag'         => $cflag,
+            'rost'         => $rost,
+            'wpannel'         => $woodpanel,
+            'plants'         => $decplants,
+            'mchairs'         => $monochairs,
+            'sbaords'         => $standboards,
+            'pflag'         => $pflag,
+            'platform'         => $platform,
+            'wpanel'         => $wpanel,
+            'wchairs'         => $wchairs,
+            'ssystem'         => $ssystem,
+            'sflag'         => $sflag,
+            'projector'   => $projector,
+            'excord' => $excords,
+            'screen' => $screen,
+            'mic' => $mic,
+            'player' => $player,
+            'wimic' => $wimic,
+            'micstand' => $micstand
 
         ];
         if(Auth::user()->name == $event->name || Auth::user()->acc_id == $event->name)
@@ -68,10 +150,12 @@ class LogisticsController extends Controller
     public function store(Request $request, $id)
     {
         $event_id = Event::find($id)->id;
+        $eventdate = Event::find($id)->date;
         $logistic = Event::find($id);
         $logistic = new Logistic;
         $logistic->event_id             = $event_id;
         $logistic->by                   = Auth::user()->name;
+        $logistic->approvedate          = $eventdate;
         $logistic->CollegeFlag          = $request->input('CollegeFlag');
         $logistic->Rostrum              = $request->input('Rostrum');
         $logistic->WoodenPanel          = $request->input('WoodenPanel');
@@ -143,7 +227,51 @@ class LogisticsController extends Controller
     {
         //
     }
+    public function approverequest(Request $request, $id)
+    {
+        $event = Logistic::findOrFail($id);
+        $event->status         = "Approved";     
+        $event->save();
+        
+        $request->session()->flash('success', 'The equipmets was successfully approved!');
+        
+        return back();
 
+    }
+    public function equipments()
+    {
+        $log = Equip::count();
+        $quipment = Equip::all();
+        return view('equipments/index')->with('equip',$log)->with('equipment',$quipment);
+    }
+    public function equipmentsstore(Request $request)
+    {
+         $logistic = new Equip;
+        $logistic->CollegeFlag          = $request->input('CollegeFlag');
+        $logistic->Rostrum              = $request->input('Rostrum');
+        $logistic->WoodenPanel          = $request->input('WoodenPanel');
+        $logistic->DecorativePlants     = $request->input('DecorativePlants');
+        $logistic->SchoolFlag           = $request->input('SchoolFlag');
+        $logistic->MonoblockChairs      = $request->input('MonoblockChairs');
+        $logistic->StandingBoards       = $request->input('StandingBoards');
+        $logistic->PhilippineFlag       = $request->input('PhilippineFlag');
+        $logistic->Platform             = $request->input('Platform');
+        $logistic->WhitePanel           = $request->input('WhitePanel');
+        $logistic->WoodenChairs         = $request->input('WoodenChairs');
+        $logistic->SoundsSystem         = $request->input('SoundsSystem');
+        $logistic->Projector            = $request->input('Projector');
+        $logistic->ExtensionCord        = $request->input('ExtensionCord');
+        $logistic->ProjectorScreen      = $request->input('ProjectorScreen');
+        $logistic->Microphone           = $request->input('Microphone');
+        $logistic->DvdPlayer            = $request->input('DvdPlayer');
+        $logistic->WirelessMic          = $request->input('WirelessMic');
+        $logistic->MicStand             = $request->input('MicStand');
+        $logistic->others               = $request->input('others');
+        $logistic->othersName           = $request->input('othersName');
+        $logistic->save();
+        $request->session()->flash('success', 'The logistics was successfully saved!');
+        return back();
+    }
     /**
      * Remove the specified resource from storage.
      *

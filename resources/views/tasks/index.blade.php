@@ -24,7 +24,7 @@
 .pad0{
 margin-right: 10px;
 background-color: #efefef;
-width: 30%;
+width: 30%; 
 padding-bottom: 50px;
 
 }
@@ -71,7 +71,7 @@ hr{
 
 <div class="col-md-6">
 @if(empty(Auth::user()->acc_id))
- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Task</button>
+ <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Create Task</button>
  @endif
 <h4><b>DRAG AND DROP</b></h4>
 </div>
@@ -159,7 +159,7 @@ hr{
 
 {{-- ---- --}}
 
-<div class="col-lg-4 pad0"">
+<div class="col-lg-4 pad0">
 
 <h3><b>IN PROGRESS</b></h3>
 <div class="column2 col" style="height:400px;" >
@@ -184,26 +184,28 @@ hr{
 
 {{-- ---- --}}
 
-<div class="col-lg-4 pad0"">
-<h3><b>DONE</b></h3>
-<div class="column3 col" style="height:400px;">
+<div class="col-lg-4 pad0">
+
+<h3><b>Done</b></h3>
+<div class="column3 col" style="height:400px;" >
   @foreach($done as $tasks)
-    <div class="portlet3 portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" data-id="{{$tasks->id}}" style="width:250px;">
+    <div class="portlet2 portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" data-id="{{$tasks->id}}" style="width:250px;">
         <div class="portlet-header ui-widget-header ui-corner-all">{{$tasks->to_who}}</div>
         <div class="portlet-content"><p style="margin-bottom:10px;">{{$tasks->task}}</p>
-         <p style="margin-bottom:0px; font-size:11px;">Created at: <b>{{date('M j,Y h:ia',strtotime($tasks->created_at)) }}</b></p>
+        <p style="margin-bottom:0px; font-size:11px;">Created at: <b>{{date('M j,Y h:ia',strtotime($tasks->created_at)) }}</b></p>
         <p style="margin-bottom:0px; font-size:11px;">Updated at: <b>{{date('M j,Y h:ia',strtotime($tasks->updated_at)) }}</b></p>
+
         </div>
                 <hr>
-           <form action="{{ route('task.destroy', $tasks->id) }}" method="POST">
+           <form action="{{ route('task.destroy', $tasks->id) }}"  method="POST">
                     <input type="hidden" name="_method" value="DELETE" />
                     {{ csrf_field() }}
-                    <button style="float:right; display:none;" class="btn btn-danger btn-xs del{{$tasks->id}}" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                    <button style="float:right;" disabled class="btn btn-danger btn-xs del{{$tasks->id}}" type="submit"><span class="glyphicon glyphicon-remove"></span> Remove</button>
              </form>
-      </div>
+    </div>
   @endforeach
 </div>
-</div>
+ </div>
 
 {{-- ---- --}}
 </div>
@@ -266,7 +268,7 @@ hr{
      accept: ".portlet1,.portlet3,.portlet2",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
-       $( ".del"+Id ).show();
+       $('.del'+Id).prop("disabled", false);
       var urlDelTodo = "{{url('movetask')}}";
         // POST to server using $.post or $.ajax
         $.ajax({
@@ -282,7 +284,7 @@ hr{
      accept: ".portlet3,.portlet2,.portlet1",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
-       $( ".del"+Id ).show();
+      $('.del'+Id).prop("disabled", false);
       var urlDelTodo = "{{url('backlog')}}";
         // POST to server using $.post or $.ajax
         $.ajax({
@@ -300,7 +302,7 @@ hr{
      accept: ".portlet2,.portlet1,.portlet3",
      drop: function(event, ui) {
       var Id = ui.draggable.attr("data-id");
-      $( ".del"+Id ).hide();
+      $( ".del"+Id ).addClass('disabled');
       var urlDelTodo = "{{url('donetask')}}";
       // alert(Id);
         // POST to server using $.post or $.ajax
