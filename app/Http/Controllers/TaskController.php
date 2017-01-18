@@ -103,6 +103,7 @@ class TaskController extends Controller
      */
     public function store(Request $request, $id)
     {
+
         
         $event_id = Event::find($id)->id;
         $task = Event::find($id);

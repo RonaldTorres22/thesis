@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Logistic;
 use App\Http\Requests;
 use App\Event;
 use App\User;
@@ -24,6 +24,12 @@ class NotificationController extends Controller
     	 $event = Event::where("notif",2)->update(array('notif' => 3));
 
 		return response('sdfsdf');
+    }
+
+    public function getNotificationcsdo(){
+         $event = Logistic::where("notif",0)->update(array('notif' => 1));
+
+        return response('sdfsdf');
     }
 
     public function getNotificationuser(){

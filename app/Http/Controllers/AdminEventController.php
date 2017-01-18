@@ -28,7 +28,10 @@ class AdminEventController extends Controller
 
     public function index()
     {
-        $user =  Event::orderBy('approvedate','desc')->paginate(10);
+        $user = Event::whereHas('user', function($q) {
+         $q->where('Department','=', 'CICT');
+        })->orderBy('approvedate','desc')->paginate(10);
+
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -36,7 +39,7 @@ class AdminEventController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
+        if(Auth::User()->Department == "DEAN"){
            return view('admin/eventslist', $data);
         }
         else
@@ -48,7 +51,10 @@ class AdminEventController extends Controller
 
     public function pendinglist()
     {
-        $user =  Event::where('status','=','pending')->paginate(10);
+        $user = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CICT');
+        })->orderBy('id','desc')->where('status','=','pending')->paginate(10);
+    
         $data = [
             'page_title' => 'Events',
             //'events'     => Event::orderBy('start_time')->get(),
@@ -56,7 +62,7 @@ class AdminEventController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
+        if(Auth::User()->Department == "DEAN"){
            return view('admin/pendinglist', $data);
         }
         else
@@ -143,7 +149,7 @@ class AdminEventController extends Controller
             'event'         => $event,
             'duration'      => $this->format_interval($difference)
         ];
-         if(Auth::User()->Department == "DEAN" || Auth::User()->Department == "CSDO"){
+         if(Auth::User()->Department == "DEAN"){
         return view('admin/view', $data);
         }
         else

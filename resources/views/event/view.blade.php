@@ -169,14 +169,14 @@
 	<div class="col-lg-6">
 		<p style="margin-left:10px;">Type of Activity: <b>{{ $event->type_activity }}</b></p>
 
-		<div class="well">
-			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
-		</div>
-		<div class="well">
-			<p>Venue: <b>{{ $event->venue }}</b></p>
-		</div>
-		<div class="well">
-			<p>Activity:<b>
+		
+			<p style="margin-left:10px;">Number of Participants: <b>{{ $event->participants }}</b></p>
+		
+		
+			<p style="margin-left:10px;">Venue: <b>{{ $event->venue }}</b></p>
+		
+		
+			<p style="margin-left:10px;">Activity:<b>
 				@if(!empty($event->gym))
 				IHM GYM usage,
 				@endif
@@ -188,56 +188,56 @@
 				@endif
 				</b>
 			</p>
-		</div>
-		<div class="well">
-			<p>Time:<b> 
+		
+		
+			<p style="margin-left:10px;">Time:<b> 
 				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
 			</b></p>
-		</div>
-		<div class="well">
-			<p>Duration: <b> {{ $duration }}</b></p>
-		</div>
+		
+		
+			<p style="margin-left:10px;">Duration: <b> {{ $duration }}</b></p>
+		
 
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name || Auth::user()->Department == "SCO")
-		<div class="well">
+		
 			@if(!empty($event->visitors))
-			<p>Visitors list:<br>
+			<p style="margin-left:10px;">Visitors list:<br>
 			<b>	{{ $event->visitors }}</b>
 			</p>
 			@else
-			<p>Visitors list: <br>
+			<p style="margin-left:10px;">Visitors list: <br>
 				<b>NONE</b>
 			</p>
 			@endif
 
 			@if(!empty($event->vehicles))
-			<p>Plate Number list: <br>
+			<p style="margin-left:10px;">Plate Number list: <br>
 			<b>	{{ $event->vehicles }}</b>
 			</p>
 			@else
-			<p>Plate Number list:: <br>
+			<p style="margin-left:10px;">Plate Number list:: <br>
 				<b>NONE</b>
 			</p>
 			@endif
 
 
 			@if(!empty($event->no_uniforms))
-			<p>No Uniform list <br>
+			<p style="margin-left:10px;">No Uniform list <br>
 			<b>	{{ $event->no_uniforms }}</b>
 			</p>
 			@else
-			<p>No Uniform list <br>
+			<p style="margin-left:10px;">No Uniform list <br>
 				<b>NONE</b>
 			</p>
 			@endif
 
 			@endif
-		</div>
+		
 			<br>
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
 			<div class="row">
 
-			@if($event->status != 'canceled')
+			@if($event->status != 'canceled' && $event->status != 'Disapproved') 
 			<div class="col-lg-2" style="margin-right:50px;">
 			<form action="{{url('cancelevent/'.$event->id)}}" style="display:inline;" method="POST">
 				{{ csrf_field() }}

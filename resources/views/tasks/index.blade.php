@@ -67,7 +67,18 @@ hr{
 </style>
 <div class="container">
 
+
 <div class="row">
+
+      @if (count($errors) > 0)
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
 
 <div class="col-md-6">
 @if(empty(Auth::user()->acc_id))
@@ -103,8 +114,8 @@ hr{
             <div class="form-group row">
                 <label for="password" class="col-xs-2 col-form-label" style="margin-top:10px; padding-left:50px;">To:</label>
                 <div class="col-xs-8">
-                      <select class="form-control" id="sel1" name="to_who">
-                      <option disabled selected hidden>Assign task to</option>
+                      <select class="form-control" id="sel1" name="to_who" required>
+                      <option hidden value="">Assign task to</option>
                       @foreach($user as $users)
                       <option value="{{$users->name}}">{{$users->name}}</option>
                       @endforeach

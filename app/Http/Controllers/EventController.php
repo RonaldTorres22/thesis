@@ -308,7 +308,14 @@ class EventController extends Controller
             'event'         => $event,
         ];
         
+        if(Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name )
+        {
         return view('event/edit', $data);
+        }
+        else
+        {
+            return view('error404');
+        }
     }
 
     /**

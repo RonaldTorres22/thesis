@@ -40,6 +40,10 @@ Route::get('/', function () {
     'uses' => 'NotificationController@getNotificationvpaa',
     'as' => 'notifuser'
 ]);
+   Route::get('/notificationCsdo', [
+    'uses' => 'NotificationController@getNotificationcsdo',
+    'as' => 'notifuser'
+]);
    Route::get('/notificationTask', [
     'uses' => 'NotificationController@getNotificationtask',
     'as' => 'notiftask'
@@ -72,7 +76,9 @@ Route::get('/', function () {
     Route::resource('/organization', 'UserController');
 
 
-    Route::get('/CSDO', 'CsdoController@index');
+    Route::get('/EventsWall', 'CsdoController@index');
+    Route::get('CSDO','CsdoController@viewevents');
+    Route::get('CSDO/{id}','CsdoController@showevent');
     Route::get('/home', 'HomeController@index');
     Route::get('RequestEquipments', 'CsdoController@logistics');
     
@@ -90,6 +96,40 @@ Route::get('/', function () {
     Route::post('disapprove/{id}','AdminEventController@disapproveEvent');
     Route::post('disapproveOsa/{id}','OsaController@disapproveEvent');
 
+    //CBA dean
+    Route::get('CBApendinglist', 'DeansController@CBApendinglist');
+    Route::get('CBA/{id}', 'DeansController@showcba');
+    Route::get('CBAeventslist', 'DeansController@CBAeventslist');
+
+    //CNAMS dean
+    Route::get('CNAMSpendinglist', 'DeansController@CNAMSpendinglist');
+    Route::get('CNAMS/{id}', 'DeansController@showcnams');
+    Route::get('CNAMSeventslist', 'DeansController@CNAMSeventslist');
+
+    //CASED dean
+    Route::get('CASEDpendinglist', 'DeansController@CASEDpendinglist');
+    Route::get('CASED/{id}', 'DeansController@showcased');
+    Route::get('CASEDeventslist', 'DeansController@CASEDeventslist');
+
+    //SED dean
+    Route::get('SEDpendinglist', 'DeansController@SEDpendinglist');
+    Route::get('SED/{id}', 'DeansController@showsed');
+    Route::get('SEDeventslist', 'DeansController@SEDeventslist');
+
+    //CEA dean
+    Route::get('CEApendinglist', 'DeansController@CEApendinglist');
+    Route::get('CEA/{id}', 'DeansController@showcea');
+    Route::get('CEAeventslist', 'DeansController@CEAeventslist');
+
+    //CHTM dean
+    Route::get('CHTMpendinglist', 'DeansController@CHTMpendinglist');
+    Route::get('CHTM/{id}', 'DeansController@showchtm');
+    Route::get('CHTMeventslist', 'DeansController@CHTMeventslist');
+
+    //CCJEF dean
+    Route::get('CCJEFpendinglist', 'DeansController@CCJEFpendinglist');
+    Route::get('CCJEF/{id}', 'DeansController@showccjef');
+    Route::get('CCJEFeventslist', 'DeansController@CCJEFeventslist');
 
     Route::resource('events', 'EventController');
     Route::get('events/{id}',['uses'=>'EventController@view', 'as' => 'event.view']);

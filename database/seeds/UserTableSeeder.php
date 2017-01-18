@@ -24,6 +24,64 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('admin'),
         ));
 
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CBA.Dean',
+            'Department'=>'CBADEAN',
+            'role' => 'admin',
+            'email' => 'cbadean@admin.com',
+            'password' => Hash::make('cbaadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CNAMS.Dean',
+            'Department'=>'CNAMSDEAN',
+            'role' => 'admin',
+            'email' => 'cnamsdean@admin.com',
+            'password' => Hash::make('cnamsadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CASED.Dean',
+            'Department'=>'CASEDDEAN',
+            'role' => 'admin',
+            'email' => 'caseddean@admin.com',
+            'password' => Hash::make('casedadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'SED.Dean',
+            'Department'=>'SEDDEAN',
+            'role' => 'admin',
+            'email' => 'seddean@admin.com',
+            'password' => Hash::make('sedadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CEA.Dean',
+            'Department'=>'CEADEAN',
+            'role' => 'admin',
+            'email' => 'ceadean@admin.com',
+            'password' => Hash::make('ceaadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CHTM.Dean',
+            'Department'=>'CHTMDEAN',
+            'role' => 'admin',
+            'email' => 'chtmdean@admin.com',
+            'password' => Hash::make('chtmadmin'),
+        ));
+
+        $user = DB::table('users')->insert(array(
+            'name' => 'CCJEF.Dean',
+            'Department'=>'CCJEFDEAN',
+            'role' => 'admin',
+            'email' => 'ccjefdean@admin.com',
+            'password' => Hash::make('ccjefadmin'),
+        ));
+
+
         $user = DB::table('users')->insert(array(
             'name' => 'CSDO',
             'Department'=>'CSDO',

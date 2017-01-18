@@ -112,6 +112,153 @@
                     </ul>
                   </li>
 
+                  @elseif(Auth::user()->Department == "CBADEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CBApendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CBAeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "CNAMSDEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CNAMSpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CNAMSeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "CASEDDEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CASEDpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CASEDeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "SEDDEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('SEDpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('SEDeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "CEADEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CEApendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CEAeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "CHTMDEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CHTMpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CHTMeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
+                  @elseif(Auth::user()->Department == "CCJEFDEAN")
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('/') }}">Calendar of Events</a></li>
+                    </ul>
+                  </li>
+
+                   <li><a><i class="fa fa-envelope-o"></i>Messages<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('PersonalMessage')}}">Send Message</a></li>
+                      <li><a href="{{url('inbox')}}">Inbox</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url('CCJEFpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('CCJEFeventslist') }}">View Events</a></li>
+                    </ul>
+                  </li>
+
                     @elseif(Auth::user()->Department == "OSA")
 
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
@@ -149,7 +296,7 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
-                      <li><a href="{{ url('/CSDO') }}">Events Wall</a></li>
+                      <li><a href="{{ url('/EventsWall') }}">Events Wall</a></li>
                     </ul>
                   </li>
 
@@ -174,7 +321,7 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('admin') }}">View Events</a></li>
+                      <li><a href="{{ url('CSDO') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -412,7 +559,7 @@
                     @elseif(Auth::user()->Department =="OSA")
                     <span class="badge bg-green" id="notification-count">{{Auth::user()->osa()->count()}}</span>
                     @elseif(Auth::user()->Department =="CSDO")
-                     <span class="badge bg-green" id="notification-count">0</span>
+                     <span class="badge bg-green" id="notification-count">{{Auth::user()->csdo()->count()}}</span>
                     @elseif(Auth::user()->Department =="EMAN")
                     <span class="badge bg-green" id="notification-count">0</span>
                     @elseif(Auth::user()->Department =="VPAA")  
@@ -450,6 +597,22 @@
                         <span class="message">
                          <p>New Event Has been Created!</p>
                          <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "CSDO")
+                  @foreach(Auth::user()->alleventcsdo() as $notifications)
+                    <li>
+                      <a href="{{url('viewlogistics/'.$notifications->event_id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->eventlogistic->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->eventlogistic->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>Equipment Request Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->eventlogistic->title}}</b></p>
                         </span>
                       </a>
                     </li>
@@ -500,20 +663,6 @@
                     </li>
                     @endif
                   @endforeach
-{{--                    @foreach(Auth::user()->disapproved() as $notifications)
-                    <li>
-                      <a href="{{url('events/'.$notifications->id)}}">
-                       <span style="color:red; font-size:20px;" class="glyphicon glyphicon-calendar"></span>
-                        <span>
-                          <span><b style="margin-left:10px;">{{$notifications->title}}</b></span></span>
-                          <span class="time"><span style= "color:red; font-size:17px;" class="glyphicon glyphicon-remove-circle"></span></span>
-                        </span>
-                        <span class="message">
-                         <p>the event has been Disapproved</p>
-                        </span>
-                      </a>
-                    </li>
-                  @endforeach --}}
                   @endif
                     <li>
                       <div class="text-center">
@@ -713,6 +862,35 @@
     </script>
     @endif
 
+
+    @if(Auth::user()->Department == "CSDO")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationCsdo/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+
     @if(!empty(Auth::user()->acc_id))
       <script>
       $(document).ready(function(){
@@ -820,6 +998,7 @@
         
       });
     </script>
+
 
     @else
             <script>

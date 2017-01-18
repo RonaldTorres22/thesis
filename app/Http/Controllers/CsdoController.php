@@ -8,6 +8,7 @@ use App\Event;
 use App\Logistic;
 use DateTime;
 use Carbon\Carbon;
+use Auth;
 
 class CsdoController extends Controller
 {
@@ -58,8 +59,47 @@ class CsdoController extends Controller
 
            return view('csdo/logistic', $data);
 
+    }
 
+    public function viewevents()
+    {
+        $user = Event::orderBy('approvedate','desc')->paginate(10);
 
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        if(Auth::User()->Department == "CSDO"){
+           return view('csdo/eventlist', $data);
+        }
+        else
+        {
+            return view('error404');
+        }
+
+    }
+
+    public function showevent($id)
+    {
+        $event = Event::findOrFail($id);
+        $first_date = new DateTime($event->start_time);
+        $second_date = new DateTime($event->end_time);
+        $difference = $first_date->diff($second_date);
+        $data = [
+            'page_title'    => $event->title,
+            'event'         => $event,
+            'duration'      => $this->format_interval($difference)
+        ];
+         if(Auth::User()->Department == "CSDO"){
+        return view('csdo/show', $data);
+        }
+        else
+        {
+           return view('error404');
+        }
     }
 
         public function change_date_format($date)

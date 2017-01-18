@@ -18,6 +18,7 @@ class CreateLogisticsTable extends Migration
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->string('by');
             $table->string('status')->default('pending');
+            $table->integer('notif')->default(0);
             $table->string('approvedate');
             $table->integer('CollegeFlag')->nullable();
             $table->integer('Rostrum')->nullable();

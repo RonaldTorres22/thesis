@@ -42,7 +42,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="CollegeFlag"><br>
+					<input type="number" min="1" max="{{$cflag}}" class="form-control log" name="CollegeFlag"><br>
 
 				</div>
 				<div class="col-md-6">
@@ -54,7 +54,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="DecorativePlants"><br>
+					<input type="number" min="1" max="{{$plants}}" class="form-control log" name="DecorativePlants"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Decorative Plants</label>
@@ -65,7 +65,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="MonoblockChairs"><br>
+					<input type="number" min="1" max="{{$mchairs}}" class="form-control log" name="MonoblockChairs"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Monoblock Chairs</label>
@@ -76,7 +76,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="PhilippineFlag"><br>
+					<input type="number" min="1" max="{{$pflag}}" class="form-control log" name="PhilippineFlag"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Philippine Flag</label>
@@ -90,7 +90,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="Platform"><br>
+					<input type="number" min="1" max="{{$platform }}" class="form-control log" name="Platform"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Platform</label>
@@ -101,7 +101,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="Rostrum"><br>
+					<input type="number" min="1" max="{{$rost }}" class="form-control log" name="Rostrum"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Rostrum</label>
@@ -112,7 +112,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="SchoolFlag"><br>
+					<input type="number" min="1" max="{{$sflag }}" class="form-control log" name="SchoolFlag"><br>
 				</div>
 				<div class="col-md-6">
 					<label>School Flag/s</label>
@@ -123,7 +123,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="StandingBoards"><br>
+					<input type="number" min="1" max="{{$sbaords}}" class="form-control log" name="StandingBoards"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Standing Boards</label>
@@ -138,7 +138,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="WhitePanel"><br>
+					<input type="number" min="1" max="{{$wpanel}} " class="form-control log" name="WhitePanel"><br>
 				</div>
 				<div class="col-md-6">
 					<label>White Panel</label>
@@ -149,7 +149,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="WoodenChairs"><br>
+					<input type="number" min="1" max="{{$wchairs}}" class="form-control log" name="WoodenChairs"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Wooden Chairs</label>
@@ -160,7 +160,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="WoodenPanel"><br>
+					<input type="number" min="1" max="{{$wpannel}}" class="form-control log" name="WoodenPanel"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Wooden Panel</label>
@@ -178,7 +178,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="SoundsSystem"><br>
+					<input type="number" min="1" max="{{$ssystem}}" class="form-control log" name="SoundsSystem"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Sound System</label>
@@ -189,7 +189,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="ExtensionCord"><br>
+					<input type="number" min="1" max="{{$excord}}" class="form-control log" name="ExtensionCord"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Extension Cord</label>
@@ -200,7 +200,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="Microphone"><br>
+					<input type="number" min="1" max="{{$mic}}" class="form-control log" name="Microphone"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Microphone</label>
@@ -211,7 +211,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="WirelessMic"><br>
+					<input type="number" min="1" max="{{$wimic}}" class="form-control log" name="WirelessMic"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Wireless Mic</label>
@@ -225,7 +225,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="MicStand"><br>
+					<input type="number" min="1" max="{{$micstand}}" class="form-control log" name="MicStand"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Mic Stand</label>
@@ -236,7 +236,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="Projector"><br>
+					<input type="number" min="1" max="{{$projector}}" class="form-control log" name="Projector"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Projector</label>
@@ -247,7 +247,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="ProjectorScreen"><br>
+					<input type="number" min="1" max="{{$screen}}" class="form-control log" name="ProjectorScreen"><br>
 				</div>
 				<div class="col-md-6">
 					<label>Projector Screen</label>
@@ -258,7 +258,7 @@
 		<div class="col-md-3 form-group">
 			<div class="row">
 				<div class="col-md-6">
-					<input type="number" min="1" max="99" class="form-control log" name="DvdPlayer"><br>
+					<input type="number" min="1" max="{{$player}}" class="form-control log" name="DvdPlayer"><br>
 				</div>
 				<div class="col-md-6">
 					<label>DVD Player</label>

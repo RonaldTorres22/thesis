@@ -9,6 +9,7 @@ use App\Letter;
 use App\User;
 use App\Task;
 use App\Personalmessage;
+use App\Logistic;
 class User extends Authenticatable
 {
     /**
@@ -60,6 +61,14 @@ class User extends Authenticatable
          return $notifications;
     }
 
+    public function csdo()
+    {  
+        $notifications = Logistic::where('notif','=','0');
+
+                    
+         return $notifications;
+    }
+
     public function orgNotif()
     {  
         $user = Auth::user()->events()->where('notif', '=','3');
@@ -102,12 +111,7 @@ class User extends Authenticatable
                  
          return $orgs;
     }
-    // public function disapproved()
-    // {  
-    //     $orgs = Auth::user()->events()->where('status','=','Disapproved')->orderBy('approvedate','desc')->get();
-                 
-    //      return $orgs;
-    // }
+
     public function alleventdean()
     {  
         $notifications = Event::where('status','=','pending')->orderBy('id','desc')->get();
@@ -123,7 +127,11 @@ class User extends Authenticatable
         $notifications = Letter::where('status','=','pending')->orderBy('id','desc')->get();
          return $notifications;
     }
-
+    public function alleventcsdo()
+    {  
+        $notifications = Logistic::where('status','=','pending')->orderBy('id','desc')->get();
+         return $notifications;
+    }
 
     // tasks
 
