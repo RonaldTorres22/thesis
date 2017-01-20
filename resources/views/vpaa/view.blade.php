@@ -109,16 +109,40 @@
 <div class="row">
 	<div class="col-lg-6">
 
-		<p style="margin-left:10px;">Type of Activity: <b>{{ $event->type_activity }}</b></p>
-		
-		<div class="well">
-			<p>Number of Participants: <b>{{ $event->participants }}</b></p>
-		</div>
-		<div class="well">
-			<p>Venue: <b>{{ $event->venue }}</b></p>
-		</div>
-		<div class="well">
-			<p>Activity:<b>
+		<div class="row">
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px; margin-top:10px;">Type of Activity:</p>	
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->type_activity }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Number of Participants:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->participants }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Venue:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->venue }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Activity:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p>
 				@if(!empty($event->gym))
 				IHM GYM usage,
 				@endif
@@ -128,18 +152,31 @@
 				@if(!empty($event->film))
 				Film Showing/Stage Play,
 				@endif
-				</b>
-			</p>
-		</div>
-		<div class="well">
-			<p>Time:<b> 
-				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
-			</b></p>
-		</div>
-		<div class="well">
-			<p>Duration: <b> {{ $duration }}</b></p>
-		</div>
+			</p></b>
+			</div>
+			</div>
 
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Time:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p> 
+			{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
+			</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Duration:</p> 
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p> {{ $duration }}</p></b>
+			</div>
+			</div>	
+		</div>
+<br><br><br>
 		
 	</div>
 </div>

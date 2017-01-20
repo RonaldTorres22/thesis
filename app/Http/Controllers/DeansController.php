@@ -22,7 +22,7 @@ class DeansController extends Controller
     public function CBApendinglist()
     {
          $user = Event::whereHas('user', function($q) {
-        $q->where('Department','=', 'CBA');
+        $q->where('Department','=', 'SBA');
         })->orderBy('id','desc')->where('status','=','pending')->paginate(10);
         $data = [
             'page_title' => 'Events',
@@ -31,7 +31,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CBADEAN"){
+        if(Auth::User()->Department == "SBADEAN"){
            return view('deans/cbapending', $data);
         }
         else
@@ -43,7 +43,7 @@ class DeansController extends Controller
     public function CBAeventslist()
     {
         $user = Event::whereHas('user', function($q) {
-         $q->where('Department','=', 'CBA');
+         $q->where('Department','=', 'SBA');
         })->orderBy('approvedate','desc')->paginate(10);
 
         $data = [
@@ -53,7 +53,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CBADEAN"){
+        if(Auth::User()->Department == "SBADEAN"){
            return view('deans/cbalist', $data);
         }
         else
@@ -108,7 +108,7 @@ class DeansController extends Controller
     public function CASEDpendinglist()
     {
         $user = Event::whereHas('user', function($q) {
-        $q->where('Department','=', 'CASED');
+        $q->where('Department','=', 'SAS');
         })->orderBy('id','desc')->where('status','=','pending')->paginate(10);
 
         $data = [
@@ -118,7 +118,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CASEDDEAN"){
+        if(Auth::User()->Department == "SASDEAN"){
            return view('deans/casedpending', $data);
         }
         else
@@ -130,7 +130,7 @@ class DeansController extends Controller
     public function CASEDeventslist()
     {
          $user = Event::whereHas('user', function($q) {
-         $q->where('Department','=', 'CASED');
+         $q->where('Department','=', 'SAS');
         })->orderBy('approvedate','desc')->paginate(10);
 
         $data = [
@@ -140,7 +140,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CASEDDEAN"){
+        if(Auth::User()->Department == "SASDEAN"){
            return view('deans/casedlist', $data);
         }
         else
@@ -195,7 +195,7 @@ class DeansController extends Controller
     public function CEApendinglist()
     {
         $user = Event::whereHas('user', function($q) {
-        $q->where('Department','=', 'CEA');
+        $q->where('Department','=', 'SEA');
         })->orderBy('id','desc')->where('status','=','pending')->paginate(10);
 
         $data = [
@@ -205,7 +205,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CEADEAN"){
+        if(Auth::User()->Department == "SEADEAN"){
            return view('deans/ceapending', $data);
         }
         else
@@ -217,7 +217,7 @@ class DeansController extends Controller
     public function CEAeventslist()
     {
          $user = Event::whereHas('user', function($q) {
-         $q->where('Department','=', 'CEA');
+         $q->where('Department','=', 'SEA');
         })->orderBy('approvedate','desc')->paginate(10);
 
         $data = [
@@ -227,7 +227,7 @@ class DeansController extends Controller
             
           
         ];
-        if(Auth::User()->Department == "CEADEAN"){
+        if(Auth::User()->Department == "SEADEAN"){
            return view('deans/cealist', $data);
         }
         else
@@ -361,7 +361,7 @@ class DeansController extends Controller
             'event'         => $event,
             'duration'      => $this->format_interval($difference)
         ];
-         if(Auth::User()->Department == "CBADEAN" && $event->user->Department == "CBA"){
+         if(Auth::User()->Department == "SBADEAN" && $event->user->Department == "SBA"){
         return view('deans/cbashow', $data);
         }
         else
@@ -400,7 +400,7 @@ class DeansController extends Controller
             'event'         => $event,
             'duration'      => $this->format_interval($difference)
         ];
-         if(Auth::User()->Department == "CASEDDEAN" && $event->user->Department == "CASED" ){
+         if(Auth::User()->Department == "SASDEAN" && $event->user->Department == "SAS" ){
         return view('deans/casedshow', $data);
         }
         else
@@ -440,7 +440,7 @@ class DeansController extends Controller
             'event'         => $event,
             'duration'      => $this->format_interval($difference)
         ];
-         if(Auth::User()->Department == "CEADEAN" && $event->user->Department == "CEA" ){
+         if(Auth::User()->Department == "SEADEAN" && $event->user->Department == "SEA" ){
         return view('deans/ceashow', $data);
         }
         else

@@ -135,7 +135,7 @@ class EventController extends Controller
         $data = [
             'page_title' => 'Add new event',
         ];
-        if(empty(Auth::user()->acc_id))
+        if(Auth::user()->role == 'user' || Auth::user()->Department == 'CSDO')
         {
         return view('event/create', $data);
          }

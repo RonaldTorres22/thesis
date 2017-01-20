@@ -6,7 +6,7 @@
 <div class="row">
 <div class="col-md-12">
     <nav class="breadcrumb">
-  <a class="breadcrumb-item" href="{{url('/')}}">Home / </a>
+  <a class="breadcrumb-item" href="{{url('/')}}">Home > </a>
   <span class="breadcrumb-item active">Inbox</span>
 </nav>	
 </div>

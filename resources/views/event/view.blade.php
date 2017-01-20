@@ -29,10 +29,10 @@
 	background-color: green;
 }
 .well{
-	padding: 5px;
-	margin-left: 10px;
-	padding-left: 20px;
+	padding: 1px;
 	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 	background-color: white;
 }
 .link{
@@ -47,7 +47,8 @@
 	border-radius: 25px;
 	padding: 4px;
 	background-color: #1d6987;	
-}	
+}
+	
 </style>
 <div class="container">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}">
@@ -166,17 +167,42 @@
 		@endif
 	</div>
 	<hr>
-	<div class="col-lg-6">
-		<p style="margin-left:10px;">Type of Activity: <b>{{ $event->type_activity }}</b></p>
+	<div class="col-lg-7">
 
-		
-			<p style="margin-left:10px;">Number of Participants: <b>{{ $event->participants }}</b></p>
-		
-		
-			<p style="margin-left:10px;">Venue: <b>{{ $event->venue }}</b></p>
-		
-		
-			<p style="margin-left:10px;">Activity:<b>
+		<div class="row">
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px; margin-top:10px;">Type of Activity:</p>	
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->type_activity }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Number of Participants:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->participants }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Venue:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">
+			<b><p>{{ $event->venue }}</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Activity:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p>
 				@if(!empty($event->gym))
 				IHM GYM usage,
 				@endif
@@ -186,52 +212,85 @@
 				@if(!empty($event->film))
 				Film Showing/Stage Play,
 				@endif
-				</b>
-			</p>
-		
-		
-			<p style="margin-left:10px;">Time:<b> 
-				{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
-			</b></p>
-		
-		
-			<p style="margin-left:10px;">Duration: <b> {{ $duration }}</b></p>
-		
+			</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Time:</p>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p> 
+			{{ date("g:ia\, jS M Y", strtotime($event->start_time)) . ' until ' . date("g:ia\, jS M Y", strtotime($event->end_time)) }}
+			</p></b>
+			</div>
+			</div>
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Duration:</p> 
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
+			<b><p> {{ $duration }}</p></b>
+			</div>
+			</div>	
+
+			<div class="col-md-12">
+				<hr>
+			</div>
 
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name || Auth::user()->Department == "SCO")
-		
+
+
+
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Visitors list:<br>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
 			@if(!empty($event->visitors))
-			<p style="margin-left:10px;">Visitors list:<br>
-			<b>	{{ $event->visitors }}</b>
-			</p>
+			<p><b>	{{ $event->visitors }}</b></p>
 			@else
-			<p style="margin-left:10px;">Visitors list: <br>
-				<b>NONE</b>
-			</p>
+			<p><b>NONE</b></p>
 			@endif
+			</div>
+			</div>	
 
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">Plate Number list:<br>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
 			@if(!empty($event->vehicles))
-			<p style="margin-left:10px;">Plate Number list: <br>
-			<b>	{{ $event->vehicles }}</b>
-			</p>
+			<p><b>	{{ $event->vehicles }}</b></p>
 			@else
-			<p style="margin-left:10px;">Plate Number list:: <br>
-				<b>NONE</b>
-			</p>
+			<p><b>NONE</b></p>
 			@endif
+			</div>
+			</div>	
 
 
+			<div class="col-md-4">
+			<p style="margin-left:10px; margin-top:10px;">No Uniform list <br>
+			</div>
+			<div class="col-md-8">
+			<div class="well">	
 			@if(!empty($event->no_uniforms))
-			<p style="margin-left:10px;">No Uniform list <br>
-			<b>	{{ $event->no_uniforms }}</b>
-			</p>
+			<p><b>{{ $event->no_uniforms }}</b></p>
 			@else
-			<p style="margin-left:10px;">No Uniform list <br>
-				<b>NONE</b>
-			</p>
+			<p><b>NONE</b></p>
 			@endif
+			</div>
+			</div>
 
 			@endif
+
+			</div>			
+	
+		 
+
+	
 		
 			<br>
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name  )
@@ -253,11 +312,13 @@
 				@endif
         
 			</div>
+			
+			<br><br><br>
 				@endif
 
-			
 		</div>
-		<div class="col-lg-6">
+
+		<div class="col-lg-5">
 			@if(Auth::user()->id == $event->user_id || Auth::user()->acc_id == $event->name || Auth::user()->name == $event->name)
 
 			@if($event->registration == "checked" && $event->status != "Disapproved" && $event->status != "canceled")

@@ -65,7 +65,7 @@
                 <h3 style="margin-top:80px;">General</h3>
                 <ul class="nav side-menu">
 
-                    @if(Auth::user()->Department == "ADMIN")
+                    @if(Auth::user()->Department == "OPERATIONAL")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
@@ -74,7 +74,7 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('admin') }}">View Events</a></li>
+                      <li><a href="{{ url('operational') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -112,7 +112,7 @@
                     </ul>
                   </li>
 
-                  @elseif(Auth::user()->Department == "CBADEAN")
+                  @elseif(Auth::user()->Department == "SBADEAN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
@@ -128,8 +128,8 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('CBApendinglist') }}">Pending Events</a></li>
-                      <li><a href="{{ url('CBAeventslist') }}">View Events</a></li>
+                      <li><a href="{{ url('SBApendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('SBAeventslist') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -154,7 +154,7 @@
                     </ul>
                   </li>
 
-                  @elseif(Auth::user()->Department == "CASEDDEAN")
+                  @elseif(Auth::user()->Department == "SASDEAN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
@@ -170,8 +170,8 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('CASEDpendinglist') }}">Pending Events</a></li>
-                      <li><a href="{{ url('CASEDeventslist') }}">View Events</a></li>
+                      <li><a href="{{ url('SASpendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('SASeventslist') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -196,7 +196,7 @@
                     </ul>
                   </li>
 
-                  @elseif(Auth::user()->Department == "CEADEAN")
+                  @elseif(Auth::user()->Department == "SEADEAN")
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ url('/') }}">Calendar of Events</a></li>
@@ -212,8 +212,8 @@
 
                   <li><a><i class="fa fa-edit"></i> Events <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ url('CEApendinglist') }}">Pending Events</a></li>
-                      <li><a href="{{ url('CEAeventslist') }}">View Events</a></li>
+                      <li><a href="{{ url('SEApendinglist') }}">Pending Events</a></li>
+                      <li><a href="{{ url('SEAeventslist') }}">View Events</a></li>
                     </ul>
                   </li>
 
@@ -556,6 +556,22 @@
                     <i class="fa fa-bell-o"></i>
                       @if(Auth::user()->Department == "DEAN")
                     <span class="badge bg-green" id="notification-count">{{Auth::user()->dean()->count()}}</span>
+                    @elseif(Auth::user()->Department =="SBADEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->sba()->count()}}</span>
+                    @elseif(Auth::user()->Department =="CNAMSDEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->cnams()->count()}}</span>
+                    @elseif(Auth::user()->Department =="SASDEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->sas()->count()}}</span>
+                    @elseif(Auth::user()->Department =="SEDDEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->sed()->count()}}</span>
+                    @elseif(Auth::user()->Department =="SEADEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->sea()->count()}}</span>
+                    @elseif(Auth::user()->Department =="CHTMDEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->chtm()->count()}}</span>
+                    @elseif(Auth::user()->Department =="CCJEFDEAN")
+                    <span class="badge bg-green" id="notification-count">{{Auth::user()->ccjef()->count()}}</span>
+
+
                     @elseif(Auth::user()->Department =="OSA")
                     <span class="badge bg-green" id="notification-count">{{Auth::user()->osa()->count()}}</span>
                     @elseif(Auth::user()->Department =="CSDO")
@@ -577,6 +593,118 @@
                         <span>  
                           <span>{{$notifications->name}}</span>
                           <span class="time"><i class="fa fa-calendar-plus-o" style="font-size:20px;" aria-hidden="true"></i></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "SBADEAN")
+                  @foreach(Auth::user()->alleventsba() as $notifications)
+                    <li>
+                      <a href="{{url('SBA/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "CNAMSDEAN")
+                  @foreach(Auth::user()->alleventcnams() as $notifications)
+                    <li>
+                      <a href="{{url('CNAMS/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "SASDEAN")
+                  @foreach(Auth::user()->alleventsas() as $notifications)
+                    <li>
+                      <a href="{{url('SAS/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "SEDDEAN")
+                  @foreach(Auth::user()->alleventsed() as $notifications)
+                    <li>
+                      <a href="{{url('SED/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "SEADEAN")
+                  @foreach(Auth::user()->alleventsea() as $notifications)
+                    <li>
+                      <a href="{{url('SEA/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "CHTMDEAN")
+                  @foreach(Auth::user()->alleventchtm() as $notifications)
+                    <li>
+                      <a href="{{url('CHTM/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
+                        </span>
+                        <span class="message">
+                         <p>New Event Has been Created!</p>
+                         <p>Event Name: <b>{{$notifications->title}}</b></p>
+                        </span>
+                      </a>
+                    </li>
+                  @endforeach
+                  @elseif(Auth::user()->Department == "CCJEFDEAN")
+                  @foreach(Auth::user()->alleventccjef() as $notifications)
+                    <li>
+                      <a href="{{url('CCJEF/'.$notifications->id)}}">
+                        <span class="image"><img style="width:35px; height:35px; " src="/profpics/{{ $notifications->user->avatar }}" alt="Profile Image" /></span>
+                        <span>
+                          <span>{{$notifications->name}}</span>
+                          <span class="time"></span>
                         </span>
                         <span class="message">
                          <p>New Event Has been Created!</p>
@@ -862,6 +990,196 @@
     </script>
     @endif
 
+    @if(Auth::user()->Department == "SBADEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationsba/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "CNAMSDEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationcnams/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "SEDDEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationsed/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "SEADEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationsea/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "CHTMDEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationchtm/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "CCJEFDEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationccjef/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+      @if(Auth::user()->Department == "SASDEAN")
+        <script>
+      $(document).ready(function(){
+        var urlDelTodo = "{{url('notificationsas/')}}";
+        var notificationcount = $("#notification-count");
+        var btnnotifictaion = $("#btn-notification");
+        btnnotifictaion.click(function(e){
+        e.preventDefault();
+        
+        notificationcount.empty();
+        notificationcount.text('0');
+
+          $.ajax({
+              data: 'a=b',
+              url: urlDelTodo,
+              type: 'GET'
+                })
+            .done(function(output){
+
+
+            });
+        });
+        
+      });
+    </script>
+    @endif
+
+    {{-- others --}}
 
     @if(Auth::user()->Department == "CSDO")
         <script>

@@ -38,9 +38,80 @@ class User extends Authenticatable
 
     public function dean()
     {  
-        $notifications = Event::where('notif','=','0');
-  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CICT');
+        })->where('notif','=','0');        
                     
+         return $notifications;
+    }
+
+    public function sba()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SBA');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function cnams()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CNAMS');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function sas()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SAS');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function sed()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SED');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function sea()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SEA');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function chtm()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CHTM');
+        })->where('notif','=','0');        
+                    
+         return $notifications;
+    }
+
+    public function ccjef()
+    {  
+   
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CCJEF');
+        })->where('notif','=','0');        
                     
          return $notifications;
     }
@@ -114,9 +185,74 @@ class User extends Authenticatable
 
     public function alleventdean()
     {  
-        $notifications = Event::where('status','=','pending')->orderBy('id','desc')->get();
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CICT');
+        })->where('status','=','pending')->orderBy('id','desc')->get();        
+                    
          return $notifications;
     }
+
+    public function alleventsba()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SBA');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+         return $notifications;
+    }
+
+    public function alleventsas()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SAS');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+
+         return $notifications;
+    }
+
+    public function alleventsed()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SED');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+         return $notifications;
+    }
+
+    public function alleventsea()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SEA');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+
+         return $notifications;
+    }
+
+    public function alleventcnams()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CNAMS');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+         return $notifications;
+    }
+
+    public function alleventchtm()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CHTM');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+
+         return $notifications;
+    }
+
+    public function alleventccjef()
+    {  
+        $notifications = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CCJEF');
+        })->where('status','=','pending')->orderBy('id','desc')->get(); 
+
+         return $notifications;
+    }
+
+
     public function alleventosa()
     {  
         $notifications = Event::where('status','=','dean')->orderBy('approvedate','desc')->get();

@@ -30,12 +30,12 @@
                             <div class="col-md-6">
                                   <select class="form-control" name="department">
                                     <option value="CICT">CICT</option>
-                                    <option value="CBA">CBA</option>
+                                    <option value="SBA">SBA</option>
                                     <option value="CNAMS">CNAMS</option>
                                     <option value="CASED">CASED</option>
                                     <option value="SED">SED</option>
-                                    <option value="CEA">CEA</option>
-                                    <option value="CHTM">CHTM</option>
+                                    <option value="SEA">SEA</option>
+                                    <option value="SAS">SAS</option>
                                     <option value="CCJEF">CCJEF</option>
                                   </select>                               
 

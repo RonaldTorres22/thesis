@@ -144,7 +144,15 @@ class SubAccountController extends Controller
      */
     public function create()
     {
+        if(!empty(Auth::user()->acc_id))
+        {
         return view('subaccview/create');
+        }
+        else
+        {
+            return view('error404');
+        }
+
     }
 
     /**

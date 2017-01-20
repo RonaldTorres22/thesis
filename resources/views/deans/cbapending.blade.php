@@ -31,7 +31,7 @@
 			@foreach($events as $event)
 				<tr>
 					<th scope="row">{{ $i++ }}</th>
-					<td><a href="{{ url('CBA',$event->id)}}">{{ $event->title }}</a></td>
+					<td><a href="{{ url('SBA',$event->id)}}">{{ $event->title }}</a></td>
 					<td>{{ date("g:ia\, jS M Y", strtotime($event->start_time)) }}</td>
 					<td>{{date("g:ia\, jS M Y", strtotime($event->end_time)) }}</td>
 					<td>{{$event->name}}</td>

@@ -10,7 +10,7 @@ class UserTableSeeder extends Seeder
 
         $user = DB::table('users')->insert(array(
             'name' => 'Operational Admin',
-            'Department'=>'ADMIN',
+            'Department'=>'OPERATIONAL',
             'role' => 'admin',
             'email' => 'operational@admin.com',
             'password' => Hash::make('operational'),
@@ -26,11 +26,11 @@ class UserTableSeeder extends Seeder
 
 
         $user = DB::table('users')->insert(array(
-            'name' => 'CBA.Dean',
-            'Department'=>'CBADEAN',
+            'name' => 'SBA.Dean',
+            'Department'=>'SBADEAN',
             'role' => 'admin',
-            'email' => 'cbadean@admin.com',
-            'password' => Hash::make('cbaadmin'),
+            'email' => 'sbadean@admin.com',
+            'password' => Hash::make('sbaadmin'),
         ));
 
         $user = DB::table('users')->insert(array(
@@ -42,11 +42,11 @@ class UserTableSeeder extends Seeder
         ));
 
         $user = DB::table('users')->insert(array(
-            'name' => 'CASED.Dean',
-            'Department'=>'CASEDDEAN',
+            'name' => 'SAS.Dean',
+            'Department'=>'SASDEAN',
             'role' => 'admin',
-            'email' => 'caseddean@admin.com',
-            'password' => Hash::make('casedadmin'),
+            'email' => 'sasdean@admin.com',
+            'password' => Hash::make('sasadmin'),
         ));
 
         $user = DB::table('users')->insert(array(
@@ -58,11 +58,11 @@ class UserTableSeeder extends Seeder
         ));
 
         $user = DB::table('users')->insert(array(
-            'name' => 'CEA.Dean',
-            'Department'=>'CEADEAN',
+            'name' => 'SEA.Dean',
+            'Department'=>'SEADEAN',
             'role' => 'admin',
-            'email' => 'ceadean@admin.com',
-            'password' => Hash::make('ceaadmin'),
+            'email' => 'seadean@admin.com',
+            'password' => Hash::make('seaadmin'),
         ));
 
         $user = DB::table('users')->insert(array(

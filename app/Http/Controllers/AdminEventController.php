@@ -158,6 +158,27 @@ class AdminEventController extends Controller
         }
     }
 
+    public function operational()
+    {
+        $user = Event::orderBy('approvedate','desc')->paginate(10);
+
+        $data = [
+            'page_title' => 'Events',
+            //'events'     => Event::orderBy('start_time')->get(),
+            'events'  => $user,
+            
+          
+        ];
+        if(Auth::User()->Department == "OPERATIONAL"){
+           return view('organizations/operationallist', $data);
+        }
+        else
+        {
+            return view('error404');
+        }
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

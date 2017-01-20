@@ -15,11 +15,68 @@ use App\Personalmessage;
 class NotificationController extends Controller
 {
     public function getNotification(){
-    	 $event = Event::where("notif",0)->update(array('notif' => 1));
+
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CICT');
+        })->where('notif',0)->update(array('notif' => 1));
      
 		return response('sdfsdf');
     }
+    public function getNotificationsba(){
 
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SBA');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+    public function getNotificationcnams(){
+
+         $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CNAMS');
+        })->where('notif',0)->update(array('notif' => 1));
+
+        return response('sdfsdf');
+    }
+    public function getNotificationsas(){
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SAS');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+    public function getNotificationsed(){
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SED');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+    public function getNotificationsea(){
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'SEA');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+    public function getNotificationchtm(){
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CHTM');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+    public function getNotificationccjef(){
+        $event = Event::whereHas('user', function($q) {
+        $q->where('Department','=', 'CCJEF');
+        })->where('notif',0)->update(array('notif' => 1));
+     
+        return response('sdfsdf');
+    }
+
+
+
+//others
     public function getNotificationosa(){
     	 $event = Event::where("notif",2)->update(array('notif' => 3));
 
